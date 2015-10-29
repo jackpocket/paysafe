@@ -39,8 +39,9 @@ Run tests:
 Run console for an interactive prompt with an authenticated client for you to experiment:
 
     $ ./bin/console
-    # ...
     profile = authenticated_client.create_profile(merchantCustomerId: '123', locale: 'en_US')
+    puts profile[:id]
+    # => b088ac37...
 
 To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
