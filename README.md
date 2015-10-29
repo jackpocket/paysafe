@@ -1,5 +1,9 @@
 # The OptimalPayments Ruby Gem
 
+[![Build Status](https://travis-ci.org/javierjulio/optimal_payments.svg?branch=master)][travis]
+
+[travis]: https://travis-ci.org/javierjulio/optimal_payments
+
 A tested Ruby interface to the OptimalPayments API. Note: Requires Ruby 2.1 and up. Not all API actions are supported.
 
 ## Installation
