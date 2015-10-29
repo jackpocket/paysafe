@@ -18,30 +18,35 @@ Or install it yourself as:
 
     $ gem install optimal_payments
 
+To try out the gem and experiment, you're better off following the development instructions.
+
 ## Usage
 
 TODO: Write usage instructions here
 
 ## Development
 
-Clone the repository:
+1. Clone the repo: `git clone https://github.com/javierjulio/optimal_payments.git`
+2. Use Ruby 2.x. If you need to install use [rbenv](https://github.com/sstephenson/rbenv) and [ruby-build](https://github.com/sstephenson/ruby-build) and then run:
 
-    $ git clone https://github.com/javierjulio/optimal_payments.git
+        gem update --system
+        gem update
+        gem install bundler --no-rdoc --no-ri
 
-Run the setup script from the project root:
+3. Run `./bin/setup` script from project root:
+4. Run `./bin/console` for an interactive prompt with an authenticated client for you to experiment:
 
-    $ ./bin/setup
+  ```ruby
+  profile = authenticated_client.create_profile(merchantCustomerId: '123', locale: 'en_US')
+  puts profile[:id]
+  # => b088ac37...
+  ```
 
-Run tests:
+### Tests
 
-    $ bundle exec rake test
+To run tests: `bundle exec rake test` or to skip integration test: `bundle exec rake test SKIP_INTEGRATION_TESTS=true`
 
-Run console for an interactive prompt with an authenticated client for you to experiment:
-
-    $ ./bin/console
-    profile = authenticated_client.create_profile(merchantCustomerId: '123', locale: 'en_US')
-    puts profile[:id]
-    # => b088ac37...
+### Releasing
 
 To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
