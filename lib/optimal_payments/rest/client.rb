@@ -151,6 +151,25 @@ module OptimalPayments
         fail_or_return_response_body(response.code, response_body)
       end
 
+      def verify(merchantRefNum:, card:, address:, **args)
+        data = {
+          merchantRefNum: merchantRefNum,
+          card: card, # cardNum, cardExpiry, cvv (OR) paymentToken, cvv
+          profile: {
+            firstName: args[:firstName],
+            lastName: args[:lastName],
+            email: args[:email]
+          },
+          billingDetails: address, # street, city, state, country, zip
+          customerIp: args[:customerIp],
+          description: args[:description]
+        }
+
+        response = post(path: "/cardpayments/v1/accounts/#{account_number}/verifications", data: data)
+        response_body = symbolize_keys!(response.parse)
+        fail_or_return_response_body(response.code, response_body)
+      end
+
       private
 
       def http_client

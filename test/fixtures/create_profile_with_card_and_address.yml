@@ -16,7 +16,7 @@ http_interactions:
       X-Ruby-Platform:
       - x86_64-darwin15
       Authorization:
-      - Basic MTg3ODktMTAwMDAzMjEwOTpCLXFhMi0wLTU1NjYwZTZkLTAtMzAyYzAyMTQwYWYyYTg4MGRlOTQ2ZmEzMmJmZjNiOTQ0MzY1MmFmODBlZGQ0YTUxMDIxNDIxZGFiYzQzODQ1NjgzZTkyNDgyNmJkZDc4ZjVlODRhMTQwYjc2Zjg=
+      - Basic YXBpX2tleTphcGlfc2VjcmV0
       Connection:
       - close
   response:

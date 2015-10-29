@@ -29,6 +29,43 @@ class IntegrationTest < Minitest::Test
     }
   end
 
+  def test_verification
+    id = Time.now.to_f.to_s
+
+    result = authenticated_client.verify(
+      merchantRefNum: id,
+      card: {
+        cardNum: '4111111111111111',
+        cardExpiry: {
+          month: 6,
+          year: 2019
+        },
+        cvv: 123
+      },
+      address: {
+        street: 'Z', # trigger AVS MATCH_ZIP_ONLY response
+        country: 'US',
+        zip: '10014'
+      }
+    )
+
+    assert_kind_of Hash, result
+    refute_predicate result[:id], :empty?
+    assert_equal id, result[:merchantRefNum]
+    refute_predicate result[:txnTime], :empty?
+    assert_equal 'COMPLETED', result[:status]
+    assert_equal 'VI', result[:card][:type]
+    assert_equal '1111', result[:card][:lastDigits]
+    assert_equal 6, result[:card][:cardExpiry][:month]
+    assert_equal 2019, result[:card][:cardExpiry][:year]
+    refute_predicate result[:authCode], :empty?
+    assert_equal 'US', result[:billingDetails][:country]
+    assert_equal '10014', result[:billingDetails][:zip]
+    assert_equal 'USD', result[:currencyCode]
+    assert_equal 'MATCH_ZIP_ONLY', result[:avsResponse]
+    assert_equal 'MATCH', result[:cvvVerification]
+  end
+
   def test_creating_profile_with_card_and_address
     id = Time.now.to_f.to_s
 

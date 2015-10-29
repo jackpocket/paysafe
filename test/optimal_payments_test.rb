@@ -58,6 +58,42 @@ class OptimalPaymentsTest < Minitest::Test
     refute client.credentials?
   end
 
+  def test_verify
+    VCR.use_cassette('verification') do
+      result = authenticated_client.verify(
+        merchantRefNum: '1445638620',
+        card: {
+          cardNum: '4111111111111111',
+          cardExpiry: {
+            month: 6,
+            year: 2019
+          },
+          cvv: 123
+        },
+        address: {
+          country: 'US',
+          zip: '10014'
+        }
+      )
+
+      assert_kind_of Hash, result
+      assert_equal '28e1c0ab-d118-43ad-bdb7-638702826e1b', result[:id]
+      assert_equal '1445638620', result[:merchantRefNum]
+      assert_equal '2015-10-29T22:01:11Z', result[:txnTime]
+      assert_equal 'COMPLETED', result[:status]
+      assert_equal 'VI', result[:card][:type]
+      assert_equal '1111', result[:card][:lastDigits]
+      assert_equal 6, result[:card][:cardExpiry][:month]
+      assert_equal 2019, result[:card][:cardExpiry][:year]
+      assert_equal 'XXXXXX', result[:authCode]
+      assert_equal 'US', result[:billingDetails][:country]
+      assert_equal '10014', result[:billingDetails][:zip]
+      assert_equal 'USD', result[:currencyCode]
+      assert_equal 'MATCH_ZIP_ONLY', result[:avsResponse]
+      assert_equal 'MATCH', result[:cvvVerification]
+    end
+  end
+
   def test_get_profile
     VCR.use_cassette('get_profile') do
       result = test_client.get_profile(id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed')

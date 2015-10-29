@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.netbanx.com/cardpayments/v1/accounts/1000032109/verifications
+    body:
+      encoding: UTF-8
+      string: '{"merchantRefNum":"1445638620","card":{"cardNum":"4111111111111111","cardExpiry":{"month":6,"year":2019},"cvv":123},"profile":{"firstName":null,"lastName":null,"email":null},"billingDetails":{"country":"US","zip":"10014"},"customerIp":null,"description":null}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - OptimalPaymentsRubyGem/0.1.0
+      X-Ruby-Version:
+      - 2.2.3
+      X-Ruby-Platform:
+      - x86_64-darwin15
+      Authorization:
+      - Basic YXBpX2tleTphcGlfc2VjcmV0
+      Connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '581'
+      X-Applicationuid:
+      - GUID=28e1c0ab-d118-43ad-bdb7-638702826e1b
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 29 Oct 2015 22:01:12 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - JSESSIONID=JQ-1nnKMaCONFUYQwvJZRRiw9LO728eFwuU0hboAakbCNFDDAk1d!-2068876476;
+        path=/; HttpOnly
+    body:
+      encoding: UTF-8
+      string: '{"links":[{"rel":"self","href":"https://api.test.netbanx.com/cardpayments/v1/accounts/1000032109/verifications/28e1c0ab-d118-43ad-bdb7-638702826e1b"}],"id":"28e1c0ab-d118-43ad-bdb7-638702826e1b","merchantRefNum":"1445638620","txnTime":"2015-10-29T22:01:11Z","status":"COMPLETED","card":{"type":"VI","lastDigits":"1111","cardExpiry":{"month":6,"year":2019}},"authCode":"XXXXXX","billingDetails":{"country":"US","zip":"10014"},"merchantDescriptor":{"dynamicDescriptor":"Test","phone":"123-1234123"},"currencyCode":"USD","avsResponse":"MATCH_ZIP_ONLY","cvvVerification":"MATCH"}'
+    http_version:
+  recorded_at: Thu, 29 Oct 2015 22:01:12 GMT
+recorded_with: VCR 2.9.3
