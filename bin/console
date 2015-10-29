@@ -13,7 +13,7 @@ require "optimal_payments"
 require 'dotenv'
 Dotenv.load
 
-def authenticated_client
+def client
   OptimalPayments::REST::Client.new do |config|
     config.account_number = ENV['OPTIMAL_PAYMENTS_ACCOUNT_NUMBER']
     config.api_key = ENV['OPTIMAL_PAYMENTS_API_KEY']

@@ -33,11 +33,11 @@ TODO: Write usage instructions here
         gem update
         gem install bundler --no-rdoc --no-ri
 
-3. Run `./bin/setup` script from project root:
+3. From project root run `./bin/setup` script
 4. Run `./bin/console` for an interactive prompt with an authenticated client for you to experiment:
 
   ```ruby
-  profile = authenticated_client.create_profile(merchantCustomerId: '123', locale: 'en_US')
+  profile = client.create_profile(merchantCustomerId: '123', locale: 'en_US')
   puts profile[:id]
   # => b088ac37...
   ```
