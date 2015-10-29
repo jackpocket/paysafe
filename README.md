@@ -1,6 +1,6 @@
 # The OptimalPayments Ruby Gem
 
-A tested Ruby interface to the OptimalPayments API. Note: Requires Ruby 2.0 and up. Not all API actions are supported.
+A tested Ruby interface to the OptimalPayments API. Note: Requires Ruby 2.1 and up. Not all API actions are supported.
 
 ## Installation
 
@@ -27,7 +27,7 @@ TODO: Write usage instructions here
 ## Development
 
 1. Clone the repo: `git clone https://github.com/javierjulio/optimal_payments.git`
-2. Use Ruby 2.x. If you need to install use [rbenv](https://github.com/sstephenson/rbenv) and [ruby-build](https://github.com/sstephenson/ruby-build) and then run:
+2. Use Ruby 2.1 and up. If you need to install use [rbenv](https://github.com/sstephenson/rbenv) and [ruby-build](https://github.com/sstephenson/ruby-build) and then run:
 
         gem update --system
         gem update
