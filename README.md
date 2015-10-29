@@ -44,7 +44,7 @@ TODO: Write usage instructions here
 
 ### Tests
 
-To run tests: `bundle exec rake test` or to skip integration test: `bundle exec rake test SKIP_INTEGRATION_TESTS=true`
+Run `bundle exec rake test` or to skip integration tests run with `SKIP_INTEGRATION_TESTS=true`.
 
 ### Releasing
 
