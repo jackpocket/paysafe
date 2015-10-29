@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "optimal_payments"
+
+# You can add fixtures and/or initialization code here to make experimenting
+# with your gem easier. You can also use a different console, if you like.
+
+# (If you use this, don't forget to add pry to your Gemfile!)
+# require "pry"
+# Pry.start
+
+require 'dotenv'
+Dotenv.load
+
+def authenticated_client
+  OptimalPayments::REST::Client.new do |config|
+    config.account_number = ENV['OPTIMAL_PAYMENTS_ACCOUNT_NUMBER']
+    config.api_key = ENV['OPTIMAL_PAYMENTS_API_KEY']
+    config.api_secret = ENV['OPTIMAL_PAYMENTS_API_SECRET']
+  end
+end
+
+require "irb"
+IRB.start

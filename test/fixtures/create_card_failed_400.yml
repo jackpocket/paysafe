@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.netbanx.com/customervault/v1/profiles/b088ac37-32cb-4320-9b64-f9f4923f53ed/cards
+    body:
+      encoding: UTF-8
+      string: '{"cardNum":"4111111111","cardExpiry":{"month":12,"year":2017}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - OptimalPaymentsRubyGem/0.1.0
+      X-Ruby-Version:
+      - 2.2.3
+      X-Ruby-Platform:
+      - x86_64-darwin15
+      Authorization:
+      - Basic YXBpX2tleTphcGlfc2VjcmV0
+      Connection:
+      - close
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '414'
+      X-Application-Status-Code:
+      - '5068'
+      X-Applicationuid:
+      - GUID=e63c7335-a88a-4b24-a22d-f4ee02739629
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 29 Oct 2015 03:53:59 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"error":{"code":"5068","message":"Either you submitted a request that
+        is missing a mandatory field or the value of a field does not match the format
+        expected.","fieldErrors":[{"field":"cardNum","error":"Luhn checksum failed"},{"field":"cardNum","error":"size
+        must be between 12 and 20"}],"links":[{"rel":"errorinfo","href":"https://developer.optimalpayments.com/en/documentation/customer-vault-api/error-5068"}]}}'
+    http_version:
+  recorded_at: Thu, 29 Oct 2015 03:53:59 GMT
+recorded_with: VCR 2.9.3

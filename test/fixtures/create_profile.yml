@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.netbanx.com/customervault/v1/profiles
+    body:
+      encoding: UTF-8
+      string: '{"merchantCustomerId":"1445638620","locale":"en_US","firstName":"test","lastName":"test","email":"test@test.com"}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Basic YXBpX2tleTphcGlfc2VjcmV0
+      Connection:
+      - close
+      User-Agent:
+      - http.rb/0.9.8
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Location:
+      - https://api.test.netbanx.com/customervault/v1/profiles/6e8a9831-dd55-48b7-b50d-c6d5184289c8
+      Content-Length:
+      - '208'
+      X-Applicationuid:
+      - GUID=650aa574-fc0c-4cab-8b76-f7b71c76c340
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 23 Oct 2015 22:17:01 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"id":"6e8a9831-dd55-48b7-b50d-c6d5184289c8","status":"ACTIVE","merchantCustomerId":"1445638620","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"P7GXDeEM0PLhZw2","email":"test@test.com"}'
+    http_version:
+  recorded_at: Fri, 23 Oct 2015 22:17:01 GMT
+recorded_with: VCR 2.9.3

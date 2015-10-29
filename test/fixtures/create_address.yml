@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.netbanx.com/customervault/v1/profiles/b088ac37-32cb-4320-9b64-f9f4923f53ed/addresses
+    body:
+      encoding: UTF-8
+      string: '{"nickName":null,"street":null,"city":null,"country":"US","state":null,"zip":"10014"}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Basic YXBpX2tleTphcGlfc2VjcmV0
+      Connection:
+      - close
+      User-Agent:
+      - http.rb/0.9.8
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Location:
+      - https://api.test.netbanx.com/customervault/v1/profiles/b088ac37-32cb-4320-9b64-f9f4923f53ed/addresses/4bf9d2e7-4be0-4d13-b483-223640cb40a0
+      Content-Length:
+      - '132'
+      X-Applicationuid:
+      - GUID=3041bf1a-aab4-49c4-81be-eb02067372b6
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 23 Oct 2015 22:54:01 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"id":"4bf9d2e7-4be0-4d13-b483-223640cb40a0","country":"US","zip":"10014","defaultShippingAddressIndicator":false,"status":"ACTIVE"}'
+    http_version:
+  recorded_at: Fri, 23 Oct 2015 22:54:02 GMT
+recorded_with: VCR 2.9.3

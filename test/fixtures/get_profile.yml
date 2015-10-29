@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.test.netbanx.com/customervault/v1/profiles/b088ac37-32cb-4320-9b64-f9f4923f53ed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - OptimalPaymentsRubyGem/0.1.0
+      X-Ruby-Version:
+      - 2.2.3
+      X-Ruby-Platform:
+      - x86_64-darwin15
+      Authorization:
+      - Basic YXBpX2tleTphcGlfc2VjcmV0
+      Connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '236'
+      X-Applicationuid:
+      - GUID=f1689f1f-e8cb-43fd-b19f-cd1f4b69ac52
+      Etag:
+      - '"0e52e8f449a340fe242620b5f46ee5ffe"'
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 23 Oct 2015 23:01:49 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"id":"b088ac37-32cb-4320-9b64-f9f4923f53ed","status":"ACTIVE","merchantCustomerId":"98b90a55-0b94-4577-8b42-d6e64f819558","locale":"en_US","firstName":"John","lastName":"Snakes","paymentToken":"PUWJ4GO0bWoXAC7","email":"test@test.com"}'
+    http_version:
+  recorded_at: Fri, 23 Oct 2015 23:01:49 GMT
+recorded_with: VCR 2.9.3

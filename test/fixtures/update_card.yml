@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://api.test.netbanx.com/customervault/v1/profiles/b088ac37-32cb-4320-9b64-f9f4923f53ed/cards/972ed74f-6ff1-4a5b-a460-a11e606e2fa9
+    body:
+      encoding: UTF-8
+      string: '{"cardExpiry":{"month":6,"year":2019},"holderName":"Johnny Smith","billingAddressId":"4bf9d2e7-4be0-4d13-b483-223640cb40a0"}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - OptimalPaymentsRubyGem/0.1.0
+      X-Ruby-Version:
+      - 2.2.3
+      X-Ruby-Platform:
+      - x86_64-darwin15
+      Authorization:
+      - Basic YXBpX2tleTphcGlfc2VjcmV0
+      Connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '302'
+      X-Applicationuid:
+      - GUID=ca415311-a2f2-4e62-a227-fe80002012d8
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 29 Oct 2015 02:33:46 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"status":"ACTIVE","id":"972ed74f-6ff1-4a5b-a460-a11e606e2fa9","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2019,"month":6},"holderName":"Johnny
+        Smith","billingAddressId":"4bf9d2e7-4be0-4d13-b483-223640cb40a0","cardType":"VI","paymentToken":"CNBkqXXjTFdZNa3","defaultCardIndicator":true}'
+    http_version:
+  recorded_at: Thu, 29 Oct 2015 02:33:46 GMT
+recorded_with: VCR 2.9.3

@@ -1,0 +1,31 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+bundle install
+
+read -r -p 'Do you have an Optimal Payments Developer Centre account? (y/n) ' has_account
+
+if [[ "$has_account" =~ ^(Yes|yes|Y|y)$ ]]; then
+  echo "Great! You can get your account credentials from:"
+  echo "  https://developer.optimalpayments.com/en/my-account/"
+  echo
+else
+  echo "Then you'll need to create an account first at:"
+  echo "  https://developer.optimalpayments.com/en/get-started/"
+  echo
+  read -s -p "Press Enter key if you're ready to continue..."
+  echo
+fi
+
+echo "Enter your account credentials below."
+read -p 'Account Number: ' account_number
+read -p 'API Key: ' api_key
+read -p 'API Secret: ' api_secret
+
+cp .env.sample .env
+sed -i -e s/YOUR_ACCOUNT_NUMBER/"$account_number"/g .env
+sed -i -e s/YOUR_API_KEY/"$api_key"/g .env
+sed -i -e s/YOUR_API_SECRET/"$api_secret"/g .env
+
+echo "Done."
