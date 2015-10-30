@@ -114,6 +114,108 @@ class IntegrationTest < Minitest::Test
     authenticated_client.delete_profile(id: profile[:id])
   end
 
+  def test_creating_profile_with_card_fails_then_succeeds
+    id = Time.now.to_f.to_s
+
+    assert_raises(OptimalPayments::Error::BadRequest) do
+      profile = authenticated_client.create_profile(
+        merchantCustomerId: id,
+        locale: 'en_US',
+        firstName: 'test',
+        lastName: 'test',
+        email: 'test@test.com',
+        card: {
+          cardNum: '4111111',
+          cardExpiry: {
+            month: 12,
+            year: 2019
+          },
+          billingAddress: {
+            country: 'US', zip: '10014'
+          }
+        }
+      )
+    end
+
+    profile = authenticated_client.create_profile(
+      merchantCustomerId: id,
+      locale: 'en_US',
+      firstName: 'test',
+      lastName: 'test',
+      email: 'test@test.com',
+      card: {
+        cardNum: '4111111111111111',
+        cardExpiry: {
+          month: 12,
+          year: 2019
+        },
+        billingAddress: {
+          country: 'US', zip: '10014'
+        }
+      }
+    )
+
+    assert_kind_of Hash, profile
+    refute_predicate profile[:id], :empty?
+    assert_equal 'ACTIVE', profile[:status]
+
+    card = profile[:cards][0]
+    assert_kind_of Hash, card
+    refute_predicate card[:id], :empty?
+
+    authenticated_client.delete_profile(id: profile[:id])
+  end
+
+  def test_creating_a_card_with_verification
+    id = Time.now.to_f.to_s
+
+    # 1 - Verify Card
+    result = authenticated_client.verify(
+      merchantRefNum: id,
+      card: {
+        cardNum: '4111111111111111',
+        cardExpiry: {
+          month: 6,
+          year: 2019
+        },
+        cvv: 123
+      },
+      address: {
+        street: 'Z', # trigger AVS MATCH_ZIP_ONLY response
+        country: 'US',
+        zip: '10014'
+      }
+    )
+
+    assert_kind_of Hash, result
+    refute_predicate result[:id], :empty?
+    assert_equal id, result[:merchantRefNum]
+    refute_predicate result[:txnTime], :empty?
+    assert_equal 'COMPLETED', result[:status]
+    assert_equal 'VI', result[:card][:type]
+    assert_equal '1111', result[:card][:lastDigits]
+    assert_equal 6, result[:card][:cardExpiry][:month]
+    assert_equal 2019, result[:card][:cardExpiry][:year]
+    refute_predicate result[:authCode], :empty?
+    assert_equal 'US', result[:billingDetails][:country]
+    assert_equal '10014', result[:billingDetails][:zip]
+    assert_equal 'USD', result[:currencyCode]
+    assert_equal 'MATCH_ZIP_ONLY', result[:avsResponse]
+    assert_equal 'MATCH', result[:cvvVerification]
+
+    # 2 - Create Address and attach to Profile
+    address = authenticated_client.create_address(profile_id: @profile_id, country: 'US', zip: '10014')
+
+    # 3 - Create Card and attach to Profile
+    card = authenticated_client.create_card(profile_id: @profile_id, number: '4111111111111111', month: 6, year: 2019, billingAddressId: address[:id])
+
+    assert_kind_of Hash, card
+    assert_equal 6, card[:cardExpiry][:month]
+    assert_equal 2019, card[:cardExpiry][:year]
+    assert_equal address[:id], card[:billingAddressId]
+    assert_equal 'ACTIVE', card[:status]
+  end
+
   def test_deleting_a_card
     # 1 - Create Address and attach to Profile
     address = authenticated_client.create_address(profile_id: @profile_id, country: 'US', zip: '10014')
