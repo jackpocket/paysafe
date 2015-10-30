@@ -13,6 +13,17 @@ class ErrorTest < Minitest::Test
     assert_equal response, error.response
   end
 
+  def test_returns_internal_server_error_class
+    response = {:error=>{:code=>"1002", :message=>"Internal error", :links=>[{:rel=>"errorinfo", :href=>"https://developer.optimalpayments.com/en/documentation/card-payments-api/error-1002"}]}}
+
+    error = OptimalPayments::Error.error_from_response(response, 500)
+
+    assert_kind_of OptimalPayments::Error::InternalServerError, error
+    assert_equal "Internal error", error.message
+    assert_equal 500, error.code
+    assert_equal response, error.response
+  end
+
   def test_returns_general_error_class_for_unrecognized_code
     response = {error: {code: '9876', message: 'A custom error message'}}
 
