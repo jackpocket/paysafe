@@ -110,6 +110,41 @@ class OptimalPaymentsTest < Minitest::Test
     end
   end
 
+  def test_get_profile_with_fields
+    VCR.use_cassette('get_profile_with_cards_and_addresses') do
+      profile = test_client.get_profile(id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', fields: [:cards,:addresses])
+
+      assert_kind_of Hash, profile
+      assert_equal 'b088ac37-32cb-4320-9b64-f9f4923f53ed', profile[:id]
+      assert_equal 'ACTIVE', profile[:status]
+      assert_equal 'en_US', profile[:locale]
+      assert_equal 'John', profile[:firstName]
+      assert_equal 'Snakes', profile[:lastName]
+      assert_equal 'test@test.com', profile[:email]
+      refute_predicate profile[:merchantCustomerId], :empty?
+      refute_predicate profile[:paymentToken], :empty?
+
+      card = profile[:cards][0]
+      assert_kind_of Hash, card
+      assert_equal '7f7513cd-f5ea-49c5-a249-72050bc750e7', card[:id]
+      assert_equal '411111', card[:cardBin]
+      assert_equal '1111', card[:lastDigits]
+      assert_equal 12, card[:cardExpiry][:month]
+      assert_equal 2019, card[:cardExpiry][:year]
+      assert_equal '6146cd5e-b7bd-4867-870e-0adc910d01df', card[:billingAddressId]
+      assert_equal 'VI', card[:cardType]
+      assert_equal 'CNpnmxFwDSK3s9p', card[:paymentToken]
+      assert_equal 'ACTIVE', card[:status]
+
+      address = profile[:addresses][0]
+      assert_kind_of Hash, address
+      assert_equal '6146cd5e-b7bd-4867-870e-0adc910d01df', address[:id]
+      assert_equal 'US', address[:country]
+      assert_equal '10014', address[:zip]
+      assert_equal 'ACTIVE', address[:status]
+    end
+  end
+
   def test_create_profile
     VCR.use_cassette('create_profile') do
       result = test_client.create_profile(merchantCustomerId: '1445638620', locale: 'en_US', firstName: 'test', lastName: 'test', email: 'test@test.com')

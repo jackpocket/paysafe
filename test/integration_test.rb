@@ -166,6 +166,47 @@ class IntegrationTest < Minitest::Test
     authenticated_client.delete_profile(id: profile[:id])
   end
 
+  def test_getting_profile_with_card_and_address
+    id = Time.now.to_f.to_s
+
+    # 1 - Create Address and attach to Profile
+    @address = authenticated_client.create_address(profile_id: @profile_id, country: 'US', zip: '10014')
+
+    # 2 - Create Card and attach to Profile
+    @card = authenticated_client.create_card(profile_id: @profile_id, number: '4111111111111111', month: 12, year: 2019, billingAddressId: @address[:id])
+
+    # 3 - Retrieve Profile with Cards and Addresses
+    profile = authenticated_client.get_profile(id: @profile_id, fields: [:cards,:addresses])
+
+    assert_kind_of Hash, profile
+    assert_equal @profile[:id], profile[:id]
+    assert_equal @profile[:status], profile[:status]
+    assert_equal @profile[:locale], profile[:locale]
+    assert_equal @profile[:firstName], profile[:firstName]
+    assert_equal @profile[:lastName], profile[:lastName]
+    assert_equal @profile[:email], profile[:email]
+    assert_equal @profile[:merchantCustomerId], profile[:merchantCustomerId]
+
+    card = profile[:cards][0]
+    assert_kind_of Hash, card
+    assert_equal @card[:id], card[:id]
+    assert_equal @card[:status], card[:status]
+    assert_equal @card[:cardType], card[:cardType]
+    assert_equal @card[:lastDigits], card[:lastDigits]
+    assert_equal @card[:cardBin], card[:cardBin]
+    assert_equal @card[:cardExpiry][:month], card[:cardExpiry][:month]
+    assert_equal @card[:cardExpiry][:year], card[:cardExpiry][:year]
+    assert_equal @card[:billingAddressId], card[:billingAddressId]
+    assert_equal @card[:paymentToken], card[:paymentToken]
+
+    address = profile[:addresses][0]
+    assert_kind_of Hash, address
+    assert_equal @address[:id], address[:id]
+    assert_equal @address[:status], address[:status]
+    assert_equal @address[:country], address[:country]
+    assert_equal @address[:zip], address[:zip]
+  end
+
   def test_creating_a_card_with_verification
     id = Time.now.to_f.to_s
 
@@ -210,6 +251,7 @@ class IntegrationTest < Minitest::Test
     card = authenticated_client.create_card(profile_id: @profile_id, number: '4111111111111111', month: 6, year: 2019, billingAddressId: address[:id])
 
     assert_kind_of Hash, card
+    assert_equal 'VI', card[:cardType]
     assert_equal 6, card[:cardExpiry][:month]
     assert_equal 2019, card[:cardExpiry][:year]
     assert_equal address[:id], card[:billingAddressId]
@@ -250,6 +292,7 @@ class IntegrationTest < Minitest::Test
     card = authenticated_client.update_card(profile_id: @profile_id, id: card[:id], month: 6, year: 2019, billingAddressId: address_id, holderName: 'Johnny Smith')
 
     assert_kind_of Hash, card
+    assert_equal 'VI', card[:cardType]
     assert_equal 6, card[:cardExpiry][:month]
     assert_equal 2019, card[:cardExpiry][:year]
     assert_equal address_id, card[:billingAddressId]

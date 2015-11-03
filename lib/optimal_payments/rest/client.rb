@@ -67,8 +67,16 @@ module OptimalPayments
         fail_or_return_response_body(response.code, (response.code == 200))
       end
 
-      def get_profile(id:)
-        response = get(path: "/customervault/v1/profiles/#{id}")
+      def get_profile(id:, fields: [])
+        fields.keep_if { |field| field == :cards || field == :addresses }
+
+        path = "/customervault/v1/profiles/#{id}"
+
+        if !fields.empty?
+          path += "?fields=#{fields.join(',')}"
+        end
+
+        response = get(path: path)
         response_body = symbolize_keys!(response.parse)
         fail_or_return_response_body(response.code, response_body)
       end

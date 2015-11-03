@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.test.netbanx.com/customervault/v1/profiles/b088ac37-32cb-4320-9b64-f9f4923f53ed?fields=cards,addresses
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - OptimalPaymentsRubyGem/0.1.0
+      X-Ruby-Version:
+      - 2.2.3
+      X-Ruby-Platform:
+      - x86_64-darwin15
+      Authorization:
+      - Basic YXBpX2tleTphcGlfc2VjcmV0
+      Connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '648'
+      X-Applicationuid:
+      - GUID=a97ae82a-a0aa-4c93-94fc-d09ee691e82a
+      Etag:
+      - '"0e52e8f449a340fe242620b5f46ee5ffe"'
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 28 Oct 2015 21:58:26 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"id":"b088ac37-32cb-4320-9b64-f9f4923f53ed","status":"ACTIVE","merchantCustomerId":"1446069505","locale":"en_US","firstName":"John","lastName":"Snakes","paymentToken":"PovQX1RKgd8daYh","email":"test@test.com","addresses":[{"id":"6146cd5e-b7bd-4867-870e-0adc910d01df","country":"US","zip":"10014","defaultShippingAddressIndicator":false,"status":"ACTIVE"}],"cards":[{"status":"ACTIVE","id":"7f7513cd-f5ea-49c5-a249-72050bc750e7","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2019,"month":12},"billingAddressId":"6146cd5e-b7bd-4867-870e-0adc910d01df","cardType":"VI","paymentToken":"CNpnmxFwDSK3s9p","defaultCardIndicator":true}]}'
+    http_version:
+  recorded_at: Wed, 28 Oct 2015 21:58:26 GMT
+recorded_with: VCR 2.9.3
