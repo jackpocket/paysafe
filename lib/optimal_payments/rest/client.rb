@@ -160,19 +160,23 @@ module OptimalPayments
         fail_or_return_response_body(response.code, response_body)
       end
 
-      # TODO: replace card, arg with number, month, year, and remove address arg
-      # FIXME: address is OPTIONAL only merchantRefNum and card required
-      # TODO: rename to verify_card
-      def verify(merchantRefNum:, card:, address:, **args)
+      def verify_card(merchantRefNum:, number:, month:, year:, **args)
         data = {
           merchantRefNum: merchantRefNum,
-          card: card, # cardNum, cardExpiry, cvv
+          card: {
+            cardNum: number,
+            cardExpiry: {
+              month: month,
+              year: year
+            },
+            cvv: args[:cvv]
+          },
           profile: {
             firstName: args[:firstName],
             lastName: args[:lastName],
             email: args[:email]
           },
-          billingDetails: address, # street, city, state, country, zip
+          billingDetails: args[:address],
           customerIp: args[:customerIp],
           description: args[:description]
         }

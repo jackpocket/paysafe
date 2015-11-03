@@ -60,16 +60,12 @@ class OptimalPaymentsTest < Minitest::Test
 
   def test_verify
     VCR.use_cassette('verification') do
-      result = test_client.verify(
+      result = test_client.verify_card(
         merchantRefNum: '1445638620',
-        card: {
-          cardNum: '4111111111111111',
-          cardExpiry: {
-            month: 6,
-            year: 2019
-          },
-          cvv: 123
-        },
+        number: '4111111111111111',
+        month: 6,
+        year: 2019,
+        cvv: 123,
         address: {
           country: 'US',
           zip: '10014'

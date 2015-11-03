@@ -32,16 +32,12 @@ class IntegrationTest < Minitest::Test
   def test_verification
     id = Time.now.to_f.to_s
 
-    result = authenticated_client.verify(
+    result = authenticated_client.verify_card(
       merchantRefNum: id,
-      card: {
-        cardNum: '4111111111111111',
-        cardExpiry: {
-          month: 6,
-          year: 2019
-        },
-        cvv: 123
-      },
+      number: '4111111111111111',
+      month: 6,
+      year: 2019,
+      cvv: 123,
       address: {
         street: 'Z', # trigger AVS MATCH_ZIP_ONLY response
         country: 'US',
@@ -211,16 +207,12 @@ class IntegrationTest < Minitest::Test
     id = Time.now.to_f.to_s
 
     # 1 - Verify Card
-    result = authenticated_client.verify(
+    result = authenticated_client.verify_card(
       merchantRefNum: id,
-      card: {
-        cardNum: '4111111111111111',
-        cardExpiry: {
-          month: 6,
-          year: 2019
-        },
-        cvv: 123
-      },
+      number: '4111111111111111',
+      month: 6,
+      year: 2019,
+      cvv: 123,
       address: {
         street: 'Z', # trigger AVS MATCH_ZIP_ONLY response
         country: 'US',
