@@ -278,7 +278,7 @@ class OptimalPaymentsTest < Minitest::Test
 
   def test_delete_card
     VCR.use_cassette('delete_card') do
-      assert test_client.delete_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', id: '8e176fa6-9803-40a3-b870-0cd1fdb0e64e')
+      test_client.delete_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', id: '8e176fa6-9803-40a3-b870-0cd1fdb0e64e')
     end
   end
 

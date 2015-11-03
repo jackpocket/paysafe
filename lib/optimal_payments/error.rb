@@ -65,9 +65,13 @@ module OptimalPayments
       504 => OptimalPayments::Error::GatewayTimeout,
     }
 
+    # The OptimalPayments API Error Code
+    #
     # @return [Integer]
     attr_reader :code
 
+    # The JSON HTTP response in Hash form
+    #
     # @return [Hash]
     attr_reader :response
 
@@ -79,18 +83,17 @@ module OptimalPayments
       # @return [OptimalPayments::Error]
       def error_from_response(body, code)
         klass = ERRORS[code] || OptimalPayments::Error
-        message = parse_error(body)
+        message, code = parse_error(body)
         klass.new(message, code, body)
       end
 
     private
 
       def parse_error(body)
-        default_message = 'An unknown error has occurred.'
-        if body.is_a?(Hash) && body[:error].is_a?(Hash)
-          body[:error][:message] || default_message
-        else
-          default_message
+        if body.nil? || body.empty?
+          ['', nil]
+        elsif body.is_a?(Hash) && body[:error].is_a?(Hash)
+          [body[:error][:message], body[:error][:code]]
         end
       end
 

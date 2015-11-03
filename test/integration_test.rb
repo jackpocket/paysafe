@@ -266,7 +266,7 @@ class IntegrationTest < Minitest::Test
     card = authenticated_client.create_card(profile_id: @profile_id, number: '4111111111111111', month: 12, year: 2019, billingAddressId: address[:id])
 
     # 3 - Delete Card
-    assert authenticated_client.delete_card(profile_id: @profile_id, id: card[:id])
+    assert_nil authenticated_client.delete_card(profile_id: @profile_id, id: card[:id])
 
     # 4 - Deleting an already deleted card fails
     assert_raises(OptimalPayments::Error::NotFound) {

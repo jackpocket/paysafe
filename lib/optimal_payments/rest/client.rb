@@ -117,7 +117,8 @@ module OptimalPayments
 
       def delete_card(profile_id:, id:)
         response = delete(path: "/customervault/v1/profiles/#{profile_id}/cards/#{id}")
-        fail_or_return_response_body(response.code, (response.code == 200))
+        response_body = symbolize_keys!(response.parse)
+        fail_or_return_response_body(response.code, response_body)
       end
 
       def get_card(profile_id:, id:)
@@ -159,10 +160,13 @@ module OptimalPayments
         fail_or_return_response_body(response.code, response_body)
       end
 
+      # TODO: replace card, arg with number, month, year, and remove address arg
+      # FIXME: address is OPTIONAL only merchantRefNum and card required
+      # TODO: rename to verify_card
       def verify(merchantRefNum:, card:, address:, **args)
         data = {
           merchantRefNum: merchantRefNum,
-          card: card, # cardNum, cardExpiry, cvv (OR) paymentToken, cvv
+          card: card, # cardNum, cardExpiry, cvv
           profile: {
             firstName: args[:firstName],
             lastName: args[:lastName],
@@ -219,7 +223,7 @@ module OptimalPayments
       def fail_or_return_response_body(code, body)
         if code < 200 || code >= 206
           error = OptimalPayments::Error.error_from_response(body, code)
-          fail(error) if error
+          fail(error)
         end
         body
       end
