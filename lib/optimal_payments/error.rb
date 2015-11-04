@@ -83,8 +83,8 @@ module OptimalPayments
       # @return [OptimalPayments::Error]
       def error_from_response(body, code)
         klass = ERRORS[code] || OptimalPayments::Error
-        message, code = parse_error(body)
-        klass.new(message, code, body)
+        message, error_code = parse_error(body)
+        klass.new(message: message, code: error_code, response: body)
       end
 
     private
@@ -105,7 +105,7 @@ module OptimalPayments
     # @param code [Integer]
     # @param response [Hash]
     # @return [OptimalPayments::Error]
-    def initialize(message = '', code = nil, response = {})
+    def initialize(message: '', code: nil, response: {})
       super(message)
       @code = code
       @response = response
