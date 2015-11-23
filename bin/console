@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require "optimal_payments"
+require "paysafe"
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
@@ -14,7 +14,7 @@ require 'dotenv'
 Dotenv.load
 
 def client
-  OptimalPayments::REST::Client.new do |config|
+  Paysafe::REST::Client.new do |config|
     config.account_number = ENV['OPTIMAL_PAYMENTS_ACCOUNT_NUMBER']
     config.api_key = ENV['OPTIMAL_PAYMENTS_API_KEY']
     config.api_secret = ENV['OPTIMAL_PAYMENTS_API_SECRET']

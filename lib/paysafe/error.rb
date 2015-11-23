@@ -1,4 +1,4 @@
-module OptimalPayments
+module Paysafe
   class Error < StandardError
     # Raised on a 4xx HTTP status code
     ClientError = Class.new(self)
@@ -49,23 +49,23 @@ module OptimalPayments
     GatewayTimeout = Class.new(ServerError)
 
     ERRORS = {
-      400 => OptimalPayments::Error::BadRequest,
-      401 => OptimalPayments::Error::Unauthorized,
-      402 => OptimalPayments::Error::RequestDeclined,
-      403 => OptimalPayments::Error::Forbidden,
-      404 => OptimalPayments::Error::NotFound,
-      406 => OptimalPayments::Error::NotAcceptable,
-      409 => OptimalPayments::Error::Conflict,
-      415 => OptimalPayments::Error::UnsupportedMediaType,
-      422 => OptimalPayments::Error::UnprocessableEntity,
-      429 => OptimalPayments::Error::TooManyRequests,
-      500 => OptimalPayments::Error::InternalServerError,
-      502 => OptimalPayments::Error::BadGateway,
-      503 => OptimalPayments::Error::ServiceUnavailable,
-      504 => OptimalPayments::Error::GatewayTimeout,
+      400 => Paysafe::Error::BadRequest,
+      401 => Paysafe::Error::Unauthorized,
+      402 => Paysafe::Error::RequestDeclined,
+      403 => Paysafe::Error::Forbidden,
+      404 => Paysafe::Error::NotFound,
+      406 => Paysafe::Error::NotAcceptable,
+      409 => Paysafe::Error::Conflict,
+      415 => Paysafe::Error::UnsupportedMediaType,
+      422 => Paysafe::Error::UnprocessableEntity,
+      429 => Paysafe::Error::TooManyRequests,
+      500 => Paysafe::Error::InternalServerError,
+      502 => Paysafe::Error::BadGateway,
+      503 => Paysafe::Error::ServiceUnavailable,
+      504 => Paysafe::Error::GatewayTimeout,
     }
 
-    # The OptimalPayments API Error Code
+    # The Paysafe API Error Code
     #
     # @return [Integer]
     attr_reader :code
@@ -80,9 +80,9 @@ module OptimalPayments
       #
       # @param body [String]
       # @param code [Integer]
-      # @return [OptimalPayments::Error]
+      # @return [Paysafe::Error]
       def error_from_response(body, code)
-        klass = ERRORS[code] || OptimalPayments::Error
+        klass = ERRORS[code] || Paysafe::Error
         message, error_code = parse_error(body)
         klass.new(message: message, code: error_code, response: body)
       end
@@ -104,7 +104,7 @@ module OptimalPayments
     # @param message [Exception, String]
     # @param code [Integer]
     # @param response [Hash]
-    # @return [OptimalPayments::Error]
+    # @return [Paysafe::Error]
     def initialize(message: '', code: nil, response: {})
       super(message)
       @code = code

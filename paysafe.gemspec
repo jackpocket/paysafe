@@ -1,17 +1,17 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'optimal_payments/version'
+require 'paysafe/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "optimal_payments"
-  spec.version       = OptimalPayments::VERSION
+  spec.name          = "paysafe"
+  spec.version       = Paysafe::VERSION
   spec.authors       = ["Javier Julio"]
   spec.email         = ["jjfutbol@gmail.com"]
 
-  spec.summary       = %q{Gem to wrap Optimal Payments REST API}
-  spec.description   = %q{Gem to wrap Optimal Payments REST API}
-  spec.homepage      = "https://github.com/javierjulio/optimal_payments"
+  spec.summary       = %q{Gem to wrap Paysafe REST API}
+  spec.description   = %q{Gem to wrap Paysafe REST API}
+  spec.homepage      = "https://github.com/javierjulio/paysafe"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }

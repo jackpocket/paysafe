@@ -1,19 +1,19 @@
-# The OptimalPayments Ruby Gem
+# The Paysafe Ruby Gem
 
-[![Gem Version](https://badge.fury.io/rb/optimal_payments.svg)][gem]
-[![Build Status](https://travis-ci.org/javierjulio/optimal_payments.svg?branch=master)][travis]
+[![Gem Version](https://badge.fury.io/rb/paysafe.svg)][gem]
+[![Build Status](https://travis-ci.org/javierjulio/paysafe.svg?branch=master)][travis]
 
-[gem]: https://rubygems.org/gems/optimal_payments
-[travis]: https://travis-ci.org/javierjulio/optimal_payments
+[gem]: https://rubygems.org/gems/paysafe
+[travis]: https://travis-ci.org/javierjulio/paysafe
 
-A tested Ruby interface to the OptimalPayments API. Note: Requires Ruby 2.1 and up. Not all API actions are supported.
+A tested Ruby interface to the Paysafe REST API (formerly Optimal Payments). Note: requires Ruby 2.1 and up. Not all API actions are supported yet.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'optimal_payments'
+gem 'paysafe'
 ```
 
 And then execute:
@@ -22,7 +22,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install optimal_payments
+    $ gem install paysafe
 
 To try out the gem and experiment, you're better off following the development instructions.
 
@@ -32,7 +32,7 @@ TODO: Write usage instructions here
 
 ## Development
 
-1. Clone the repo: `git clone https://github.com/javierjulio/optimal_payments.git`
+1. Clone the repo: `git clone https://github.com/javierjulio/paysafe.git`
 2. Use Ruby 2.1 and up. If you need to install use [rbenv](https://github.com/sstephenson/rbenv) and [ruby-build](https://github.com/sstephenson/ruby-build) and then run:
 
         gem update --system
@@ -58,7 +58,7 @@ To release a new version, update the version number in `version.rb`, and then ru
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/javierjulio/optimal_payments. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests for missing API support are welcome on GitHub at https://github.com/javierjulio/paysafe. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
 ## License
 

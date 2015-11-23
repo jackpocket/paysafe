@@ -1,17 +1,17 @@
 require 'test_helper'
 
-class OptimalPaymentsTest < Minitest::Test
+class PaysafeTest < Minitest::Test
 
   def setup
     turn_on_vcr!
   end
 
   def test_that_it_has_a_version_number
-    refute_nil ::OptimalPayments::VERSION
+    refute_nil ::Paysafe::VERSION
   end
 
   def test_client_is_configured_through_options
-    client = OptimalPayments::REST::Client.new(
+    client = Paysafe::REST::Client.new(
       account_number: 'account_number',
       api_key: 'api_key',
       api_secret: 'api_secret',
@@ -25,7 +25,7 @@ class OptimalPaymentsTest < Minitest::Test
   end
 
   def test_client_is_configured_with_block
-    client = OptimalPayments::REST::Client.new do |config|
+    client = Paysafe::REST::Client.new do |config|
       config.account_number = 'account_number'
       config.api_key = 'api_key'
       config.api_secret = 'api_secret'
@@ -39,12 +39,12 @@ class OptimalPaymentsTest < Minitest::Test
   end
 
   def test_api_base_changes_based_on_test_mode
-    client = OptimalPayments::REST::Client.new(test_mode: true)
+    client = Paysafe::REST::Client.new(test_mode: true)
 
     assert_equal client.test_mode, true
     assert_equal client.api_base, 'https://api.test.netbanx.com'
 
-    client = OptimalPayments::REST::Client.new(test_mode: false)
+    client = Paysafe::REST::Client.new(test_mode: false)
 
     assert_equal client.test_mode, false
     assert_equal client.api_base, 'https://api.netbanx.com'
@@ -53,7 +53,7 @@ class OptimalPaymentsTest < Minitest::Test
   def test_credentials?
     assert test_client.credentials?
 
-    client = OptimalPayments::REST::Client.new(account_number: 'account_number')
+    client = Paysafe::REST::Client.new(account_number: 'account_number')
 
     refute client.credentials?
   end
@@ -206,7 +206,7 @@ class OptimalPaymentsTest < Minitest::Test
 
   def test_create_profile_with_card_and_address_failed
     VCR.use_cassette('create_profile_with_card_and_address_failed') do
-      assert_raises(OptimalPayments::Error::Conflict) do
+      assert_raises(Paysafe::Error::Conflict) do
         test_client.create_profile(
           merchantCustomerId: '1445638620',
           locale: 'en_US',
@@ -258,7 +258,7 @@ class OptimalPaymentsTest < Minitest::Test
 
   def test_create_card_failed_400
     VCR.use_cassette('create_card_failed_400') do
-      assert_raises(OptimalPayments::Error::BadRequest) {
+      assert_raises(Paysafe::Error::BadRequest) {
         test_client.create_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', number: '4111111111', month: 12, year: 2017)
       }
     end
@@ -266,7 +266,7 @@ class OptimalPaymentsTest < Minitest::Test
 
   def test_create_card_failed_409
     VCR.use_cassette('create_card_failed_409') do
-      assert_raises(OptimalPayments::Error::Conflict) {
+      assert_raises(Paysafe::Error::Conflict) {
         test_client.create_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', number: '4111111111111111', month: 12, year: 2019)
       }
     end

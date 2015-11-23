@@ -23,8 +23,8 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_invalid_credentials
-    client = OptimalPayments::REST::Client.new
-    assert_raises(OptimalPayments::Error::Unauthorized) {
+    client = Paysafe::REST::Client.new
+    assert_raises(Paysafe::Error::Unauthorized) {
       client.get_profile(id: @profile_id)
     }
   end
@@ -113,7 +113,7 @@ class IntegrationTest < Minitest::Test
   def test_creating_profile_with_card_fails_then_succeeds
     id = Time.now.to_f.to_s
 
-    assert_raises(OptimalPayments::Error::BadRequest) do
+    assert_raises(Paysafe::Error::BadRequest) do
       profile = authenticated_client.create_profile(
         merchantCustomerId: id,
         locale: 'en_US',
@@ -261,13 +261,13 @@ class IntegrationTest < Minitest::Test
     assert_nil authenticated_client.delete_card(profile_id: @profile_id, id: card[:id])
 
     # 4 - Deleting an already deleted card fails
-    assert_raises(OptimalPayments::Error::NotFound) {
+    assert_raises(Paysafe::Error::NotFound) {
       authenticated_client.delete_card(profile_id: @profile_id, id: card[:id])
     }
   end
 
   def test_invalid_card_number
-    assert_raises(OptimalPayments::Error::BadRequest) {
+    assert_raises(Paysafe::Error::BadRequest) {
       authenticated_client.create_card(profile_id: @profile_id, number: '4111111111', month: 12, year: 2017)
     }
   end

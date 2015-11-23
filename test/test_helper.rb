@@ -1,5 +1,5 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'optimal_payments'
+require 'paysafe'
 require 'minitest/autorun'
 require 'minitest/reporters'
 require 'webmock/minitest'
@@ -16,7 +16,7 @@ end
 Minitest::Reporters.use!([Minitest::Reporters::SpecReporter.new])
 
 def test_client
-  OptimalPayments::REST::Client.new do |config|
+  Paysafe::REST::Client.new do |config|
     config.account_number = '1234567890'
     config.api_key = 'api_key'
     config.api_secret = 'api_secret'
@@ -24,10 +24,10 @@ def test_client
 end
 
 def authenticated_client
-  OptimalPayments::REST::Client.new do |config|
-    config.account_number = ENV['OPTIMAL_PAYMENTS_ACCOUNT_NUMBER'] || '1234567890'
-    config.api_key = ENV['OPTIMAL_PAYMENTS_API_KEY'] || 'api_key'
-    config.api_secret = ENV['OPTIMAL_PAYMENTS_API_SECRET'] || 'api_secret'
+  Paysafe::REST::Client.new do |config|
+    config.account_number = ENV['PAYSAFE_ACCOUNT_NUMBER'] || '1234567890'
+    config.api_key = ENV['PAYSAFE_API_KEY'] || 'api_key'
+    config.api_secret = ENV['PAYSAFE_API_SECRET'] || 'api_secret'
   end
 end
 

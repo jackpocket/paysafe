@@ -10,7 +10,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - OptimalPaymentsRubyGem/0.1.0
+      - PaysafeRubyGem/0.1.0
       X-Ruby-Version:
       - 2.2.3
       X-Ruby-Platform:

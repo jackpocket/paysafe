@@ -1,6 +1,6 @@
 require 'http'
 
-module OptimalPayments
+module Paysafe
   module REST
     class Client
 
@@ -9,7 +9,7 @@ module OptimalPayments
 
       HEADERS = {
         'Content-Type'    => 'application/json',
-        'User-Agent'      => "OptimalPaymentsRubyGem/#{OptimalPayments::VERSION}",
+        'User-Agent'      => "PaysafeRubyGem/#{Paysafe::VERSION}",
         'X-Ruby-Version'  => RUBY_VERSION,
         'X-Ruby-Platform' => RUBY_PLATFORM
       }
@@ -20,7 +20,7 @@ module OptimalPayments
       # Initializes a new Client object
       #
       # @param options [Hash]
-      # @return [Optimal::REST::Client]
+      # @return [Paysafe::REST::Client]
       def initialize(options={})
         @test_mode = true
 
@@ -226,7 +226,7 @@ module OptimalPayments
 
       def fail_or_return_response_body(code, body)
         if code < 200 || code >= 206
-          error = OptimalPayments::Error.error_from_response(body, code)
+          error = Paysafe::Error.error_from_response(body, code)
           fail(error)
         end
         body
