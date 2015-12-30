@@ -15,9 +15,9 @@ Dotenv.load
 
 def client
   Paysafe::REST::Client.new do |config|
-    config.account_number = ENV['OPTIMAL_PAYMENTS_ACCOUNT_NUMBER']
-    config.api_key = ENV['OPTIMAL_PAYMENTS_API_KEY']
-    config.api_secret = ENV['OPTIMAL_PAYMENTS_API_SECRET']
+    config.account_number = ENV['PAYSAFE_ACCOUNT_NUMBER']
+    config.api_key = ENV['PAYSAFE_API_KEY']
+    config.api_secret = ENV['PAYSAFE_API_SECRET']
   end
 end
 
