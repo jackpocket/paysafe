@@ -334,7 +334,7 @@ class IntegrationTest < Minitest::Test
     refute_predicate result[:txnTime], :empty?
     assert_equal 'COMPLETED', result[:status]
     assert_equal 'USD', result[:currencyCode]
-    assert_equal 'NOT_PROCESSED', result[:avsResponse]
+    assert_equal 'MATCH', result[:avsResponse]
     refute_predicate result[:card], :empty?
     refute_predicate result[:profile], :empty?
     refute_predicate result[:billingDetails], :empty?
