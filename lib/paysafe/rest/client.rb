@@ -82,6 +82,20 @@ module Paysafe
         fail_or_return_response_body(response.code, response_body)
       end
 
+      def update_profile(id:, merchantCustomerId:, locale:, **args)
+        data = {
+          merchantCustomerId: merchantCustomerId,
+          locale: locale,
+          firstName: args[:firstName],
+          lastName: args[:lastName],
+          email: args[:email]
+        }
+
+        response = put(path: "/customervault/v1/profiles/#{id}", data: data)
+        response_body = symbolize_keys!(response.parse)
+        fail_or_return_response_body(response.code, response_body)
+      end
+
       def create_address(profile_id:, country:, zip:, **args)
         data = {
           nickName: args[:nickName],

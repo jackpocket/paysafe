@@ -107,6 +107,24 @@ class IntegrationTest < Minitest::Test
     assert_equal 'ACTIVE', card[:status]
     refute_predicate card[:billingAddressId], :empty?
 
+    profile = authenticated_client.update_profile(
+      id: profile[:id],
+      merchantCustomerId: id,
+      locale: 'en_US',
+      firstName: 'Testing',
+      lastName: 'Testing',
+      email: 'example@test.com'
+    )
+
+    assert_kind_of Hash, profile
+    assert_equal id, profile[:merchantCustomerId]
+    assert_equal 'en_US', profile[:locale]
+    assert_equal 'Testing', profile[:firstName]
+    assert_equal 'Testing', profile[:lastName]
+    assert_equal 'example@test.com', profile[:email]
+    assert_equal 'ACTIVE', profile[:status]
+    refute_predicate profile[:paymentToken], :empty?
+
     authenticated_client.delete_profile(id: profile[:id])
   end
 

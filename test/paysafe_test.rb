@@ -237,6 +237,28 @@ class PaysafeTest < Minitest::Test
     end
   end
 
+  def test_update_profile
+    VCR.use_cassette('update_profile') do
+      profile = test_client.update_profile(
+        id: '0978224b-5116-48d4-8a8e-e4b5b7a32285',
+        merchantCustomerId: '1445638620',
+        locale: 'en_US',
+        firstName: 'Testing',
+        lastName: 'Testing',
+        email: 'example@test.com'
+      )
+
+      assert_kind_of Hash, profile
+      assert_equal '1445638620', profile[:merchantCustomerId]
+      assert_equal 'en_US', profile[:locale]
+      assert_equal 'Testing', profile[:firstName]
+      assert_equal 'Testing', profile[:lastName]
+      assert_equal 'example@test.com', profile[:email]
+      assert_equal 'ACTIVE', profile[:status]
+      assert_equal 'PSs8LGTqy2y2PcY', profile[:paymentToken]
+    end
+  end
+
   def test_create_address
     VCR.use_cassette('create_address') do
       result = test_client.create_address(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', country: 'US', zip: '10014')
