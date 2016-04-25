@@ -34,7 +34,7 @@ class IntegrationTest < Minitest::Test
 
     result = authenticated_client.verify_card(
       merchantRefNum: id,
-      number: '4111111111111111',
+      number: '5410110488911728',
       month: 6,
       year: 2019,
       cvv: 123,
@@ -50,8 +50,8 @@ class IntegrationTest < Minitest::Test
     assert_equal id, result[:merchantRefNum]
     refute_predicate result[:txnTime], :empty?
     assert_equal 'COMPLETED', result[:status]
-    assert_equal 'VI', result[:card][:type]
-    assert_equal '1111', result[:card][:lastDigits]
+    assert_equal 'MC', result[:card][:type]
+    assert_equal '1728', result[:card][:lastDigits]
     assert_equal 6, result[:card][:cardExpiry][:month]
     assert_equal 2019, result[:card][:cardExpiry][:year]
     refute_predicate result[:authCode], :empty?
@@ -227,7 +227,7 @@ class IntegrationTest < Minitest::Test
     # 1 - Verify Card
     result = authenticated_client.verify_card(
       merchantRefNum: id,
-      number: '4111111111111111',
+      number: '5410110488911728',
       month: 6,
       year: 2019,
       cvv: 123,
@@ -243,8 +243,8 @@ class IntegrationTest < Minitest::Test
     assert_equal id, result[:merchantRefNum]
     refute_predicate result[:txnTime], :empty?
     assert_equal 'COMPLETED', result[:status]
-    assert_equal 'VI', result[:card][:type]
-    assert_equal '1111', result[:card][:lastDigits]
+    assert_equal 'MC', result[:card][:type]
+    assert_equal '1728', result[:card][:lastDigits]
     assert_equal 6, result[:card][:cardExpiry][:month]
     assert_equal 2019, result[:card][:cardExpiry][:year]
     refute_predicate result[:authCode], :empty?
@@ -258,10 +258,10 @@ class IntegrationTest < Minitest::Test
     address = authenticated_client.create_address(profile_id: @profile_id, country: 'US', zip: '10014')
 
     # 3 - Create Card and attach to Profile
-    card = authenticated_client.create_card(profile_id: @profile_id, number: '4111111111111111', month: 6, year: 2019, billingAddressId: address[:id])
+    card = authenticated_client.create_card(profile_id: @profile_id, number: '5410110488911728', month: 6, year: 2019, billingAddressId: address[:id])
 
     assert_kind_of Hash, card
-    assert_equal 'VI', card[:cardType]
+    assert_equal 'MC', card[:cardType]
     assert_equal 6, card[:cardExpiry][:month]
     assert_equal 2019, card[:cardExpiry][:year]
     assert_equal address[:id], card[:billingAddressId]
@@ -273,7 +273,7 @@ class IntegrationTest < Minitest::Test
     address = authenticated_client.create_address(profile_id: @profile_id, country: 'US', zip: '10014')
 
     # 2 - Create Card and attach to Profile
-    card = authenticated_client.create_card(profile_id: @profile_id, number: '4111111111111111', month: 12, year: 2019, billingAddressId: address[:id])
+    card = authenticated_client.create_card(profile_id: @profile_id, number: '5410110488911728', month: 12, year: 2019, billingAddressId: address[:id])
 
     # 3 - Delete Card
     assert_nil authenticated_client.delete_card(profile_id: @profile_id, id: card[:id])
@@ -296,13 +296,13 @@ class IntegrationTest < Minitest::Test
     address_id = address[:id]
 
     # 2 - Create Card and attach to Profile
-    card = authenticated_client.create_card(profile_id: @profile_id, number: '4111111111111111', month: 12, year: 2017, billingAddressId: address_id, holderName: 'John Smith')
+    card = authenticated_client.create_card(profile_id: @profile_id, number: '5410110488911728', month: 12, year: 2017, billingAddressId: address_id, holderName: 'John Smith')
 
     # 3 - Update Card
     card = authenticated_client.update_card(profile_id: @profile_id, id: card[:id], month: 6, year: 2019, billingAddressId: address_id, holderName: 'Johnny Smith')
 
     assert_kind_of Hash, card
-    assert_equal 'VI', card[:cardType]
+    assert_equal 'MC', card[:cardType]
     assert_equal 6, card[:cardExpiry][:month]
     assert_equal 2019, card[:cardExpiry][:year]
     assert_equal address_id, card[:billingAddressId]
@@ -328,15 +328,15 @@ class IntegrationTest < Minitest::Test
     address_id = address[:id]
 
     # 2 - Create Card and attach to Profile
-    card = authenticated_client.create_card(profile_id: @profile_id, number: '4111111111111111', month: 12, year: 2019, billingAddressId: address_id)
+    card = authenticated_client.create_card(profile_id: @profile_id, number: '5410110488911728', month: 12, year: 2019, billingAddressId: address_id)
 
     assert_kind_of Hash, card
     refute_predicate card[:id], :empty?
-    assert_equal '411111', card[:cardBin]
-    assert_equal '1111', card[:lastDigits]
+    assert_equal '541011', card[:cardBin]
+    assert_equal '1728', card[:lastDigits]
     assert_equal 12, card[:cardExpiry][:month]
     assert_equal 2019, card[:cardExpiry][:year]
-    assert_equal 'VI', card[:cardType]
+    assert_equal 'MC', card[:cardType]
     assert_equal 'ACTIVE', card[:status]
     refute_predicate card[:paymentToken], :empty?
 
