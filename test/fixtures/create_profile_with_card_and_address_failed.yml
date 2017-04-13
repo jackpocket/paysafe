@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.test.netbanx.com/customervault/v1/profiles
+    uri: https://api.test.paysafe.com/customervault/v1/profiles
     body:
       encoding: UTF-8
       string: '{"merchantCustomerId":"1445638620","locale":"en_US","firstName":"test","lastName":"test","email":"test@test.com","card":{"cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2019},"billingAddress":{"country":"US","zip":"10014"}}}'
@@ -43,7 +43,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"error":{"code":"7505","message":"The merchantCustomerId provided
-        for this profile has already been used for another profile - 6e8a9831-dd55-48b7-b50d-c6d5184289c8","links":[{"rel":"errorinfo","href":"https://developer.optimalpayments.com/en/documentation/customer-vault-api/error-7505"}]},"links":[{"rel":"existing_entity","href":"https://api.test.netbanx.com/customervault/v1/profiles/6e8a9831-dd55-48b7-b50d-c6d5184289c8"}]}'
+        for this profile has already been used for another profile - 6e8a9831-dd55-48b7-b50d-c6d5184289c8","links":[{"rel":"errorinfo","href":"https://developer.optimalpayments.com/en/documentation/customer-vault-api/error-7505"}]},"links":[{"rel":"existing_entity","href":"https://api.test.paysafe.com/customervault/v1/profiles/6e8a9831-dd55-48b7-b50d-c6d5184289c8"}]}'
     http_version:
   recorded_at: Wed, 28 Oct 2015 22:25:49 GMT
 recorded_with: VCR 2.9.3

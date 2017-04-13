@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.test.netbanx.com/customervault/v1/profiles/b088ac37-32cb-4320-9b64-f9f4923f53ed/cards/972ed74f-6ff1-4a5b-a460-a11e606e2fa9
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/b088ac37-32cb-4320-9b64-f9f4923f53ed/cards/972ed74f-6ff1-4a5b-a460-a11e606e2fa9
     body:
       encoding: US-ASCII
       string: ''

@@ -51,12 +51,12 @@ class PaysafeTest < Minitest::Test
     client = Paysafe::REST::Client.new(test_mode: true)
 
     assert_equal client.test_mode, true
-    assert_equal client.api_base, 'https://api.test.netbanx.com'
+    assert_equal client.api_base, 'https://api.test.paysafe.com'
 
     client = Paysafe::REST::Client.new(test_mode: false)
 
     assert_equal client.test_mode, false
-    assert_equal client.api_base, 'https://api.netbanx.com'
+    assert_equal client.api_base, 'https://api.paysafe.com'
   end
 
   def test_credentials?

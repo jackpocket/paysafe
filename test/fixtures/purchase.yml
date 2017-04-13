@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.test.netbanx.com/cardpayments/v1/accounts/1234567890/auths
+    uri: https://api.test.paysafe.com/cardpayments/v1/accounts/1234567890/auths
     body:
       encoding: UTF-8
       string: '{"amount":400,"merchantRefNum":"1445888963","settleWithAuth":true,"card":{"paymentToken":"CrHElYip7kRAgXY"}}'
@@ -43,7 +43,7 @@ http_interactions:
         path=/; HttpOnly
     body:
       encoding: UTF-8
-      string: '{"links":[{"rel":"settlement","href":"https://api.test.netbanx.com/cardpayments/v1/accounts/1234567890/settlements/c45baad1-9d9b-47b9-970a-f3b4487d63e9"},{"rel":"self","href":"https://api.test.netbanx.com/cardpayments/v1/accounts/1234567890/auths/c45baad1-9d9b-47b9-970a-f3b4487d63e9"}],"id":"c45baad1-9d9b-47b9-970a-f3b4487d63e9","merchantRefNum":"1445888963","txnTime":"2015-10-26T19:49:23Z","status":"COMPLETED","amount":400,"settleWithAuth":true,"preAuth":false,"availableToSettle":0,"card":{"type":"VI","lastDigits":"1111","cardExpiry":{"month":10,"year":2018}},"authCode":"100550","profile":{"firstName":"test","lastName":"test","email":"test@test.com"},"billingDetails":{"country":"US","zip":"11225"},"merchantDescriptor":{"dynamicDescriptor":"Test","phone":"123-1234123"},"currencyCode":"USD","avsResponse":"NOT_PROCESSED","settlements":[{"links":[{"rel":"self","href":"https://api.test.netbanx.com/cardpayments/v1/accounts/1234567890/settlements/c45baad1-9d9b-47b9-970a-f3b4487d63e9"}],"id":"c45baad1-9d9b-47b9-970a-f3b4487d63e9","merchantRefNum":"1445888963","txnTime":"2015-10-26T19:49:23Z","status":"PENDING","amount":400,"availableToRefund":400}]}'
+      string: '{"links":[{"rel":"settlement","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/1234567890/settlements/c45baad1-9d9b-47b9-970a-f3b4487d63e9"},{"rel":"self","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/1234567890/auths/c45baad1-9d9b-47b9-970a-f3b4487d63e9"}],"id":"c45baad1-9d9b-47b9-970a-f3b4487d63e9","merchantRefNum":"1445888963","txnTime":"2015-10-26T19:49:23Z","status":"COMPLETED","amount":400,"settleWithAuth":true,"preAuth":false,"availableToSettle":0,"card":{"type":"VI","lastDigits":"1111","cardExpiry":{"month":10,"year":2018}},"authCode":"100550","profile":{"firstName":"test","lastName":"test","email":"test@test.com"},"billingDetails":{"country":"US","zip":"11225"},"merchantDescriptor":{"dynamicDescriptor":"Test","phone":"123-1234123"},"currencyCode":"USD","avsResponse":"NOT_PROCESSED","settlements":[{"links":[{"rel":"self","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/1234567890/settlements/c45baad1-9d9b-47b9-970a-f3b4487d63e9"}],"id":"c45baad1-9d9b-47b9-970a-f3b4487d63e9","merchantRefNum":"1445888963","txnTime":"2015-10-26T19:49:23Z","status":"PENDING","amount":400,"availableToRefund":400}]}'
     http_version:
   recorded_at: Mon, 26 Oct 2015 19:49:24 GMT
 recorded_with: VCR 2.9.3

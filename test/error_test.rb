@@ -3,7 +3,7 @@ require 'test_helper'
 class ErrorTest < Minitest::Test
 
   def test_returns_conflict_error_class
-    response = {:error=>{:code=>"7503", :message=>"Card number already in use - d63b2910-9ab5-4803-a2a2-1aadcc790cc2", :links=>[{:rel=>"errorinfo", :href=>"https://developer.optimalpayments.com/en/documentation/customer-vault-api/error-7503"}]}, :links=>[{:rel=>"existing_entity", :href=>"https://api.test.netbanx.com/customervault/v1/cards/d63b2910-9ab5-4803-a2a2-1aadcc790cc2"}]}
+    response = {:error=>{:code=>"7503", :message=>"Card number already in use - d63b2910-9ab5-4803-a2a2-1aadcc790cc2", :links=>[{:rel=>"errorinfo", :href=>"https://developer.optimalpayments.com/en/documentation/customer-vault-api/error-7503"}]}, :links=>[{:rel=>"existing_entity", :href=>"https://api.test.paysafe.com/customervault/v1/cards/d63b2910-9ab5-4803-a2a2-1aadcc790cc2"}]}
 
     error = Paysafe::Error.error_from_response(response, 409)
 

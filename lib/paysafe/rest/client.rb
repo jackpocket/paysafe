@@ -4,8 +4,8 @@ module Paysafe
   module REST
     class Client
 
-      API_TEST = 'https://api.test.netbanx.com'
-      API_LIVE = 'https://api.netbanx.com'
+      API_TEST = 'https://api.test.paysafe.com'
+      API_LIVE = 'https://api.paysafe.com'
 
       HEADERS = {
         'Content-Type'    => 'application/json',

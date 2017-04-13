@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.test.netbanx.com/customervault/v1/profiles
+    uri: https://api.test.paysafe.com/customervault/v1/profiles
     body:
       encoding: UTF-8
       string: '{"merchantCustomerId":"1446069505","locale":"en_US","firstName":"test","lastName":"test","email":"test@test.com","card":{"cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2019},"billingAddress":{"country":"US","zip":"10014"}}}'
