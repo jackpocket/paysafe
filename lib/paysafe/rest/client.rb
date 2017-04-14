@@ -14,7 +14,7 @@ module Paysafe
         'X-Ruby-Platform' => RUBY_PLATFORM
       }
 
-      attr_accessor :account_number, :api_key, :api_secret, :test_mode, :timeout_options
+      attr_accessor :account_number, :api_key, :api_secret, :test_mode, :timeouts
       attr_reader :api_base
 
       # Initializes a new Client object
@@ -23,7 +23,6 @@ module Paysafe
       # @return [Paysafe::REST::Client]
       def initialize(options={})
         @test_mode = true
-        @timeout_options = { write: 2, connect: 5, read: 10 }
 
         options.each do |key, value|
           instance_variable_set("@#{key}", value)
@@ -206,7 +205,7 @@ module Paysafe
       def http_client
         HTTP
           .headers(HEADERS)
-          .timeout(@timeout_options)
+          .timeout(@timeouts ? @timeouts : :null)
           .basic_auth(user: @api_key, pass: @api_secret)
       end
 

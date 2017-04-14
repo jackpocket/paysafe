@@ -14,7 +14,7 @@ class PaysafeTest < Minitest::Test
     client = Paysafe::REST::Client.new
 
     assert_equal client.test_mode, true
-    assert_equal client.timeout_options, { write: 2, connect: 5, read: 10 }
+    assert_nil client.timeouts
   end
 
   def test_client_is_configured_through_options
@@ -23,14 +23,14 @@ class PaysafeTest < Minitest::Test
       api_key: 'api_key',
       api_secret: 'api_secret',
       test_mode: false,
-      timeout_options: { connect: 30 }
+      timeouts: { connect: 30 }
     )
 
     assert_equal client.account_number, 'account_number'
     assert_equal client.api_key, 'api_key'
     assert_equal client.api_secret, 'api_secret'
     assert_equal client.test_mode, false
-    assert_equal client.timeout_options, { connect: 30 }
+    assert_equal client.timeouts, { connect: 30 }
   end
 
   def test_client_is_configured_with_block
