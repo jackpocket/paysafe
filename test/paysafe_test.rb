@@ -6,6 +6,10 @@ class PaysafeTest < Minitest::Test
     turn_on_vcr!
   end
 
+  def teardown
+    turn_off_vcr!
+  end
+
   def test_that_it_has_a_version_number
     refute_nil ::Paysafe::VERSION
   end
