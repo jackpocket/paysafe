@@ -15,12 +15,6 @@ module Paysafe
         end
       end
 
-      def generate_predicate_attr_reader(*attrs)
-        attrs.each do |attr|
-          define_predicate_method(attr)
-        end
-      end
-
       # Dynamically define a method for an attribute
       #
       # @param key1 [Symbol]
