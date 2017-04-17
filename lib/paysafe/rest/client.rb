@@ -56,7 +56,7 @@ module Paysafe
         fail_or_return_response_body(response.code, response_body)
       end
 
-      def create_profile_with_token(data)
+      def create_profile_from_token(data)
         response = post(path: "/customervault/v1/profiles", data: data.to_camel_case)
         response_body = symbolize_keys!(response.parse)
         fail_or_return_response_body(response.code, response_body)
@@ -85,10 +85,7 @@ module Paysafe
 
       def get_profile(id:, fields: [])
         path = "/customervault/v1/profiles/#{id}"
-
-        if !fields.empty?
-          path += "?fields=#{fields.join(',')}"
-        end
+        path += "?fields=#{fields.join(',')}" if !fields.empty?
 
         response = get(path: path)
         response_body = symbolize_keys!(response.parse)
@@ -124,7 +121,7 @@ module Paysafe
         fail_or_return_response_body(response.code, response_body)
       end
 
-      def create_card_with_token(profile_id, token:)
+      def create_card_from_token(profile_id, token:)
         data = { singleUseToken: token }
         response = post(path: "/customervault/v1/profiles/#{profile_id}/cards", data: data)
         response_body = symbolize_keys!(response.parse)
@@ -195,7 +192,7 @@ module Paysafe
         fail_or_return_response_body(response.code, response_body)
       end
 
-      def create_verification_with_token(merchant_ref_num:, token:)
+      def create_verification_from_token(merchant_ref_num:, token:)
         data = { merchantRefNum: merchant_ref_num, card: { paymentToken: token } }
         response = post(path: "/cardpayments/v1/accounts/#{account_number}/verifications", data: data)
         response_body = symbolize_keys!(response.parse)

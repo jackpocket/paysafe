@@ -41,7 +41,7 @@ class SingleUseTokenTest < Minitest::Test
     single_use_token = sut.payment_token
 
     id = Time.now.to_f.to_s
-    result = authenticated_client.create_verification_with_token(merchant_ref_num: id, token: single_use_token)
+    result = authenticated_client.create_verification_from_token(merchant_ref_num: id, token: single_use_token)
 
     refute_predicate result.id, :empty?
     assert_equal id, result.merchant_ref_num
@@ -84,7 +84,7 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal '10014', sut.billing_address.zip
 
     id = Time.now.to_f.to_s
-    profile = authenticated_client.create_profile_with_token(
+    profile = authenticated_client.create_profile_from_token(
       merchant_customer_id: id,
       locale: 'en_US',
       first_name: 'test',
@@ -146,7 +146,7 @@ class SingleUseTokenTest < Minitest::Test
       locale: 'en_US'
     )
 
-    card = authenticated_client.create_card_with_token(profile.id, token: sut.payment_token)
+    card = authenticated_client.create_card_from_token(profile.id, token: sut.payment_token)
 
     refute_predicate card.id, :empty?
     refute_predicate card.payment_token, :empty?
