@@ -50,6 +50,12 @@ module Paysafe
         credentials.values.all?
       end
 
+      def create_single_use_token(data)
+        response = post(path: "/customervault/v1/singleusetokens", data: data.to_camel_case)
+        response_body = symbolize_keys!(response.parse)
+        fail_or_return_response_body(response.code, response_body)
+      end
+
       def create_profile_with_token(data)
         response = post(path: "/customervault/v1/profiles", data: data.to_camel_case)
         response_body = symbolize_keys!(response.parse)
@@ -185,6 +191,13 @@ module Paysafe
         }
 
         response = post(path: "/cardpayments/v1/accounts/#{account_number}/auths", data: data)
+        response_body = symbolize_keys!(response.parse)
+        fail_or_return_response_body(response.code, response_body)
+      end
+
+      def create_verification_with_token(merchant_ref_num:, token:)
+        data = { merchantRefNum: merchant_ref_num, card: { paymentToken: token } }
+        response = post(path: "/cardpayments/v1/accounts/#{account_number}/verifications", data: data)
         response_body = symbolize_keys!(response.parse)
         fail_or_return_response_body(response.code, response_body)
       end
