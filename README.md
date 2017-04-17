@@ -24,7 +24,7 @@ Or install it yourself as:
 
     $ gem install paysafe
 
-To try out the gem and experiment, just the Development section instructions.
+To try out the gem and experiment, just follow the Development section instructions.
 
 ## Usage
 
@@ -33,9 +33,8 @@ TODO: Write usage instructions here
 ## Development
 
 1. Clone the repo: `git clone https://github.com/javierjulio/paysafe.git`
-2. Use Ruby 2.3+
-3. From project root run `./bin/setup` script
-4. Run `./bin/console` for an interactive prompt with an authenticated client for you to experiment:
+2. From project root run `./bin/setup` script
+3. Run `./bin/console` for an interactive prompt with an authenticated client for you to experiment:
 
   ```ruby
   profile = client.create_profile(merchant_customer_id: '123', locale: 'en_US')
