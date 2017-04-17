@@ -3,7 +3,7 @@ require 'test_helper'
 class IntegrationTest < Minitest::Test
 
   def setup
-    skip if ENV['SKIP_INTEGRATION_TESTS'] == 'true'
+    skip if ENV['SKIP_INTEGRATION'] == 'true'
 
     turn_off_vcr!
 
@@ -18,7 +18,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def teardown
-    skip if ENV['SKIP_INTEGRATION_TESTS'] == 'true'
+    skip if ENV['SKIP_INTEGRATION'] == 'true'
 
     authenticated_client.delete_profile(id: @profile_id)
 

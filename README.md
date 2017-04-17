@@ -46,7 +46,7 @@ Using this library, any parameters sent or responses are in snake_case despite t
 
 ### Tests
 
-Run `bundle exec rake test` or to skip integration tests run with `SKIP_INTEGRATION_TESTS=true`.
+Run `bundle exec rake test` or to skip integration tests run with `SKIP_INTEGRATION=true`.
 
 ### Releasing
 
