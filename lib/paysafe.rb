@@ -1,5 +1,6 @@
 require "paysafe/version"
 require "paysafe/error"
+require "paysafe/result"
 require "paysafe/refinements/camel_case"
 require "paysafe/refinements/snake_case"
 require "paysafe/rest/client"

@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.test.paysafe.com/customervault/v1/profiles/b088ac37-32cb-4320-9b64-f9f4923f53ed/cards/972ed74f-6ff1-4a5b-a460-a11e606e2fa9
     body:
       encoding: UTF-8
-      string: '{"cardExpiry":{"month":6,"year":2019},"holderName":"Johnny Smith","billingAddressId":"4bf9d2e7-4be0-4d13-b483-223640cb40a0"}'
+      string: '{"cardExpiry":{"month":6,"year":2019},"holderName":"John Smith","billingAddressId":"4bf9d2e7-4be0-4d13-b483-223640cb40a0"}'
     headers:
       Content-Type:
       - application/json
@@ -40,7 +40,7 @@ http_interactions:
       - close
     body:
       encoding: UTF-8
-      string: '{"status":"ACTIVE","id":"972ed74f-6ff1-4a5b-a460-a11e606e2fa9","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2019,"month":6},"holderName":"Johnny
+      string: '{"status":"ACTIVE","id":"972ed74f-6ff1-4a5b-a460-a11e606e2fa9","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2019,"month":6},"holderName":"John
         Smith","billingAddressId":"4bf9d2e7-4be0-4d13-b483-223640cb40a0","cardType":"VI","paymentToken":"CNBkqXXjTFdZNa3","defaultCardIndicator":true}'
     http_version:
   recorded_at: Thu, 29 Oct 2015 02:33:46 GMT

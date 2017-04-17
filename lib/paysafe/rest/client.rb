@@ -14,6 +14,9 @@ module Paysafe
         'X-Ruby-Platform' => RUBY_PLATFORM
       }
 
+      using Refinements::CamelCase
+      using Refinements::SnakeCase
+
       attr_accessor :account_number, :api_key, :api_secret, :test_mode, :timeouts
       attr_reader :api_base
 
@@ -47,29 +50,34 @@ module Paysafe
         credentials.values.all?
       end
 
-      def create_profile(merchantCustomerId:, locale:, **args)
+      def create_profile_with_token(data)
+        response = post(path: "/customervault/v1/profiles", data: data.to_camel_case)
+        response_body = symbolize_keys!(response.parse)
+        fail_or_return_response_body(response.code, response_body)
+      end
+
+      def create_profile(merchant_customer_id:, locale:, **args)
         data = {
-          merchantCustomerId: merchantCustomerId,
+          merchantCustomerId: merchant_customer_id,
           locale: locale,
-          firstName: args[:firstName],
-          lastName: args[:lastName],
+          firstName: args[:first_name],
+          lastName: args[:last_name],
           email: args[:email],
           card: args[:card]
         }
 
-        response = post(path: "/customervault/v1/profiles", data: data)
+        response = post(path: "/customervault/v1/profiles", data: data.to_camel_case)
         response_body = symbolize_keys!(response.parse)
         fail_or_return_response_body(response.code, response_body)
       end
 
       def delete_profile(id:)
         response = delete(path: "/customervault/v1/profiles/#{id}")
-        fail_or_return_response_body(response.code, (response.code == 200))
+        response_body = symbolize_keys!(response.parse)
+        fail_or_return_response_body(response.code, response.body)
       end
 
       def get_profile(id:, fields: [])
-        fields.keep_if { |field| field == :cards || field == :addresses }
-
         path = "/customervault/v1/profiles/#{id}"
 
         if !fields.empty?
@@ -81,12 +89,12 @@ module Paysafe
         fail_or_return_response_body(response.code, response_body)
       end
 
-      def update_profile(id:, merchantCustomerId:, locale:, **args)
+      def update_profile(id:, merchant_customer_id:, locale:, **args)
         data = {
-          merchantCustomerId: merchantCustomerId,
+          merchantCustomerId: merchant_customer_id,
           locale: locale,
-          firstName: args[:firstName],
-          lastName: args[:lastName],
+          firstName: args[:first_name],
+          lastName: args[:last_name],
           email: args[:email]
         }
 
@@ -97,7 +105,7 @@ module Paysafe
 
       def create_address(profile_id:, country:, zip:, **args)
         data = {
-          nickName: args[:nickName],
+          nickName: args[:nick_name],
           street: args[:street],
           city: args[:city],
           country: country,
@@ -110,6 +118,13 @@ module Paysafe
         fail_or_return_response_body(response.code, response_body)
       end
 
+      def create_card_with_token(profile_id, token:)
+        data = { singleUseToken: token }
+        response = post(path: "/customervault/v1/profiles/#{profile_id}/cards", data: data)
+        response_body = symbolize_keys!(response.parse)
+        fail_or_return_response_body(response.code, response_body)
+      end
+
       def create_card(profile_id:, number:, month:, year:, **args)
         data = {
           cardNum: number,
@@ -117,11 +132,11 @@ module Paysafe
             month: month,
             year: year
           },
-          nickName: args[:nickName],
-          holderName: args[:holderName],
-          merchantRefNum: args[:merchantRefNum],
-          billingAddressId: args[:billingAddressId],
-          defaultCardIndicator: args[:defaultCardIndicator]
+          nickName: args[:nick_name],
+          holderName: args[:holder_name],
+          merchantRefNum: args[:merchant_ref_num],
+          billingAddressId: args[:billing_address_id],
+          defaultCardIndicator: args[:default_card_indicator]
         }.reject { |key, value| value.nil? }
 
         response = post(path: "/customervault/v1/profiles/#{profile_id}/cards", data: data)
@@ -147,11 +162,11 @@ module Paysafe
             month: month,
             year: year
           },
-          nickName: args[:nickName],
-          holderName: args[:holderName],
-          merchantRefNum: args[:merchantRefNum],
-          billingAddressId: args[:billingAddressId],
-          defaultCardIndicator: args[:defaultCardIndicator]
+          nickName: args[:nick_name],
+          holderName: args[:holder_name],
+          merchantRefNum: args[:merchant_ref_num],
+          billingAddressId: args[:billing_address_id],
+          defaultCardIndicator: args[:default_card_indicator]
         }.reject { |key, value| value.nil? }
 
         response = put(path: "/customervault/v1/profiles/#{profile_id}/cards/#{id}", data: data)
@@ -159,10 +174,10 @@ module Paysafe
         fail_or_return_response_body(response.code, response_body)
       end
 
-      def purchase(amount:, token:, merchantRefNum:, **args)
+      def purchase(amount:, token:, merchant_ref_num:, **args)
         data = {
           amount: amount,
-          merchantRefNum: merchantRefNum,
+          merchantRefNum: merchant_ref_num,
           settleWithAuth: true,
           card: {
             paymentToken: token
@@ -174,9 +189,9 @@ module Paysafe
         fail_or_return_response_body(response.code, response_body)
       end
 
-      def verify_card(merchantRefNum:, number:, month:, year:, **args)
+      def verify_card(merchant_ref_num:, number:, month:, year:, **args)
         data = {
-          merchantRefNum: merchantRefNum,
+          merchantRefNum: merchant_ref_num,
           card: {
             cardNum: number,
             cardExpiry: {
@@ -186,12 +201,12 @@ module Paysafe
             cvv: args[:cvv]
           },
           profile: {
-            firstName: args[:firstName],
-            lastName: args[:lastName],
+            firstName: args[:first_name],
+            lastName: args[:last_name],
             email: args[:email]
           },
           billingDetails: args[:address],
-          customerIp: args[:customerIp],
+          customerIp: args[:customer_ip],
           description: args[:description]
         }
 
@@ -243,7 +258,7 @@ module Paysafe
           error = Paysafe::Error.error_from_response(body, code)
           fail(error)
         end
-        body
+        Result.new(body&.to_snake_case) if body.is_a? Hash
       end
 
     end
