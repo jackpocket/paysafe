@@ -4,6 +4,10 @@ class CamelCaseTest < Minitest::Test
 
   using ::Paysafe::Refinements::CamelCase
 
+  def test_empty_hash
+    assert_equal({}, {}.to_camel_case)
+  end
+
   def test_hash_conversion
     hash = {
       merchant_ref_num: 123,
@@ -32,7 +36,7 @@ class CamelCaseTest < Minitest::Test
     assert_equal expected, hash.to_camel_case
   end
 
-  def test_nested_array_conversion
+  def test_conversion_of_hash_with_array
     hash = {
       id: 'abc',
       merchant_customer_id: '456def',

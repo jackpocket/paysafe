@@ -4,6 +4,10 @@ class SnakeCaseTest < Minitest::Test
 
   using ::Paysafe::Refinements::SnakeCase
 
+  def test_empty_hash
+    assert_equal({}, {}.to_snake_case)
+  end
+
   def test_hash_conversion
     hash = {
       merchantRefNum: 123,
@@ -32,7 +36,7 @@ class SnakeCaseTest < Minitest::Test
     assert_equal expected, hash.to_snake_case
   end
 
-  def test_nested_array_conversion
+  def test_conversion_of_hash_with_array
     hash = {
       id: 'abc',
       merchantCustomerId: '456def',
