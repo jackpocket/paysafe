@@ -6,7 +6,7 @@
 [gem]: https://rubygems.org/gems/paysafe
 [travis]: https://travis-ci.org/javierjulio/paysafe
 
-A tested Ruby interface to the Paysafe REST API (formerly Optimal Payments). Note: requires Ruby 2.1 and up. Not all API actions are supported yet.
+A tested Ruby interface to the Paysafe REST API (formerly Optimal Payments). Note: requires Ruby 2.3 and up. Not all API actions are supported yet.
 
 ## Installation
 
