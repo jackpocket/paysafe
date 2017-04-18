@@ -52,13 +52,13 @@ module Paysafe
       def create_single_use_token(data)
         response = post(path: "/customervault/v1/singleusetokens", data: data.to_camel_case)
         response_body = symbolize_keys!(response.parse)
-        fail_or_return_response_body(response.code, response_body)
+        fail_or_return_response_body(response.code, response_body, SingleUseToken)
       end
 
       def create_profile_from_token(data)
         response = post(path: "/customervault/v1/profiles", data: data.to_camel_case)
         response_body = symbolize_keys!(response.parse)
-        fail_or_return_response_body(response.code, response_body)
+        fail_or_return_response_body(response.code, response_body, Profile)
       end
 
       def create_profile(merchant_customer_id:, locale:, **args)
@@ -73,7 +73,7 @@ module Paysafe
 
         response = post(path: "/customervault/v1/profiles", data: data.to_camel_case)
         response_body = symbolize_keys!(response.parse)
-        fail_or_return_response_body(response.code, response_body)
+        fail_or_return_response_body(response.code, response_body, Profile)
       end
 
       def delete_profile(id:)
@@ -88,7 +88,7 @@ module Paysafe
 
         response = get(path: path)
         response_body = symbolize_keys!(response.parse)
-        fail_or_return_response_body(response.code, response_body)
+        fail_or_return_response_body(response.code, response_body, Profile)
       end
 
       def update_profile(id:, merchant_customer_id:, locale:, **args)
@@ -102,7 +102,7 @@ module Paysafe
 
         response = put(path: "/customervault/v1/profiles/#{id}", data: data)
         response_body = symbolize_keys!(response.parse)
-        fail_or_return_response_body(response.code, response_body)
+        fail_or_return_response_body(response.code, response_body, Profile)
       end
 
       def create_address(profile_id:, country:, zip:, **args)
@@ -117,14 +117,14 @@ module Paysafe
 
         response = post(path: "/customervault/v1/profiles/#{profile_id}/addresses", data: data)
         response_body = symbolize_keys!(response.parse)
-        fail_or_return_response_body(response.code, response_body)
+        fail_or_return_response_body(response.code, response_body, Address)
       end
 
       def create_card_from_token(profile_id, token:)
         data = { singleUseToken: token }
         response = post(path: "/customervault/v1/profiles/#{profile_id}/cards", data: data)
         response_body = symbolize_keys!(response.parse)
-        fail_or_return_response_body(response.code, response_body)
+        fail_or_return_response_body(response.code, response_body, Card)
       end
 
       def create_card(profile_id:, number:, month:, year:, **args)
@@ -143,7 +143,7 @@ module Paysafe
 
         response = post(path: "/customervault/v1/profiles/#{profile_id}/cards", data: data)
         response_body = symbolize_keys!(response.parse)
-        fail_or_return_response_body(response.code, response_body)
+        fail_or_return_response_body(response.code, response_body, Card)
       end
 
       def delete_card(profile_id:, id:)
@@ -155,7 +155,7 @@ module Paysafe
       def get_card(profile_id:, id:)
         response = get(path: "/customervault/v1/profiles/#{profile_id}/cards/#{id}")
         response_body = symbolize_keys!(response.parse)
-        fail_or_return_response_body(response.code, response_body)
+        fail_or_return_response_body(response.code, response_body, Card)
       end
 
       def update_card(profile_id:, id:, month:, year:, **args)
@@ -173,7 +173,7 @@ module Paysafe
 
         response = put(path: "/customervault/v1/profiles/#{profile_id}/cards/#{id}", data: data)
         response_body = symbolize_keys!(response.parse)
-        fail_or_return_response_body(response.code, response_body)
+        fail_or_return_response_body(response.code, response_body, Card)
       end
 
       def purchase(amount:, token:, merchant_ref_num:, **args)
@@ -188,14 +188,14 @@ module Paysafe
 
         response = post(path: "/cardpayments/v1/accounts/#{account_number}/auths", data: data)
         response_body = symbolize_keys!(response.parse)
-        fail_or_return_response_body(response.code, response_body)
+        fail_or_return_response_body(response.code, response_body, Authorization)
       end
 
       def create_verification_from_token(merchant_ref_num:, token:)
         data = { merchantRefNum: merchant_ref_num, card: { paymentToken: token } }
         response = post(path: "/cardpayments/v1/accounts/#{account_number}/verifications", data: data)
         response_body = symbolize_keys!(response.parse)
-        fail_or_return_response_body(response.code, response_body)
+        fail_or_return_response_body(response.code, response_body, Verification)
       end
 
       def verify_card(merchant_ref_num:, number:, month:, year:, **args)
@@ -221,7 +221,7 @@ module Paysafe
 
         response = post(path: "/cardpayments/v1/accounts/#{account_number}/verifications", data: data)
         response_body = symbolize_keys!(response.parse)
-        fail_or_return_response_body(response.code, response_body)
+        fail_or_return_response_body(response.code, response_body, Verification)
       end
 
       private
@@ -262,12 +262,12 @@ module Paysafe
         object
       end
 
-      def fail_or_return_response_body(code, body)
+      def fail_or_return_response_body(code, body, klass=Result)
         if code < 200 || code >= 206
           error = Paysafe::Error.error_from_response(body, code)
           fail(error)
         end
-        Result.new(body&.to_snake_case) if body.is_a? Hash
+        klass.new(body&.to_snake_case) if body.is_a? Hash
       end
 
     end

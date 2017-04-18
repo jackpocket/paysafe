@@ -15,16 +15,25 @@ module Paysafe
         end
       end
 
+      # Define object methods from attributes
+      #
+      # @param klass [Symbol]
+      # @param key1 [Symbol]
+      def object_attr_reader(klass, key1)
+        define_attribute_method(key1, klass)
+        define_predicate_method(key1)
+      end
+
       # Dynamically define a method for an attribute
       #
       # @param key1 [Symbol]
-      def define_attribute_method(key1)
+      # @param klass [Symbol]
+      def define_attribute_method(key1, klass = nil)
         define_method(key1) do
-          if instance_variable_defined? "@#{key1}"
+          if instance_variable_defined?("@#{key1}")
             return instance_variable_get("@#{key1}")
           end
-
-          instance_variable_set("@#{key1}", get_value_by(key1))
+          instance_variable_set("@#{key1}", get_value_by(key1, klass))
         end
       end
 
@@ -45,10 +54,6 @@ module Paysafe
     # @return [Paysafe::Result]
     def initialize(attributes={})
       @attributes = attributes || {}
-
-      @attributes.each do |key, value|
-        Result.generate_attr_reader key
-      end
     end
 
     def empty?
@@ -61,12 +66,16 @@ module Paysafe
       !@attributes[key] || @attributes[key].respond_to?(:empty?) && @attributes[key].empty?
     end
 
-    def get_value_by(key)
+    def get_value_by(key, klass = nil)
+      return @attributes[key] if klass.nil?
+
       case @attributes[key]
       when Hash
-        Result.new(@attributes[key])
+        Paysafe.const_get(klass).new(@attributes[key])
       when Array
-        @attributes[key].map { |value| Result.new(value) }
+        @attributes[key].map do |value|
+          Paysafe.const_get(klass).new(value)
+        end
       else
         @attributes[key]
       end
