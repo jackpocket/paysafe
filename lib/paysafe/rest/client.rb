@@ -38,10 +38,7 @@ module Paysafe
 
       # @return [Hash]
       def credentials
-        {
-          api_key: api_key,
-          api_secret: api_secret
-        }
+        { api_key: api_key, api_secret: api_secret }
       end
 
       # @return [Boolean]
@@ -51,14 +48,12 @@ module Paysafe
 
       def create_single_use_token(data)
         response = post(path: "/customervault/v1/singleusetokens", data: data.to_camel_case)
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body, SingleUseToken)
+        process_response(response, SingleUseToken)
       end
 
       def create_profile_from_token(data)
         response = post(path: "/customervault/v1/profiles", data: data.to_camel_case)
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body, Profile)
+        process_response(response, Profile)
       end
 
       def create_profile(merchant_customer_id:, locale:, **args)
@@ -72,14 +67,12 @@ module Paysafe
         }
 
         response = post(path: "/customervault/v1/profiles", data: data.to_camel_case)
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body, Profile)
+        process_response(response, Profile)
       end
 
       def delete_profile(id:)
         response = delete(path: "/customervault/v1/profiles/#{id}")
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body)
+        process_response(response)
       end
 
       def get_profile(id:, fields: [])
@@ -87,8 +80,7 @@ module Paysafe
         path += "?fields=#{fields.join(',')}" if !fields.empty?
 
         response = get(path: path)
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body, Profile)
+        process_response(response, Profile)
       end
 
       def update_profile(id:, merchant_customer_id:, locale:, **args)
@@ -101,8 +93,7 @@ module Paysafe
         }
 
         response = put(path: "/customervault/v1/profiles/#{id}", data: data)
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body, Profile)
+        process_response(response, Profile)
       end
 
       def create_address(profile_id:, country:, zip:, **args)
@@ -116,15 +107,13 @@ module Paysafe
         }
 
         response = post(path: "/customervault/v1/profiles/#{profile_id}/addresses", data: data)
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body, Address)
+        process_response(response, Address)
       end
 
       def create_card_from_token(profile_id, token:)
         data = { singleUseToken: token }
         response = post(path: "/customervault/v1/profiles/#{profile_id}/cards", data: data)
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body, Card)
+        process_response(response, Card)
       end
 
       def create_card(profile_id:, number:, month:, year:, **args)
@@ -142,20 +131,17 @@ module Paysafe
         }.reject { |key, value| value.nil? }
 
         response = post(path: "/customervault/v1/profiles/#{profile_id}/cards", data: data)
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body, Card)
+        process_response(response, Card)
       end
 
       def delete_card(profile_id:, id:)
         response = delete(path: "/customervault/v1/profiles/#{profile_id}/cards/#{id}")
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body)
+        process_response(response)
       end
 
       def get_card(profile_id:, id:)
         response = get(path: "/customervault/v1/profiles/#{profile_id}/cards/#{id}")
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body, Card)
+        process_response(response, Card)
       end
 
       def update_card(profile_id:, id:, month:, year:, **args)
@@ -172,8 +158,7 @@ module Paysafe
         }.reject { |key, value| value.nil? }
 
         response = put(path: "/customervault/v1/profiles/#{profile_id}/cards/#{id}", data: data)
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body, Card)
+        process_response(response, Card)
       end
 
       def purchase(amount:, token:, merchant_ref_num:, **args)
@@ -187,15 +172,13 @@ module Paysafe
         }
 
         response = post(path: "/cardpayments/v1/accounts/#{account_number}/auths", data: data)
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body, Authorization)
+        process_response(response, Authorization)
       end
 
       def create_verification_from_token(merchant_ref_num:, token:)
         data = { merchantRefNum: merchant_ref_num, card: { paymentToken: token } }
         response = post(path: "/cardpayments/v1/accounts/#{account_number}/verifications", data: data)
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body, Verification)
+        process_response(response, Verification)
       end
 
       def verify_card(merchant_ref_num:, number:, month:, year:, **args)
@@ -220,8 +203,7 @@ module Paysafe
         }
 
         response = post(path: "/cardpayments/v1/accounts/#{account_number}/verifications", data: data)
-        response_body = symbolize_keys!(response.parse)
-        fail_or_return_result(response.code, response_body, Verification)
+        process_response(response, Verification)
       end
 
       private
@@ -249,25 +231,20 @@ module Paysafe
         http_client.put("#{api_base}#{path}", json: data)
       end
 
-      def symbolize_keys!(object)
-        if object.is_a?(Array)
-          object.each_with_index do |val, index|
-            object[index] = symbolize_keys!(val)
-          end
-        elsif object.is_a?(Hash)
-          object.keys.each do |key|
-            object[key.to_sym] = symbolize_keys!(object.delete(key))
-          end
+      def process_response(response, klass=nil)
+        data = parse_response_body(response.to_s)
+
+        if response.status.success?
+          klass&.new(data)
+        else
+          fail Error.from_response(data, response.code)
         end
-        object
       end
 
-      def fail_or_return_result(code, body, klass=Result)
-        if code < 200 || code >= 206
-          error = Paysafe::Error.error_from_response(body, code)
-          fail(error)
-        end
-        klass.new(body&.to_snake_case)
+      def parse_response_body(body)
+        return nil if body.strip.empty?
+        JSON.parse(body, symbolize_names: true)&.to_snake_case
+      rescue JSON::ParserError
       end
 
     end
