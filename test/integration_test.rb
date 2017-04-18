@@ -262,7 +262,7 @@ class IntegrationTest < Minitest::Test
     card = authenticated_client.create_card(profile_id: @profile.id, number: '5410110488911728', month: 12, year: 2019, billing_address_id: address.id)
 
     # 3 - Delete Card
-    assert_nil authenticated_client.delete_card(profile_id: @profile.id, id: card.id)
+    authenticated_client.delete_card(profile_id: @profile.id, id: card.id)
 
     # 4 - Deleting an already deleted card fails
     assert_raises(Paysafe::Error::NotFound) {
@@ -342,7 +342,7 @@ class IntegrationTest < Minitest::Test
     refute_predicate result.auth_code, :empty?
 
     # 4 - Delete Card
-    card = authenticated_client.delete_card(profile_id: @profile.id, id: card.id)
+    authenticated_client.delete_card(profile_id: @profile.id, id: card.id)
   end
 
 end
