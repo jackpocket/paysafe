@@ -284,9 +284,12 @@ class PaysafeTest < Minitest::Test
 
   def test_create_card_failed_400
     VCR.use_cassette('create_card_failed_400') do
-      assert_raises(Paysafe::Error::BadRequest) {
+      error = assert_raises(Paysafe::Error::BadRequest) {
         test_client.create_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', number: '4111111111', month: 12, year: 2017)
       }
+
+      # Converts response keys to snake_case
+      assert error.response[:error][:field_errors].any?
     end
   end
 
