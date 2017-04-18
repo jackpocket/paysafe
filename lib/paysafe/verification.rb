@@ -1,13 +1,13 @@
 require 'paysafe/result'
 
 module Paysafe
-  class Verification < Paysafe::Result
-    generate_attr_reader :id, :merchant_ref_num, :child_account_num,
+  class Verification < Result
+    attributes :id, :merchant_ref_num, :child_account_num,
       :auth_code, :customer_ip, :dup_check, :description, :txn_time,
       :currency_code, :avs_response, :cvv_verification, :status
 
-    object_attr_reader :Profile, :profile
-    object_attr_reader :Card, :card
-    object_attr_reader :Address, :billing_details
+    object_attribute :Profile, :profile
+    object_attribute :Card, :card
+    object_attribute :Address, :billing_details
   end
 end

@@ -1,14 +1,11 @@
 module Paysafe
   class Result
 
-    # @return [Hash]
-    attr_reader :attributes
-
     class << self
       # Define methods that retrieve the value from attributes
       #
       # @param attrs [Array, Symbol]
-      def generate_attr_reader(*attrs)
+      def attributes(*attrs)
         attrs.each do |attr|
           define_attribute_method(attr)
           define_predicate_method(attr)
@@ -19,7 +16,7 @@ module Paysafe
       #
       # @param klass [Symbol]
       # @param key1 [Symbol]
-      def object_attr_reader(klass, key1)
+      def object_attribute(klass, key1)
         define_attribute_method(key1, klass)
         define_predicate_method(key1)
       end
@@ -56,6 +53,10 @@ module Paysafe
       @attributes = attributes || {}
     end
 
+    # @return [Hash]
+    attr_reader :attributes
+
+    # @return [Boolean]
     def empty?
       @attributes.empty?
     end
