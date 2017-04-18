@@ -24,7 +24,7 @@ Or install it yourself as:
 
     $ gem install paysafe
 
-To try out the gem and experiment, just follow the Development section instructions.
+To try out the gem, just follow the Development section instructions.
 
 ## Usage
 
@@ -32,8 +32,8 @@ TODO: Write usage instructions here
 
 ## Development
 
-1. Clone the repo: `git clone https://github.com/javierjulio/paysafe.git`
-2. From project root run `./bin/setup` script
+1. `git clone https://github.com/javierjulio/paysafe.git`
+2. Run `./bin/setup` to install dependencies and fill out API key info
 3. Run `./bin/console` for an interactive prompt with an authenticated client for you to experiment:
 
   ```ruby
