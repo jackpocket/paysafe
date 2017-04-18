@@ -66,7 +66,7 @@ class PaysafeTest < Minitest::Test
   def test_credentials?
     assert test_client.credentials?
 
-    client = Paysafe::REST::Client.new(account_number: 'account_number')
+    client = Paysafe::REST::Client.new(api_key: 'api_key')
 
     refute client.credentials?
   end

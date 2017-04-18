@@ -39,7 +39,6 @@ module Paysafe
       # @return [Hash]
       def credentials
         {
-          account_number: account_number,
           api_key: api_key,
           api_secret: api_secret
         }
