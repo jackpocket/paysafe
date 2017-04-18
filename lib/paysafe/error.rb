@@ -81,22 +81,21 @@ module Paysafe
       # @param body [String]
       # @param code [Integer]
       # @return [Paysafe::Error]
-      def error_from_response(body, code)
+      def from_response(body, code)
         klass = ERRORS[code] || Paysafe::Error
         message, error_code = parse_error(body)
         klass.new(message: message, code: error_code, response: body)
       end
 
-    private
+      private
 
       def parse_error(body)
-        if body.nil? || body.empty?
-          ['', nil]
-        elsif body.is_a?(Hash) && body[:error].is_a?(Hash)
-          [body[:error][:message], body[:error][:code]]
+        if body.is_a?(Hash)
+          [ body.dig(:error, :message), body.dig(:error, :code) ]
+        else
+          [ '', nil ]
         end
       end
-
     end
 
     # Initializes a new Error object
