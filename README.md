@@ -27,11 +27,11 @@ TODO: Write usage instructions here
 2. Run `./bin/setup` to install dependencies and fill out API key info
 3. Run `./bin/console` for an interactive prompt with an authenticated client for you to experiment:
 
-  ```ruby
-  profile = client.create_profile(merchant_customer_id: '123', locale: 'en_US')
-  puts profile.id
-  # => b088ac37...
-  ```
+    ```ruby
+    profile = client.create_profile(merchant_customer_id: '123', locale: 'en_US')
+    puts profile.id
+    # => b088ac37...
+    ```
 
 All code is written in snake_case since requests and responses are converted to and from camelCase for you.
 
