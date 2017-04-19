@@ -3,10 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/paysafe.svg)][gem]
 [![Build Status](https://travis-ci.org/javierjulio/paysafe.svg?branch=master)][travis]
 
-[gem]: https://rubygems.org/gems/paysafe
-[travis]: https://travis-ci.org/javierjulio/paysafe
-
-A well tested Ruby interface to the Paysafe REST API (formerly Optimal Payments). Note: requires Ruby 2.3 and up. Not all API actions are supported but the essential ones are there.
+A well tested Ruby interface to the [Paysafe REST API](paysafe_api_reference) (formerly Optimal Payments). Requires Ruby 2.3 and up. Not all API actions are supported yet. Since the Paysafe API uses camelCase, this gem will handle converting to and from snake_case for you.
 
 ## Installation
 
@@ -18,7 +15,7 @@ gem 'paysafe'
 
 Or install directly with `gem install paysafe`.
 
-To try out the gem, just follow the Development section instructions as the built in setup script will help you provide the necessary API info.
+To try out the gem, just follow the Development section instructions as the built in setup script will direct you on how to provide the necessary API info.
 
 ## Usage
 
@@ -36,7 +33,7 @@ TODO: Write usage instructions here
   # => b088ac37...
   ```
 
-Using this library, any parameters sent or responses are in snake_case despite the Paysafe REST API using camel case. All payloads in snake_case will be converted to camelCase automatically and responses in reverse as noted in the example above.
+All code is written in snake_case since requests and responses are converted to and from camelCase for you.
 
 ### Tests
 
@@ -53,3 +50,7 @@ Bug reports and pull requests for missing API support are welcome on GitHub at h
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+[gem]: https://rubygems.org/gems/paysafe
+[travis]: https://travis-ci.org/javierjulio/paysafe
+[paysafe_api_reference]: https://developer.paysafe.com/en/api-reference/
