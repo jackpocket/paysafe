@@ -4,15 +4,16 @@ IFS=$'\n\t'
 
 bundle install
 
-read -r -p 'Do you have an Optimal Payments Developer Centre account? (y/n) ' has_account
+read -r -p 'Do you have an Paysafe Developer account? (y/n) ' has_account
 
 if [[ "$has_account" =~ ^(Yes|yes|Y|y)$ ]]; then
   echo "Great! You can get your account credentials from:"
-  echo "  https://developer.optimalpayments.com/en/my-account/"
+  echo "  https://login.test.netbanx.com/office/public/preLogin.htm"
   echo
 else
-  echo "Then you'll need to create an account first at:"
-  echo "  https://developer.optimalpayments.com/en/get-started/"
+  echo "Then you'll need to create an account first."
+  echo "Click the 'Sign Up' button on the following page:"
+  echo "  https://developer.paysafe.com/"
   echo
   read -s -p "Press Enter key if you're ready to continue..."
   echo
@@ -24,8 +25,8 @@ read -p 'API Key: ' api_key
 read -p 'API Secret: ' api_secret
 
 cp .env.sample .env
-sed -i -e s/YOUR_ACCOUNT_NUMBER/"$account_number"/g .env
-sed -i -e s/YOUR_API_KEY/"$api_key"/g .env
-sed -i -e s/YOUR_API_SECRET/"$api_secret"/g .env
+sed -i '' -e "s/YOUR_ACCOUNT_NUMBER/$account_number/g" .env
+sed -i '' -e "s/YOUR_API_KEY/$api_key/g" .env
+sed -i '' -e "s/YOUR_API_SECRET/$api_secret/g" .env
 
 echo "Done."
