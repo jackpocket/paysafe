@@ -141,7 +141,10 @@ class SingleUseTokenTest < Minitest::Test
       locale: 'en_US'
     )
 
-    card = authenticated_client.create_card_from_token(profile.id, token: sut.payment_token)
+    card = authenticated_client.create_card_from_token(
+      profile_id: profile.id,
+      token: sut.payment_token
+    )
 
     refute_predicate card.id, :empty?
     refute_predicate card.payment_token, :empty?
