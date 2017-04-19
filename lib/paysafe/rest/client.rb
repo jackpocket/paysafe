@@ -1,4 +1,5 @@
 require 'http'
+require 'json'
 
 module Paysafe
   module REST
@@ -57,16 +58,12 @@ module Paysafe
       end
 
       def create_profile(merchant_customer_id:, locale:, **args)
-        data = {
-          merchantCustomerId: merchant_customer_id,
-          locale: locale,
-          firstName: args[:first_name],
-          lastName: args[:last_name],
-          email: args[:email],
-          card: args[:card]
-        }
+        data = args.merge({
+          merchant_customer_id: merchant_customer_id,
+          locale: locale
+        }).to_camel_case
 
-        response = post(path: "/customervault/v1/profiles", data: data.to_camel_case)
+        response = post(path: "/customervault/v1/profiles", data: data)
         process_response(response, Profile)
       end
 
@@ -84,51 +81,35 @@ module Paysafe
       end
 
       def update_profile(id:, merchant_customer_id:, locale:, **args)
-        data = {
-          merchantCustomerId: merchant_customer_id,
-          locale: locale,
-          firstName: args[:first_name],
-          lastName: args[:last_name],
-          email: args[:email]
-        }
+        data = args.merge({
+          merchant_customer_id: merchant_customer_id,
+          locale: locale
+        }).to_camel_case
 
         response = put(path: "/customervault/v1/profiles/#{id}", data: data)
         process_response(response, Profile)
       end
 
       def create_address(profile_id:, country:, zip:, **args)
-        data = {
-          nickName: args[:nick_name],
-          street: args[:street],
-          city: args[:city],
-          country: country,
-          state: args[:state],
-          zip: zip
-        }
-
+        data = args.merge({ country: country, zip: zip }).to_camel_case
         response = post(path: "/customervault/v1/profiles/#{profile_id}/addresses", data: data)
         process_response(response, Address)
       end
 
       def create_card_from_token(profile_id, token:)
-        data = { singleUseToken: token }
+        data = { single_use_token: token }.to_camel_case
         response = post(path: "/customervault/v1/profiles/#{profile_id}/cards", data: data)
         process_response(response, Card)
       end
 
       def create_card(profile_id:, number:, month:, year:, **args)
-        data = {
-          cardNum: number,
-          cardExpiry: {
+        data = args.merge({
+          card_num: number,
+          card_expiry: {
             month: month,
             year: year
-          },
-          nickName: args[:nick_name],
-          holderName: args[:holder_name],
-          merchantRefNum: args[:merchant_ref_num],
-          billingAddressId: args[:billing_address_id],
-          defaultCardIndicator: args[:default_card_indicator]
-        }.reject { |key, value| value.nil? }
+          }
+        }).reject { |key, value| value.nil? }.to_camel_case
 
         response = post(path: "/customervault/v1/profiles/#{profile_id}/cards", data: data)
         process_response(response, Card)
@@ -145,17 +126,12 @@ module Paysafe
       end
 
       def update_card(profile_id:, id:, month:, year:, **args)
-        data = {
-          cardExpiry: {
+        data = args.merge({
+          card_expiry: {
             month: month,
             year: year
-          },
-          nickName: args[:nick_name],
-          holderName: args[:holder_name],
-          merchantRefNum: args[:merchant_ref_num],
-          billingAddressId: args[:billing_address_id],
-          defaultCardIndicator: args[:default_card_indicator]
-        }.reject { |key, value| value.nil? }
+          }
+        }).reject { |key, value| value.nil? }.to_camel_case
 
         response = put(path: "/customervault/v1/profiles/#{profile_id}/cards/#{id}", data: data)
         process_response(response, Card)
@@ -164,43 +140,36 @@ module Paysafe
       def purchase(amount:, token:, merchant_ref_num:, **args)
         data = {
           amount: amount,
-          merchantRefNum: merchant_ref_num,
-          settleWithAuth: true,
+          merchant_ref_num: merchant_ref_num,
+          settle_with_auth: true,
           card: {
-            paymentToken: token
+            payment_token: token
           }
-        }
+        }.to_camel_case
 
         response = post(path: "/cardpayments/v1/accounts/#{account_number}/auths", data: data)
         process_response(response, Authorization)
       end
 
       def create_verification_from_token(merchant_ref_num:, token:)
-        data = { merchantRefNum: merchant_ref_num, card: { paymentToken: token } }
+        data = { merchant_ref_num: merchant_ref_num, card: { payment_token: token } }.to_camel_case
         response = post(path: "/cardpayments/v1/accounts/#{account_number}/verifications", data: data)
         process_response(response, Verification)
       end
 
-      def verify_card(merchant_ref_num:, number:, month:, year:, **args)
-        data = {
-          merchantRefNum: merchant_ref_num,
+      def verify_card(merchant_ref_num:, number:, month:, year:, cvv:, address:, **args)
+        data = args.merge({
+          merchant_ref_num: merchant_ref_num,
+          billing_details: address,
           card: {
-            cardNum: number,
-            cardExpiry: {
+            card_num: number,
+            cvv: cvv,
+            card_expiry: {
               month: month,
               year: year
-            },
-            cvv: args[:cvv]
-          },
-          profile: {
-            firstName: args[:first_name],
-            lastName: args[:last_name],
-            email: args[:email]
-          },
-          billingDetails: args[:address],
-          customerIp: args[:customer_ip],
-          description: args[:description]
-        }
+            }
+          }
+        }).to_camel_case
 
         response = post(path: "/cardpayments/v1/accounts/#{account_number}/verifications", data: data)
         process_response(response, Verification)

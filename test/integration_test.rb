@@ -223,7 +223,8 @@ class IntegrationTest < Minitest::Test
         street: 'Z', # trigger AVS MATCH_ZIP_ONLY response
         country: 'US',
         zip: '10014'
-      }
+      },
+      description: 'Test card verification.'
     )
 
     refute_predicate result.id, :empty?
@@ -240,6 +241,7 @@ class IntegrationTest < Minitest::Test
     assert_equal 'USD', result.currency_code
     assert_equal 'MATCH_ZIP_ONLY', result.avs_response
     assert_equal 'MATCH', result.cvv_verification
+    assert_equal 'Test card verification.', result.description
 
     # 2 - Create Address and attach to Profile
     address = authenticated_client.create_address(profile_id: @profile.id, country: 'US', zip: '10014')
