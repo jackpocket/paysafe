@@ -19,44 +19,54 @@ To try out the gem, just follow the Development section instructions as the buil
 
 ## Usage
 
-* Create a client and provide your API authentication.
+### Client Configuration
 
-  ```ruby
-  client = Paysafe::REST::Client.new do |config|
-    config.account_number = '1234567890'
-    config.api_key = 'api_key'
-    config.api_secret = 'api_secret'
-  end
-  ```
+Create and configure a client with your API authentication.
 
-* Make an API request with a payload in the structure documented by the [Paysafe REST API](paysafe_api_reference) but using snake_case. The request payload will be converted to camelCase for you.
+```ruby
+client = Paysafe::REST::Client.new do |config|
+  config.account_number = '1234567890'
+  config.api_key = 'api_key'
+  config.api_secret = 'api_secret'
+  # Enable production requests
+  # config.test_mode = false
+  # Provide explicit timeouts
+  # config.timeouts = { connect: 2, read: 5, write: 10 }
+end
+```
 
-  ```ruby
-  profile = client.create_profile(
-    merchant_customer_id: '123',
-    locale: 'en_US',
-    card: {
-      card_num: '4111111111111111',
-      card_expiry: {
-        month: 12,
-        year: 2020
-      }
+### Making Requests
+
+Make an API request with a payload in the structure documented by the [Paysafe REST API](paysafe_api_reference) but using snake_case. The request payload will be converted to camelCase for you.
+
+```ruby
+profile = client.create_profile(
+  merchant_customer_id: '123',
+  locale: 'en_US',
+  card: {
+    card_num: '4111111111111111',
+    card_expiry: {
+      month: 12,
+      year: 2020
     }
-  )
-  ```
+  }
+)
+```
 
-* Response data is in snake_case (converted from camelCase) typed with individual methods and predicates, including nested complex objects and array of objects as shown below:
+### Handling Responses
 
-  ```ruby
-  profile.id?
-  # => true
-  profile.id
-  # => b088ac37...
-  profile.cards.first.card_expiry.year
-  # => 2020
-  ```
+Response data is in snake_case (converted from camelCase) typed with individual methods and predicates, including nested complex objects and array of objects as shown below:
 
-* Further methods are provided in the `Paysafe::REST::Client` object.
+```ruby
+profile.id?
+# => true
+profile.id
+# => b088ac37...
+profile.cards.first.card_expiry.year
+# => 2020
+```
+
+Further API methods are provided in the `Paysafe::REST::Client` object.
 
 ## Development
 
