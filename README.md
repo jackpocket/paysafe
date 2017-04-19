@@ -10,21 +10,15 @@ A well tested Ruby interface to the Paysafe REST API (formerly Optimal Payments)
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add the following to your application's Gemfile:
 
 ```ruby
 gem 'paysafe'
 ```
 
-And then execute:
+Or install directly with `gem install paysafe`.
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install paysafe
-
-To try out the gem, just follow the Development section instructions.
+To try out the gem, just follow the Development section instructions as the built in setup script will help you provide the necessary API info.
 
 ## Usage
 
