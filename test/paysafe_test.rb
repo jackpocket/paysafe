@@ -90,6 +90,7 @@ class PaysafeTest < Minitest::Test
       assert_equal '2015-10-29T22:01:11Z', result.txn_time
       assert_equal 'COMPLETED', result.status
       assert_equal 'VI', result.card.type
+      assert_equal 'visa', result.card.brand
       assert_equal '1111', result.card.last_digits
       assert_equal 6, result.card.card_expiry.month
       assert_equal 2019, result.card.card_expiry.year
@@ -134,6 +135,8 @@ class PaysafeTest < Minitest::Test
       assert_equal '7f7513cd-f5ea-49c5-a249-72050bc750e7', card.id
       assert_equal '411111', card.card_bin
       assert_equal '1111', card.last_digits
+      assert_equal 'VI', card.card_type
+      assert_equal 'visa', card.brand
       assert_equal 12, card.card_expiry.month
       assert_equal 2019, card.card_expiry.year
       assert_equal '6146cd5e-b7bd-4867-870e-0adc910d01df', card.billing_address_id
@@ -196,6 +199,8 @@ class PaysafeTest < Minitest::Test
       assert_equal '7f7513cd-f5ea-49c5-a249-72050bc750e7', card.id
       assert_equal '411111', card.card_bin
       assert_equal '1111', card.last_digits
+      assert_equal 'VI', card.card_type
+      assert_equal 'visa', card.brand
       assert_equal 12, card.card_expiry.month
       assert_equal 2019, card.card_expiry.year
       assert_equal '6146cd5e-b7bd-4867-870e-0adc910d01df', card.billing_address_id
@@ -268,17 +273,19 @@ class PaysafeTest < Minitest::Test
 
   def test_create_card
     VCR.use_cassette('create_card') do
-      result = test_client.create_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', number: '4111111111111111', month: 12, year: 2019, billing_address_id: '4bf9d2e7-4be0-4d13-b483-223640cb40a0')
+      card = test_client.create_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', number: '4111111111111111', month: 12, year: 2019, billing_address_id: '4bf9d2e7-4be0-4d13-b483-223640cb40a0')
 
-      assert_equal 'd63b2910-9ab5-4803-a2a2-1aadcc790cc2', result.id
-      assert_equal '411111', result.card_bin
-      assert_equal '1111', result.last_digits
-      assert_equal 12, result.card_expiry.month
-      assert_equal 2019, result.card_expiry.year
-      assert_equal 'VI', result.card_type
-      assert_equal '4bf9d2e7-4be0-4d13-b483-223640cb40a0', result.billing_address_id
-      assert_equal 'ACTIVE', result.status
-      assert_equal 'CHHzoulx4Xpm31I', result.payment_token
+      assert_equal 'd63b2910-9ab5-4803-a2a2-1aadcc790cc2', card.id
+      assert_equal '411111', card.card_bin
+      assert_equal '1111', card.last_digits
+      assert_equal 'VI', card.card_type
+      assert_equal 'visa', card.brand
+      assert_equal 12, card.card_expiry.month
+      assert_equal 2019, card.card_expiry.year
+      assert_equal 'VI', card.card_type
+      assert_equal '4bf9d2e7-4be0-4d13-b483-223640cb40a0', card.billing_address_id
+      assert_equal 'ACTIVE', card.status
+      assert_equal 'CHHzoulx4Xpm31I', card.payment_token
     end
   end
 
@@ -309,35 +316,37 @@ class PaysafeTest < Minitest::Test
 
   def test_get_card
     VCR.use_cassette('get_card') do
-      result = test_client.get_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', id: '972ed74f-6ff1-4a5b-a460-a11e606e2fa9')
+      card = test_client.get_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', id: '972ed74f-6ff1-4a5b-a460-a11e606e2fa9')
 
-      assert_equal '972ed74f-6ff1-4a5b-a460-a11e606e2fa9', result.id
-      assert_equal '411111', result.card_bin
-      assert_equal '1111', result.last_digits
-      assert_equal 12, result.card_expiry.month
-      assert_equal 2017, result.card_expiry.year
-      assert_equal 'VI', result.card_type
-      assert_equal 'John Smith', result.holder_name
-      assert_equal '4bf9d2e7-4be0-4d13-b483-223640cb40a0', result.billing_address_id
-      assert_equal 'ACTIVE', result.status
-      assert_equal 'CdZk1Yk5EUSJb2v', result.payment_token
+      assert_equal '972ed74f-6ff1-4a5b-a460-a11e606e2fa9', card.id
+      assert_equal '411111', card.card_bin
+      assert_equal '1111', card.last_digits
+      assert_equal 'VI', card.card_type
+      assert_equal 'visa', card.brand
+      assert_equal 12, card.card_expiry.month
+      assert_equal 2017, card.card_expiry.year
+      assert_equal 'John Smith', card.holder_name
+      assert_equal '4bf9d2e7-4be0-4d13-b483-223640cb40a0', card.billing_address_id
+      assert_equal 'ACTIVE', card.status
+      assert_equal 'CdZk1Yk5EUSJb2v', card.payment_token
     end
   end
 
   def test_update_card
     VCR.use_cassette('update_card') do
-      result = test_client.update_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', id: '972ed74f-6ff1-4a5b-a460-a11e606e2fa9', month: 6, year: 2019)
+      card = test_client.update_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', id: '972ed74f-6ff1-4a5b-a460-a11e606e2fa9', month: 6, year: 2019)
 
-      assert_equal '972ed74f-6ff1-4a5b-a460-a11e606e2fa9', result.id
-      assert_equal '411111', result.card_bin
-      assert_equal '1111', result.last_digits
-      assert_equal 6, result.card_expiry.month
-      assert_equal 2019, result.card_expiry.year
-      assert_equal 'VI', result.card_type
-      assert_equal 'John Smith', result.holder_name
-      assert_equal '4bf9d2e7-4be0-4d13-b483-223640cb40a0', result.billing_address_id
-      assert_equal 'ACTIVE', result.status
-      assert_equal 'CNBkqXXjTFdZNa3', result.payment_token
+      assert_equal '972ed74f-6ff1-4a5b-a460-a11e606e2fa9', card.id
+      assert_equal '411111', card.card_bin
+      assert_equal '1111', card.last_digits
+      assert_equal 'VI', card.card_type
+      assert_equal 'visa', card.brand
+      assert_equal 6, card.card_expiry.month
+      assert_equal 2019, card.card_expiry.year
+      assert_equal 'John Smith', card.holder_name
+      assert_equal '4bf9d2e7-4be0-4d13-b483-223640cb40a0', card.billing_address_id
+      assert_equal 'ACTIVE', card.status
+      assert_equal 'CNBkqXXjTFdZNa3', card.payment_token
     end
   end
 

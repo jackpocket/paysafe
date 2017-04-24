@@ -15,7 +15,7 @@ class SingleUseTokenTest < Minitest::Test
   def test_single_use_token_with_verification_request
     sut = @sut_client.create_single_use_token(
       card: {
-        card_num: '5036160000001114',
+        card_num: '5200400000000009',
         card_expiry: {
           month: 12,
           year: 2019
@@ -31,8 +31,10 @@ class SingleUseTokenTest < Minitest::Test
 
     refute_predicate sut.id, :empty?
     refute_predicate sut.payment_token, :empty?
-    assert_equal '503616', sut.card.card_bin
-    assert_equal '1114', sut.card.last_digits
+    assert_equal '520040', sut.card.card_bin
+    assert_equal '0009', sut.card.last_digits
+    assert_equal 'MC', sut.card.card_type
+    assert_equal 'master', sut.card.brand
     assert_equal 12, sut.card.card_expiry.month
     assert_equal 2019, sut.card.card_expiry.year
     assert_equal 'US', sut.billing_address.country
@@ -47,8 +49,9 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal id, result.merchant_ref_num
     refute_predicate result.txn_time, :empty?
     assert_equal 'COMPLETED', result.status
-    assert_equal 'MD', result.card.type
-    assert_equal '1114', result.card.last_digits
+    assert_equal 'MC', result.card.type
+    assert_equal 'master', result.card.brand
+    assert_equal '0009', result.card.last_digits
     assert_equal 12, result.card.card_expiry.month
     assert_equal 2019, result.card.card_expiry.year
     refute_predicate result.auth_code, :empty?
@@ -78,6 +81,8 @@ class SingleUseTokenTest < Minitest::Test
     refute_predicate sut.payment_token, :empty?
     assert_equal '411111', sut.card.card_bin
     assert_equal '1111', sut.card.last_digits
+    assert_equal 'VI', sut.card.card_type
+    assert_equal 'visa', sut.card.brand
     assert_equal 12, sut.card.card_expiry.month
     assert_equal 2019, sut.card.card_expiry.year
     assert_equal 'US', sut.billing_address.country
@@ -111,6 +116,8 @@ class SingleUseTokenTest < Minitest::Test
 
     card = profile.cards.first
     refute_predicate card.id, :empty?
+    assert_equal 'VI', card.card_type
+    assert_equal 'visa', card.brand
     assert_equal 12, card.card_expiry.month
     assert_equal 2019, card.card_expiry.year
     assert_equal 'ACTIVE', card.status
@@ -131,6 +138,8 @@ class SingleUseTokenTest < Minitest::Test
 
     refute_predicate sut.id, :empty?
     refute_predicate sut.payment_token, :empty?
+    assert_equal 'VI', sut.card.card_type
+    assert_equal 'visa', sut.card.brand
     assert_equal '411111', sut.card.card_bin
     assert_equal '1111', sut.card.last_digits
     assert_equal 12, sut.card.card_expiry.month
@@ -148,8 +157,10 @@ class SingleUseTokenTest < Minitest::Test
 
     refute_predicate card.id, :empty?
     refute_predicate card.payment_token, :empty?
-    assert_equal '411111', sut.card.card_bin
-    assert_equal '1111', sut.card.last_digits
+    assert_equal '411111', card.card_bin
+    assert_equal '1111', card.last_digits
+    assert_equal 'VI', card.card_type
+    assert_equal 'visa', card.brand
     assert_equal 12, card.card_expiry.month
     assert_equal 2019, card.card_expiry.year
     assert_equal 'ACTIVE', card.status
@@ -169,8 +180,10 @@ class SingleUseTokenTest < Minitest::Test
 
     refute_predicate card.id, :empty?
     refute_predicate card.payment_token, :empty?
-    assert_equal '411111', sut.card.card_bin
-    assert_equal '1111', sut.card.last_digits
+    assert_equal '411111', card.card_bin
+    assert_equal '1111', card.last_digits
+    assert_equal 'VI', card.card_type
+    assert_equal 'visa', card.brand
     assert_equal 12, card.card_expiry.month
     assert_equal 2019, card.card_expiry.year
     assert_equal 'ACTIVE', card.status

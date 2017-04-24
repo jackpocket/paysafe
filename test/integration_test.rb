@@ -48,6 +48,7 @@ class IntegrationTest < Minitest::Test
     refute_predicate result.txn_time, :empty?
     assert_equal 'COMPLETED', result.status
     assert_equal 'MC', result.card.type
+    assert_equal 'master', result.card.brand
     assert_equal '1728', result.card.last_digits
     assert_equal 6, result.card.card_expiry.month
     assert_equal 2019, result.card.card_expiry.year
@@ -195,6 +196,7 @@ class IntegrationTest < Minitest::Test
     assert_equal @card.id, card.id
     assert_equal @card.status, card.status
     assert_equal @card.card_type, card.card_type
+    assert_equal @card.brand, card.brand
     assert_equal @card.last_digits, card.last_digits
     assert_equal @card.card_bin, card.card_bin
     assert_equal @card.card_expiry.month, card.card_expiry.month
@@ -232,6 +234,7 @@ class IntegrationTest < Minitest::Test
     refute_predicate result.txn_time, :empty?
     assert_equal 'COMPLETED', result.status
     assert_equal 'MC', result.card.type
+    assert_equal 'master', result.card.brand
     assert_equal '1728', result.card.last_digits
     assert_equal 6, result.card.card_expiry.month
     assert_equal 2019, result.card.card_expiry.year
@@ -250,6 +253,7 @@ class IntegrationTest < Minitest::Test
     card = authenticated_client.create_card(profile_id: @profile.id, number: '5410110488911728', month: 6, year: 2019, billing_address_id: address.id)
 
     assert_equal 'MC', card.card_type
+    assert_equal 'master', card.brand
     assert_equal 6, card.card_expiry.month
     assert_equal 2019, card.card_expiry.year
     assert_equal address.id, card.billing_address_id
@@ -290,6 +294,7 @@ class IntegrationTest < Minitest::Test
     card = authenticated_client.update_card(profile_id: @profile.id, id: card.id, month: 6, year: 2019, billing_address_id: address_id, holder_name: 'Johnny Smith')
 
     assert_equal 'MC', card.card_type
+    assert_equal 'master', card.brand
     assert_equal 6, card.card_expiry.month
     assert_equal 2019, card.card_expiry.year
     assert_equal address_id, card.billing_address_id
@@ -323,6 +328,7 @@ class IntegrationTest < Minitest::Test
     assert_equal 12, card.card_expiry.month
     assert_equal 2019, card.card_expiry.year
     assert_equal 'MC', card.card_type
+    assert_equal 'master', card.brand
     assert_equal 'ACTIVE', card.status
     refute_predicate card.payment_token, :empty?
 
