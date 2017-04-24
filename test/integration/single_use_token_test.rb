@@ -20,6 +20,7 @@ class SingleUseTokenTest < Minitest::Test
           month: 12,
           year: 2019
         },
+        cvv: '123',
         billing_address: {
           street: 'Z', # trigger AVS MATCH_ZIP_ONLY response
           country: 'US',
