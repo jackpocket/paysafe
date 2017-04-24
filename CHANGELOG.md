@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.9.1 (2017-04-24)
+
+* Added `card.brand` method that converts `card_type` value (VI) to brand name (visa).
+
 ## 0.9.0 (2017-04-19)
 
 This is a major update with breaking changes so moving the version up quite a bit since I'd also like to move to a 1.0 release soon after.
