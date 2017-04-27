@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.9.2 (2017-04-27)
+
+* Added predicate methods for checking CVV and AVS status on a verification request, e.g. `cvv_match?`, `avs_no_match?`, etc.
+
 ## 0.9.1 (2017-04-24)
 
 * Added `card.brand` method that converts `card_type` value (VI) to brand name (visa).
