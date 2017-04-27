@@ -22,7 +22,7 @@ class SingleUseTokenTest < Minitest::Test
         },
         cvv: '123',
         billing_address: {
-          street: 'Z', # trigger AVS MATCH_ZIP_ONLY response
+          street: 'U', # trigger AVS NOT_PROCESSED response
           country: 'US',
           zip: '10014'
         }
@@ -58,8 +58,8 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal 'US', result.billing_details.country
     assert_equal '10014', result.billing_details.zip
     assert_equal 'USD', result.currency_code
-    assert_equal 'MATCH_ZIP_ONLY', result.avs_response
-    assert result.avs_match_zip_only?
+    assert_equal 'NOT_PROCESSED', result.avs_response
+    assert result.avs_not_processed?
     assert_equal 'MATCH', result.cvv_verification
     assert result.cvv_match?
   end

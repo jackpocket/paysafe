@@ -10,7 +10,7 @@ module Paysafe
     object_attribute :Card, :card
     object_attribute :Address, :billing_details
 
-    [:unknown, :not_processed, :no_match, :match, :match_address, :match_zip].each do |key|
+    [:unknown, :not_processed, :no_match, :match, :match_address_only, :match_zip_only].each do |key|
       define_method("avs_#{key}?") do
         avs_response == key.to_s.upcase
       end

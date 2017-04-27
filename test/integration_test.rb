@@ -37,7 +37,6 @@ class IntegrationTest < Minitest::Test
       year: 2019,
       cvv: 123,
       address: {
-        street: 'Z', # trigger AVS MATCH_ZIP_ONLY response
         country: 'US',
         zip: '10014'
       }
@@ -56,8 +55,8 @@ class IntegrationTest < Minitest::Test
     assert_equal 'US', result.billing_details.country
     assert_equal '10014', result.billing_details.zip
     assert_equal 'USD', result.currency_code
-    assert_equal 'MATCH_ZIP_ONLY', result.avs_response
-    assert result.avs_match_zip_only?
+    assert_equal 'MATCH', result.avs_response
+    assert result.avs_match?
     assert_equal 'MATCH', result.cvv_verification
     assert result.cvv_match?
   end
