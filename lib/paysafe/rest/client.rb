@@ -151,8 +151,14 @@ module Paysafe
         process_response(response, Authorization)
       end
 
-      def create_verification_from_token(merchant_ref_num:, token:)
-        data = { merchant_ref_num: merchant_ref_num, card: { payment_token: token } }.to_camel_case
+      def create_verification_from_token(merchant_ref_num:, token:, **args)
+        data = args.merge({
+          merchant_ref_num: merchant_ref_num,
+          card: {
+            payment_token: token
+          }
+        }).to_camel_case
+
         response = post(path: "/cardpayments/v1/accounts/#{account_number}/verifications", data: data)
         process_response(response, Verification)
       end
