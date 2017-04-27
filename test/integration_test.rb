@@ -57,7 +57,9 @@ class IntegrationTest < Minitest::Test
     assert_equal '10014', result.billing_details.zip
     assert_equal 'USD', result.currency_code
     assert_equal 'MATCH_ZIP_ONLY', result.avs_response
+    assert result.avs_match_zip_only?
     assert_equal 'MATCH', result.cvv_verification
+    assert result.cvv_match?
   end
 
   def test_creating_profile_with_card_and_address
@@ -243,7 +245,9 @@ class IntegrationTest < Minitest::Test
     assert_equal '10014', result.billing_details.zip
     assert_equal 'USD', result.currency_code
     assert_equal 'MATCH_ZIP_ONLY', result.avs_response
+    assert result.avs_match_zip_only?
     assert_equal 'MATCH', result.cvv_verification
+    assert result.cvv_match?
     assert_equal 'Test card verification.', result.description
 
     # 2 - Create Address and attach to Profile

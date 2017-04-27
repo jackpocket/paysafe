@@ -59,7 +59,9 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal '10014', result.billing_details.zip
     assert_equal 'USD', result.currency_code
     assert_equal 'MATCH_ZIP_ONLY', result.avs_response
+    assert result.avs_match_zip_only?
     assert_equal 'MATCH', result.cvv_verification
+    assert result.cvv_match?
   end
 
   def test_single_use_token_and_redeem_with_create_profile
@@ -132,7 +134,8 @@ class SingleUseTokenTest < Minitest::Test
         card_expiry: {
           month: 12,
           year: 2019
-        }
+        },
+        cvv: '123',
       }
     )
 

@@ -9,5 +9,17 @@ module Paysafe
     object_attribute :Profile, :profile
     object_attribute :Card, :card
     object_attribute :Address, :billing_details
+
+    [:unknown, :not_processed, :no_match, :match, :match_address, :match_zip].each do |key|
+      define_method("avs_#{key}?") do
+        avs_response == key.to_s.upcase
+      end
+    end
+
+    [:unknown, :match, :no_match, :not_processed].each do |key|
+      define_method("cvv_#{key}?") do
+        cvv_verification == key.to_s.upcase
+      end
+    end
   end
 end
