@@ -72,6 +72,7 @@ class SingleUseTokenTest < Minitest::Test
           month: 12,
           year: 2019
         },
+        cvv: 123,
         billing_address: {
           country: 'US',
           zip: '10014'
@@ -126,8 +127,7 @@ class SingleUseTokenTest < Minitest::Test
     refute_predicate card.billing_address_id, :empty?
   end
 
-  def test_redeem_sut_with_create_card_and_update_address
-    # Simulate the Paysafe.js case where no address is given.
+  def test_redeem_sut_with_create_card
     sut = @sut_client.create_single_use_token(
       card: {
         card_num: '4111111111111111',
@@ -136,6 +136,10 @@ class SingleUseTokenTest < Minitest::Test
           year: 2019
         },
         cvv: '123',
+        billing_address: {
+          country: 'US',
+          zip: '10014'
+        }
       }
     )
 
@@ -147,6 +151,8 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal '1111', sut.card.last_digits
     assert_equal 12, sut.card.card_expiry.month
     assert_equal 2019, sut.card.card_expiry.year
+    assert_equal 'US', sut.billing_address.country
+    assert_equal '10014', sut.billing_address.zip
 
     profile = authenticated_client.create_profile(
       merchant_customer_id: Time.now.to_f.to_s,
@@ -167,6 +173,7 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal 12, card.card_expiry.month
     assert_equal 2019, card.card_expiry.year
     assert_equal 'ACTIVE', card.status
+    assert card.billing_address_id?
 
     address = authenticated_client.create_address(
       profile_id: profile.id,
