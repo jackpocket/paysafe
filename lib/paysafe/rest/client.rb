@@ -96,6 +96,11 @@ module Paysafe
         process_response(response, Address)
       end
 
+      def get_address(profile_id:, id:)
+        response = get(path: "/customervault/v1/profiles/#{profile_id}/addresses/#{id}")
+        process_response(response, Address)
+      end
+
       def create_card_from_token(profile_id:, token:)
         data = { single_use_token: token }.to_camel_case
         response = post(path: "/customervault/v1/profiles/#{profile_id}/cards", data: data)
