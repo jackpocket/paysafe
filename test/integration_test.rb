@@ -127,7 +127,7 @@ class IntegrationTest < Minitest::Test
     id = Time.now.to_f.to_s
 
     assert_raises(Paysafe::Error::BadRequest) do
-      profile = authenticated_client.create_profile(
+      authenticated_client.create_profile(
         merchant_customer_id: id,
         locale: 'en_US',
         first_name: 'test',
@@ -174,8 +174,6 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_getting_profile_with_card_and_address
-    id = Time.now.to_f.to_s
-
     # 1 - Create Address and attach to Profile
     @address = authenticated_client.create_address(profile_id: @profile.id, country: 'US', zip: '10014')
 

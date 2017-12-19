@@ -191,8 +191,8 @@ module Paysafe
       def http_client
         HTTP
           .headers(HEADERS)
-          .timeout(@timeouts ? @timeouts : :null)
-          .basic_auth(user: @api_key, pass: @api_secret)
+          .timeout(timeouts ? timeouts : :null)
+          .basic_auth(user: api_key, pass: api_secret)
       end
 
       def post(path:, data:)
