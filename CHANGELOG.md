@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 0.9.3 (2017-12-19)
+
+* Relax http gem dependency to allow v2 or v3.
+* Use additional args for `purchase` method.
+
 ## 0.9.2 (2017-04-27)
 
 * Added predicate methods for checking CVV and AVS status on a verification request, e.g. `cvv_match?`, `avs_no_match?`, etc.
