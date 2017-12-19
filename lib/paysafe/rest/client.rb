@@ -143,14 +143,14 @@ module Paysafe
       end
 
       def purchase(amount:, token:, merchant_ref_num:, **args)
-        data = {
+        data = args.merge({
           amount: amount,
           merchant_ref_num: merchant_ref_num,
           settle_with_auth: true,
           card: {
             payment_token: token
           }
-        }.to_camel_case
+        }).to_camel_case
 
         response = post(path: "/cardpayments/v1/accounts/#{account_number}/auths", data: data)
         process_response(response, Authorization)

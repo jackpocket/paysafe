@@ -335,7 +335,12 @@ class IntegrationTest < Minitest::Test
 
     # 3 - Make a Purchase with Card
     id = Time.now.to_i.to_s
-    result = authenticated_client.purchase(amount: 400, token: card.payment_token, merchant_ref_num: id)
+    result = authenticated_client.purchase(
+      amount: 400,
+      token: card.payment_token,
+      merchant_ref_num: id,
+      recurring: 'RECURRING'
+    )
 
     refute_predicate result.id, :empty?
     assert_equal 400, result.amount
