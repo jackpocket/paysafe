@@ -3,7 +3,7 @@ require 'test_helper'
 class SingleUseTokenTest < Minitest::Test
 
   def setup
-    skip if ENV['SKIP_INTEGRATION'] == 'true' || ENV['PAYSAFE_SUT_API_KEY'] == ''
+    skip if ENV['SKIP_INTEGRATION'] == 'true' || ENV['PAYSAFE_SUT_API_KEY'].nil?
     turn_off_vcr!
 
     @sut_client = Paysafe::REST::Client.new do |config|
