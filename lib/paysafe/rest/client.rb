@@ -186,6 +186,17 @@ module Paysafe
         process_response(response, Verification)
       end
 
+      def get_transaction(transaction_id: nil, merchant_ref_num: nil)
+        response =
+          if transaction_id.nil?
+            get(path: "/cardpayments/v1/accounts/#{account_number}/auths/?merchantRefNum=#{merchant_ref_num}")
+          else
+            get(path: "/cardpayments/v1/accounts/#{account_number}/auths/#{transaction_id}")
+          end
+
+         process_response(response, Authorization)
+      end
+
       private
 
       def http_client

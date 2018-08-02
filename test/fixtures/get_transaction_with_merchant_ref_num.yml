@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.test.paysafe.com/cardpayments/v1/accounts/1234567890/auths/?merchantRefNum=1445888963
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.3
+      X-Ruby-Version:
+      - 2.5.1
+      X-Ruby-Platform:
+      - x86_64-linux
+      Authorization:
+      - Basic YXBpX2tleTphcGlfc2VjcmV0
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '218'
+      X-Application-Status-Code:
+      - '5279'
+      Www-Authenticate:
+      - Basic realm="authSecurity"
+      X-Applicationuid:
+      - GUID=4566beb4-5236-4f8c-8e68-d0f6e44215e6
+      Content-Type:
+      - application/json
+      Expires:
+      - Thu, 02 Aug 2018 03:22:43 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 02 Aug 2018 03:22:43 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"links":[{"rel":"settlement","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/1234567890/settlements/c45baad1-9d9b-47b9-970a-f3b4487d63e9"},{"rel":"self","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/1234567890/auths/c45baad1-9d9b-47b9-970a-f3b4487d63e9"}],"id":"c45baad1-9d9b-47b9-970a-f3b4487d63e9","merchantRefNum":"1445888963","txnTime":"2015-10-26T19:49:23Z","status":"COMPLETED","amount":400,"settleWithAuth":true,"preAuth":false,"availableToSettle":0,"card":{"type":"VI","lastDigits":"1111","cardExpiry":{"month":10,"year":2018}},"authCode":"100550","profile":{"firstName":"test","lastName":"test","email":"test@test.com"},"billingDetails":{"country":"US","zip":"11225"},"merchantDescriptor":{"dynamicDescriptor":"Test","phone":"123-1234123"},"currencyCode":"USD","avsResponse":"NOT_PROCESSED","settlements":[{"links":[{"rel":"self","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/1234567890/settlements/c45baad1-9d9b-47b9-970a-f3b4487d63e9"}],"id":"c45baad1-9d9b-47b9-970a-f3b4487d63e9","merchantRefNum":"1445888963","txnTime":"2015-10-26T19:49:23Z","status":"PENDING","amount":400,"availableToRefund":400}]}'
+    http_version:
+  recorded_at: Thu, 02 Aug 2018 03:22:43 GMT
+recorded_with: VCR 4.0.0

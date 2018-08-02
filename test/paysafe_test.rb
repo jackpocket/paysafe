@@ -369,4 +369,41 @@ class PaysafeTest < Minitest::Test
     end
   end
 
+  def test_get_transaction_with_transaction_id
+    VCR.use_cassette('get_transaction_with_transaction_id') do
+      result = test_client.get_transaction(transaction_id: 'c45baad1-9d9b-47b9-970a-f3b4487d63e9')
+
+      assert result.id?
+      assert_equal 400, result.amount
+      assert_equal true, result.settle_with_auth
+      assert_equal '1445888963', result.merchant_ref_num
+      assert result.txn_time?
+      assert_equal 'COMPLETED', result.status
+      assert_equal 'USD', result.currency_code
+      assert_equal 'NOT_PROCESSED', result.avs_response
+      assert_equal '100550', result.auth_code
+      assert result.card?
+      assert result.profile?
+      assert result.billing_details?
+    end
+  end
+
+  def test_get_transaction_with_merchant_ref_num
+    VCR.use_cassette('get_transaction_with_merchant_ref_num') do
+      result = test_client.get_transaction(merchant_ref_num: '1445888963')
+
+      assert result.id?
+      assert_equal 400, result.amount
+      assert_equal true, result.settle_with_auth
+      assert_equal '1445888963', result.merchant_ref_num
+      assert result.txn_time?
+      assert_equal 'COMPLETED', result.status
+      assert_equal 'USD', result.currency_code
+      assert_equal 'NOT_PROCESSED', result.avs_response
+      assert_equal '100550', result.auth_code
+      assert result.card?
+      assert result.profile?
+      assert result.billing_details?
+    end
+  end
 end
