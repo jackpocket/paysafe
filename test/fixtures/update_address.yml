@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/b088ac37-32cb-4320-9b64-f9f4923f53ed/addresses/4bf9d2e7-4be0-4d13-b483-223640cb40a0
+    body:
+      encoding: UTF-8
+      string: '{"country":"CA","zip":"10015"}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Basic YXBpX2tleTphcGlfc2VjcmV0
+      Connection:
+      - close
+      User-Agent:
+      - http.rb/0.9.8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '219'
+      X-Application-Status-Code:
+      - '5279'
+      Www-Authenticate:
+      - Basic realm="authSecurity"
+      X-Applicationuid:
+      - GUID=ef9a7565-8319-4dd5-ba03-f307ec42ea97
+      Content-Type:
+      - application/json
+      Expires:
+      - Wed, 15 Aug 2018 00:39:29 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 15 Aug 2018 00:39:29 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"id":"4bf9d2e7-4be0-4d13-b483-223640cb40a0","country":"CA","zip":"10015","defaultShippingAddressIndicator":false,"status":"ACTIVE"}'
+    http_version: 
+  recorded_at: Wed, 15 Aug 2018 00:39:29 GMT
+recorded_with: VCR 4.0.0

@@ -263,11 +263,50 @@ class PaysafeTest < Minitest::Test
 
   def test_create_address
     VCR.use_cassette('create_address') do
-      result = test_client.create_address(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', country: 'US', zip: '10014')
+      address = test_client.create_address(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', country: 'US', zip: '10014')
 
-      assert_equal 'US', result.country
-      assert_equal '10014', result.zip
-      assert_equal 'ACTIVE', result.status
+      assert_equal 'US', address.country
+      assert_equal '10014', address.zip
+      assert_equal 'ACTIVE', address.status
+    end
+  end
+
+  def test_get_address
+    VCR.use_cassette('get_address') do
+      address = test_client.get_address(
+        profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed',
+        id: '4bf9d2e7-4be0-4d13-b483-223640cb40a0'
+      )
+
+      assert_equal '4bf9d2e7-4be0-4d13-b483-223640cb40a0', address.id
+      assert_equal 'US', address.country
+      assert_equal '10014', address.zip
+      assert_equal 'ACTIVE', address.status
+    end
+  end
+
+  def test_update_address
+    VCR.use_cassette('update_address') do
+      address = test_client.update_address(
+        profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed',
+        id: '4bf9d2e7-4be0-4d13-b483-223640cb40a0',
+        country: 'CA',
+        zip: '10015'
+      )
+
+      assert_equal '4bf9d2e7-4be0-4d13-b483-223640cb40a0', address.id
+      assert_equal 'CA', address.country
+      assert_equal '10015', address.zip
+      assert_equal 'ACTIVE', address.status
+    end
+  end
+
+  def test_delete_address
+    VCR.use_cassette('delete_address') do
+      test_client.delete_address(
+        profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed',
+        id: '4bf9d2e7-4be0-4d13-b483-223640cb40a0'
+      )
     end
   end
 

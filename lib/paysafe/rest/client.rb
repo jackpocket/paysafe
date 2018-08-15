@@ -91,7 +91,10 @@ module Paysafe
       end
 
       def create_address(profile_id:, country:, zip:, **args)
-        data = args.merge({ country: country, zip: zip }).to_camel_case
+        data = args.merge({
+          country: country,
+          zip: zip
+        }).reject { |_key, value| value.nil? }.to_camel_case
         response = post(path: "/customervault/v1/profiles/#{profile_id}/addresses", data: data)
         process_response(response, Address)
       end
@@ -99,6 +102,21 @@ module Paysafe
       def get_address(profile_id:, id:)
         response = get(path: "/customervault/v1/profiles/#{profile_id}/addresses/#{id}")
         process_response(response, Address)
+      end
+
+      def update_address(profile_id:, id:, country:, zip:, **args)
+        data = args.merge({
+          country: country,
+          zip: zip
+        }).reject { |_key, value| value.nil? }.to_camel_case
+
+        response = put(path: "/customervault/v1/profiles/#{profile_id}/addresses/#{id}", data: data)
+        process_response(response, Address)
+      end
+
+      def delete_address(profile_id:, id:)
+        response = delete(path: "/customervault/v1/profiles/#{profile_id}/addresses/#{id}")
+        process_response(response)
       end
 
       def create_card_from_token(profile_id:, token:)
