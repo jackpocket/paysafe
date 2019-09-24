@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.9.4 (2019-09-24)
+
+* Relax http gem dependency to allow v2 through v4.
+
 ## 0.9.3 (2017-12-19)
 
 * Relax http gem dependency to allow v2 or v3.
