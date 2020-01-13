@@ -10,6 +10,8 @@ class SingleUseTokenTest < Minitest::Test
       config.api_key = ENV['PAYSAFE_SUT_API_KEY']
       config.api_secret = ENV['PAYSAFE_SUT_API_SECRET']
     end
+
+    @year = Time.now.year + 1
   end
 
   def test_single_use_token_with_verification_request
@@ -18,7 +20,7 @@ class SingleUseTokenTest < Minitest::Test
         card_num: '5200400000000009',
         card_expiry: {
           month: 12,
-          year: 2019
+          year: @year
         },
         cvv: '123',
         billing_address: {
@@ -36,7 +38,7 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal 'MC', sut.card.card_type
     assert_equal 'master', sut.card.brand
     assert_equal 12, sut.card.card_expiry.month
-    assert_equal 2019, sut.card.card_expiry.year
+    assert_equal @year, sut.card.card_expiry.year
     assert_equal 'US', sut.billing_address.country
     assert_equal '10014', sut.billing_address.zip
 
@@ -53,7 +55,7 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal 'master', result.card.brand
     assert_equal '0009', result.card.last_digits
     assert_equal 12, result.card.card_expiry.month
-    assert_equal 2019, result.card.card_expiry.year
+    assert_equal @year, result.card.card_expiry.year
     refute_predicate result.auth_code, :empty?
     assert_equal 'US', result.billing_details.country
     assert_equal '10014', result.billing_details.zip
@@ -70,7 +72,7 @@ class SingleUseTokenTest < Minitest::Test
         card_num: '4111111111111111',
         card_expiry: {
           month: 12,
-          year: 2019
+          year: @year
         },
         cvv: 123,
         billing_address: {
@@ -87,7 +89,7 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal 'VI', sut.card.card_type
     assert_equal 'visa', sut.card.brand
     assert_equal 12, sut.card.card_expiry.month
-    assert_equal 2019, sut.card.card_expiry.year
+    assert_equal @year, sut.card.card_expiry.year
     assert_equal 'US', sut.billing_address.country
     assert_equal '10014', sut.billing_address.zip
 
@@ -122,7 +124,7 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal 'VI', card.card_type
     assert_equal 'visa', card.brand
     assert_equal 12, card.card_expiry.month
-    assert_equal 2019, card.card_expiry.year
+    assert_equal @year, card.card_expiry.year
     assert_equal 'ACTIVE', card.status
     refute_predicate card.billing_address_id, :empty?
   end
@@ -133,7 +135,7 @@ class SingleUseTokenTest < Minitest::Test
         card_num: '4111111111111111',
         card_expiry: {
           month: 12,
-          year: 2019
+          year: @year
         },
         cvv: '123',
         billing_address: {
@@ -150,7 +152,7 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal '411111', sut.card.card_bin
     assert_equal '1111', sut.card.last_digits
     assert_equal 12, sut.card.card_expiry.month
-    assert_equal 2019, sut.card.card_expiry.year
+    assert_equal @year, sut.card.card_expiry.year
     assert_equal 'US', sut.billing_address.country
     assert_equal '10014', sut.billing_address.zip
 
@@ -171,7 +173,7 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal 'VI', card.card_type
     assert_equal 'visa', card.brand
     assert_equal 12, card.card_expiry.month
-    assert_equal 2019, card.card_expiry.year
+    assert_equal @year, card.card_expiry.year
     assert_equal 'ACTIVE', card.status
     assert card.billing_address_id?
 
@@ -195,7 +197,7 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal 'VI', card.card_type
     assert_equal 'visa', card.brand
     assert_equal 12, card.card_expiry.month
-    assert_equal 2019, card.card_expiry.year
+    assert_equal @year, card.card_expiry.year
     assert_equal 'ACTIVE', card.status
     assert card.billing_address_id?
     assert_equal address.id, card.billing_address_id
