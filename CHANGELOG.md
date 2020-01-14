@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## Unreleased
+
+* Requires http gem v4.
+* Requires Ruby 2.4 and up.
+* Added Ruby 2.7 build to CI.
+
 ## 0.9.4 (2019-09-24)
 
 * Relax http gem dependency to allow v2 through v4.
