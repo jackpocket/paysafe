@@ -1,25 +1,23 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
+require "dotenv/load"
 require "paysafe"
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
 
+def client
+  Paysafe::REST::Client.new(
+    account_number: ENV['PAYSAFE_ACCOUNT_NUMBER'],
+    api_key: ENV['PAYSAFE_API_KEY'],
+    api_secret: ENV['PAYSAFE_API_SECRET']
+  )
+end
+
 # (If you use this, don't forget to add pry to your Gemfile!)
 # require "pry"
 # Pry.start
 
-require 'dotenv'
-Dotenv.load
-
-def client
-  Paysafe::REST::Client.new do |config|
-    config.account_number = ENV['PAYSAFE_ACCOUNT_NUMBER']
-    config.api_key = ENV['PAYSAFE_API_KEY']
-    config.api_secret = ENV['PAYSAFE_API_SECRET']
-  end
-end
-
 require "irb"
-IRB.start
+IRB.start(__FILE__)
