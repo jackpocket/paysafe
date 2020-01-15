@@ -1,3 +1,5 @@
+require "http"
+require "json"
 require "paysafe/version"
 require "paysafe/error"
 require "paysafe/single_use_token"

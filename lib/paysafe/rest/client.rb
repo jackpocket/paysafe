@@ -1,6 +1,3 @@
-require 'http'
-require 'json'
-
 module Paysafe
   module REST
     class Client
