@@ -41,6 +41,10 @@ module Paysafe
         perform_post_with_object("/customervault/v1/singleusetokens", data, SingleUseToken)
       end
 
+      def delete_address(profile_id:, id:)
+        perform_delete("/customervault/v1/profiles/#{profile_id}/addresses/#{id}")
+      end
+
       def delete_card(profile_id:, id:)
         perform_delete("/customervault/v1/profiles/#{profile_id}/cards/#{id}")
       end

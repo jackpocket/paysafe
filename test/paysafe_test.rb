@@ -295,6 +295,22 @@ class PaysafeTest < Minitest::Test
     assert_equal 'ACTIVE', result.status
   end
 
+  def test_delete_address
+    VCR.use_cassette('delete_address') do
+      profile = create_empty_profile
+      address = authenticated_client.customer_vault.create_address(
+        profile_id: profile.id,
+        country: 'US',
+        zip: '10014'
+      )
+
+      authenticated_client.customer_vault.delete_address(
+        profile_id: profile.id,
+        id: address.id
+      )
+    end
+  end
+
   def test_create_card
     card = VCR.use_cassette('create_card') do
       profile = create_empty_profile
