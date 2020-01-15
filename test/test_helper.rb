@@ -28,6 +28,8 @@ VCR.configure do |c|
   end
 end
 
+UUID_REGEX = /([a-f0-9\-]+)/
+TOKEN_REGEX = /([a-zA-Z0-9]+)/
 
 def authenticated_client
   Paysafe::REST::Client.new(

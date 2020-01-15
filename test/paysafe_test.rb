@@ -29,8 +29,8 @@ class PaysafeTest < Minitest::Test
       )
     end
 
-    assert_match(/([a-f0-9\-]+)/, result.id)
-    assert_match(/([a-f0-9\-]+)/, result.merchant_ref_num)
+    assert_match UUID_REGEX, result.id
+    assert_match UUID_REGEX, result.merchant_ref_num
     assert_match(/([\d\-\:TZ]+)/, result.txn_time)
     assert_equal 'COMPLETED', result.status
     assert_equal 'VI', result.card.type
@@ -58,7 +58,7 @@ class PaysafeTest < Minitest::Test
       authenticated_client.customer_vault.get_profile(id: profile.id)
     end
 
-    assert_match(/([a-f0-9\-]+)/, result.id)
+    assert_match UUID_REGEX, result.id
     assert_equal 'ACTIVE', result.status
     assert_equal 'en_US', result.locale
     assert_equal 'test', result.first_name
@@ -91,10 +91,10 @@ class PaysafeTest < Minitest::Test
       authenticated_client.customer_vault.get_profile(id: result.id, fields: [:cards,:addresses])
     end
 
-    assert_match(/([a-f0-9\-]+)/, profile.id)
-    assert_match(/([a-f0-9\-]+)/, profile.merchant_customer_id)
+    assert_match UUID_REGEX, profile.id
+    assert_match UUID_REGEX, profile.merchant_customer_id
     assert profile.merchant_customer_id?
-    assert_match(/([\w]+)/, profile.payment_token)
+    assert_match TOKEN_REGEX, profile.payment_token
     assert profile.payment_token?
     assert_equal 'ACTIVE', profile.status
     assert_equal 'en_US', profile.locale
@@ -103,19 +103,19 @@ class PaysafeTest < Minitest::Test
     assert_equal 'test@test.com', profile.email
 
     card = profile.cards.first
-    assert_match(/([a-f0-9\-]+)/, card.id)
+    assert_match UUID_REGEX, card.id
     assert_equal '411111', card.card_bin
     assert_equal '1111', card.last_digits
     assert_equal 'VI', card.card_type
     assert_equal 'visa', card.brand
     assert_equal 12, card.card_expiry.month
     assert_equal 2050, card.card_expiry.year
-    assert_match(/([a-f0-9\-]+)/, card.billing_address_id)
-    assert_match(/([\w]+)/, card.payment_token)
+    assert_match UUID_REGEX, card.billing_address_id
+    assert_match TOKEN_REGEX, card.payment_token
     assert_equal 'ACTIVE', card.status
 
     address = profile.addresses.first
-    assert_match(/([a-f0-9\-]+)/, address.id)
+    assert_match UUID_REGEX, address.id
     assert_equal 'US', address.country
     assert_equal '10014', address.zip
     assert_equal 'ACTIVE', address.status
@@ -132,7 +132,7 @@ class PaysafeTest < Minitest::Test
       )
     end
 
-    assert_match(/([a-f0-9\-]+)/, result.merchant_customer_id)
+    assert_match UUID_REGEX, result.merchant_customer_id
     assert_equal 'en_US', result.locale
     assert_equal 'test', result.first_name
     assert_equal 'test', result.last_name
@@ -178,28 +178,28 @@ class PaysafeTest < Minitest::Test
     end
 
     assert profile.id?
-    assert_match(/([a-f0-9\-]+)/, profile.merchant_customer_id)
+    assert_match UUID_REGEX, profile.merchant_customer_id
     assert_equal 'ACTIVE', profile.status
     assert_equal 'en_US', profile.locale
     assert_equal 'test', profile.first_name
     assert_equal 'test', profile.last_name
     assert_equal 'test@test.com', profile.email
-    assert_match(/([\w]+)/, profile.payment_token)
+    assert_match TOKEN_REGEX, profile.payment_token
 
     card = profile.cards.first
-    assert_match(/([a-f0-9\-]+)/, card.id)
+    assert_match UUID_REGEX, card.id
     assert_equal '411111', card.card_bin
     assert_equal '1111', card.last_digits
     assert_equal 'VI', card.card_type
     assert_equal 'visa', card.brand
     assert_equal 12, card.card_expiry.month
     assert_equal 2050, card.card_expiry.year
-    assert_match(/([a-f0-9\-]+)/, card.billing_address_id)
-    assert_match(/([\w]+)/, card.payment_token)
+    assert_match UUID_REGEX, card.billing_address_id
+    assert_match TOKEN_REGEX, card.payment_token
     assert_equal 'ACTIVE', card.status
 
     address = profile.addresses.first
-    assert_match(/([a-f0-9\-]+)/, address.id)
+    assert_match UUID_REGEX, address.id
     assert_equal 'US', address.country
     assert_equal '10014', address.zip
     assert_equal 'ACTIVE', address.status
@@ -208,7 +208,7 @@ class PaysafeTest < Minitest::Test
   def test_update_profile
     profile = VCR.use_cassette('update_profile') do
       profile = create_empty_profile
-      assert_match(/([a-f0-9\-]+)/, profile.id)
+      assert_match UUID_REGEX, profile.id
       assert_nil profile.first_name
       assert_nil profile.last_name
       assert_nil profile.email
@@ -223,14 +223,14 @@ class PaysafeTest < Minitest::Test
       )
     end
 
-    assert_match(/([a-f0-9\-]+)/, profile.id)
-    assert_match(/([a-f0-9\-]+)/, profile.merchant_customer_id)
+    assert_match UUID_REGEX, profile.id
+    assert_match UUID_REGEX, profile.merchant_customer_id
     assert_equal 'en_US', profile.locale
     assert_equal 'Testing', profile.first_name
     assert_equal 'Testing', profile.last_name
     assert_equal 'example@test.com', profile.email
     assert_equal 'ACTIVE', profile.status
-    assert_match(/([\w]+)/, profile.payment_token)
+    assert_match TOKEN_REGEX, profile.payment_token
   end
 
   def test_create_address
@@ -243,7 +243,7 @@ class PaysafeTest < Minitest::Test
       )
     end
 
-    assert_match(/([a-f0-9\-]+)/, result.id)
+    assert_match UUID_REGEX, result.id
     assert_equal 'US', result.country
     assert_equal '10014', result.zip
     assert_equal 'ACTIVE', result.status
@@ -282,7 +282,7 @@ class PaysafeTest < Minitest::Test
       )
     end
 
-    assert_match(/([a-f0-9\-]+)/, result.id)
+    assert_match UUID_REGEX, result.id
     assert_equal 'US', result.country
     assert_equal '10018', result.zip
     assert_equal 'ACTIVE', result.status
@@ -307,16 +307,16 @@ class PaysafeTest < Minitest::Test
       )
     end
 
-    assert_match(/([a-f0-9\-]+)/, card.id)
+    assert_match UUID_REGEX, card.id
     assert_equal '411111', card.card_bin
     assert_equal '1111', card.last_digits
     assert_equal 'VI', card.card_type
     assert_equal 'visa', card.brand
     assert_equal 12, card.card_expiry.month
     assert_equal 2050, card.card_expiry.year
-    assert_match(/([a-f0-9\-]+)/, card.billing_address_id)
+    assert_match UUID_REGEX, card.billing_address_id
     assert_equal 'ACTIVE', card.status
-    assert_match(/([\w]+)/, card.payment_token)
+    assert_match TOKEN_REGEX, card.payment_token
   end
 
   def test_create_card_failed_400
@@ -405,16 +405,16 @@ class PaysafeTest < Minitest::Test
       authenticated_client.customer_vault.get_card(profile_id: profile.id, id: card.id)
     end
 
-    assert_match(/([a-f0-9\-]+)/, card.id)
+    assert_match UUID_REGEX, card.id
     assert_equal '411111', card.card_bin
     assert_equal '1111', card.last_digits
     assert_equal 'VI', card.card_type
     assert_equal 'visa', card.brand
     assert_equal 12, card.card_expiry.month
     assert_equal 2050, card.card_expiry.year
-    assert_match(/([a-f0-9\-]+)/, card.billing_address_id)
+    assert_match UUID_REGEX, card.billing_address_id
     assert_equal 'ACTIVE', card.status
-    assert_match(/([\w]+)/, card.payment_token)
+    assert_match TOKEN_REGEX, card.payment_token
   end
 
   def test_update_card
@@ -443,7 +443,7 @@ class PaysafeTest < Minitest::Test
       )
     end
 
-    assert_match(/([a-f0-9\-]+)/, card.id)
+    assert_match UUID_REGEX, card.id
     assert_equal '411111', card.card_bin
     assert_equal '1111', card.last_digits
     assert_equal 'VI', card.card_type
@@ -452,7 +452,7 @@ class PaysafeTest < Minitest::Test
     assert_equal 2055, card.card_expiry.year
     assert_nil card.billing_address_id
     assert_equal 'ACTIVE', card.status
-    assert_match(/([\w]+)/, card.payment_token)
+    assert_match TOKEN_REGEX, card.payment_token
   end
 
 end
