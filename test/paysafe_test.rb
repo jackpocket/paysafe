@@ -311,6 +311,29 @@ class PaysafeTest < Minitest::Test
     end
   end
 
+  def test_update_address
+    result = VCR.use_cassette('update_address') do
+      profile = create_empty_profile
+      address = authenticated_client.customer_vault.create_address(
+        profile_id: profile.id,
+        country: 'US',
+        zip: '10014'
+      )
+
+      authenticated_client.customer_vault.update_address(
+        profile_id: profile.id,
+        id: address.id,
+        country: 'US',
+        zip: '10018'
+      )
+    end
+
+    assert_match(/([a-f0-9\-]+)/, result.id)
+    assert_equal 'US', result.country
+    assert_equal '10018', result.zip
+    assert_equal 'ACTIVE', result.status
+  end
+
   def test_create_card
     card = VCR.use_cassette('create_card') do
       profile = create_empty_profile

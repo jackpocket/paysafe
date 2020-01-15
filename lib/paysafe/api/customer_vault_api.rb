@@ -68,6 +68,11 @@ module Paysafe
         perform_get_with_object(path, Profile)
       end
 
+      def update_address(profile_id:, id:, country:, zip:, **args)
+        data = args.merge({ country: country, zip: zip })
+        perform_put_with_object("/customervault/v1/profiles/#{profile_id}/addresses/#{id}", data, Address)
+      end
+
       def update_card(profile_id:, id:, month:, year:, **args)
         data = args.merge({
           card_expiry: {
