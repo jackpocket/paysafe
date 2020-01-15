@@ -17,6 +17,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def teardown
+    skip if ENV['SKIP_INTEGRATION'] == 'true'
     authenticated_client.delete_profile(id: @profile.id)
     @profile = nil
   end
