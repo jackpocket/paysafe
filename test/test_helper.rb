@@ -6,6 +6,7 @@ require 'webmock/minitest'
 require 'vcr'
 require 'dotenv/load'
 
+Minitest::Reporters.use!([Minitest::Reporters::SpecReporter.new])
 
 RECORD_MODE = (ENV['RECORD_MODE'] || 'once').to_sym
 VCR_CASSETTE_DIR = "test/cassettes"
@@ -27,7 +28,6 @@ VCR.configure do |c|
   end
 end
 
-Minitest::Reporters.use!([Minitest::Reporters::SpecReporter.new])
 
 def authenticated_client
   Paysafe::REST::Client.new(
