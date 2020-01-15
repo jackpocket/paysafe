@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications
     body:
       encoding: UTF-8
-      string: '{"merchantRefNum":"32d8482b-c0d2-437b-b379-48fc54cb8e0f","billingDetails":{"country":"US","zip":"10014"},"card":{"cardNum":"4111111111111111","cvv":123,"cardExpiry":{"month":12,"year":2050}}}'
+      string: '{"merchantRefNum":"ee499e7e-c9e6-4ab2-a0ea-325fb347e1a4","billingDetails":{"country":"US","zip":"10014"},"card":{"cardNum":"4111111111111111","cvv":123,"cardExpiry":{"month":12,"year":2050}}}'
     headers:
       Content-Type:
       - application/json
@@ -31,26 +31,26 @@ http_interactions:
       Content-Length:
       - '628'
       X-Applicationuid:
-      - GUID=a4aaa26b-e5c0-4ad6-b006-9add0fab61d9
+      - GUID=2643054a-0cdc-42e8-8aaf-ec2eff49571d
       Content-Type:
       - application/json
       Expires:
-      - Wed, 15 Jan 2020 16:24:30 GMT
+      - Wed, 15 Jan 2020 22:06:25 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
       Date:
-      - Wed, 15 Jan 2020 16:24:30 GMT
+      - Wed, 15 Jan 2020 22:06:25 GMT
       Connection:
       - close
       Set-Cookie:
-      - WLSESSIONID=Q8uqBUYzAatnJim5M9C3GYUfSktneVGwyHHB3OU-rarYOWVNkwff!547168637!-1917487301;
+      - WLSESSIONID=8z2rPk7Cb0C9WagouX6esWxw4v41Y6jre2kixFwwWIKNb_paIRHi!600893280!1424506064;
         path=/; secure; HttpOnly
     body:
       encoding: ASCII-8BIT
-      string: '{"links":[{"rel":"self","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications/a4aaa26b-e5c0-4ad6-b006-9add0fab61d9"}],"id":"a4aaa26b-e5c0-4ad6-b006-9add0fab61d9","merchantRefNum":"32d8482b-c0d2-437b-b379-48fc54cb8e0f","txnTime":"2020-01-15T16:24:30Z","status":"COMPLETED","card":{"type":"VI","lastDigits":"1111","cardExpiry":{"month":12,"year":2050}},"authCode":"173946","billingDetails":{"country":"US","zip":"10014"},"merchantDescriptor":{"dynamicDescriptor":"DD
+      string: '{"links":[{"rel":"self","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications/2643054a-0cdc-42e8-8aaf-ec2eff49571d"}],"id":"2643054a-0cdc-42e8-8aaf-ec2eff49571d","merchantRefNum":"ee499e7e-c9e6-4ab2-a0ea-325fb347e1a4","txnTime":"2020-01-15T22:06:24Z","status":"COMPLETED","card":{"type":"VI","lastDigits":"1111","cardExpiry":{"month":12,"year":2050}},"authCode":"816174","billingDetails":{"country":"US","zip":"10014"},"merchantDescriptor":{"dynamicDescriptor":"DD
         Line 1","phone":"000-111000099"},"visaAdditionalAuthData":{},"currencyCode":"USD","avsResponse":"MATCH","cvvVerification":"MATCH"}'
     http_version: 
-  recorded_at: Wed, 15 Jan 2020 16:24:30 GMT
+  recorded_at: Wed, 15 Jan 2020 22:06:25 GMT
 recorded_with: VCR 5.0.0
