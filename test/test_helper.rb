@@ -4,9 +4,8 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require 'webmock/minitest'
 require 'vcr'
-require 'dotenv'
+require 'dotenv/load'
 
-Dotenv.load
 
 RECORD_MODE = (ENV['RECORD_MODE'] || 'once').to_sym
 VCR_CASSETTE_DIR = "test/cassettes"
