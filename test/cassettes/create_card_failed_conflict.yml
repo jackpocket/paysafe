@@ -1,0 +1,156 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/customervault/v1/profiles
+    body:
+      encoding: UTF-8
+      string: '{"merchantCustomerId":"0c5f108b-ba69-49cc-aaa9-05dd630a1fbe","locale":"en_US"}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Location:
+      - https://api.test.paysafe.com/customervault/v1/profiles/8616e266-d1d6-4cbc-9998-da031daf4268
+      Content-Length:
+      - '173'
+      X-Applicationuid:
+      - GUID=56fccf52-f17f-4a3b-89fb-7028a0520df4
+      Content-Type:
+      - application/json
+      Expires:
+      - Wed, 15 Jan 2020 17:29:01 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 15 Jan 2020 17:29:01 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"8616e266-d1d6-4cbc-9998-da031daf4268","status":"ACTIVE","merchantCustomerId":"0c5f108b-ba69-49cc-aaa9-05dd630a1fbe","locale":"en_US","paymentToken":"P3as57Tw6tNbjdR"}'
+    http_version: 
+  recorded_at: Wed, 15 Jan 2020 17:29:01 GMT
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/8616e266-d1d6-4cbc-9998-da031daf4268/cards
+    body:
+      encoding: UTF-8
+      string: '{"cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2050}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Location:
+      - https://api.test.paysafe.com/customervault/v1/profiles/8616e266-d1d6-4cbc-9998-da031daf4268/cards/3e396486-973e-464c-a83b-f9c5a716ab1c
+      Content-Length:
+      - '284'
+      X-Applicationuid:
+      - GUID=eea00b2c-4104-4a69-867e-7e3be741a35d
+      Content-Type:
+      - application/json
+      Expires:
+      - Wed, 15 Jan 2020 17:29:01 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 15 Jan 2020 17:29:01 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"ACTIVE","id":"3e396486-973e-464c-a83b-f9c5a716ab1c","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2050,"month":12},"cardType":"VI","cardCategory":"CREDIT","paymentToken":"C7fTcOMv4kH7gjp","storedCredentialTokenStatus":"UNVERIFIED","defaultCardIndicator":true}'
+    http_version: 
+  recorded_at: Wed, 15 Jan 2020 17:29:01 GMT
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/8616e266-d1d6-4cbc-9998-da031daf4268/cards
+    body:
+      encoding: UTF-8
+      string: '{"cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2050}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 409
+      message: Conflict
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '369'
+      X-Application-Status-Code:
+      - '7503'
+      X-Applicationuid:
+      - GUID=ab7c3ff6-728f-41f6-b4f1-1ebf304fba72
+      Content-Type:
+      - application/json
+      Expires:
+      - Wed, 15 Jan 2020 17:29:01 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 15 Jan 2020 17:29:01 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"code":"7503","message":"Card number already in use - 3e396486-973e-464c-a83b-f9c5a716ab1c","links":[{"rel":"errorinfo","href":"https://developer.paysafe.com/en/rest-api/vault/test-and-go-live/vault-errors/#ErrorCode7503"}]},"links":[{"rel":"existing_entity","href":"https://api.test.paysafe.com/customervault/v1/cards/3e396486-973e-464c-a83b-f9c5a716ab1c"}]}'
+    http_version: 
+  recorded_at: Wed, 15 Jan 2020 17:29:01 GMT
+recorded_with: VCR 5.0.0

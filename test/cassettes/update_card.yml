@@ -1,0 +1,205 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/customervault/v1/profiles
+    body:
+      encoding: UTF-8
+      string: '{"merchantCustomerId":"e807d2fe-afeb-41db-bba7-0b7c53537445","locale":"en_US"}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Location:
+      - https://api.test.paysafe.com/customervault/v1/profiles/260272e1-3dd1-4891-a00e-10304f36a2c8
+      Content-Length:
+      - '173'
+      X-Applicationuid:
+      - GUID=a0d998f6-bf38-499f-84ac-06bbca12f562
+      Content-Type:
+      - application/json
+      Expires:
+      - Wed, 15 Jan 2020 16:49:31 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 15 Jan 2020 16:49:31 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"260272e1-3dd1-4891-a00e-10304f36a2c8","status":"ACTIVE","merchantCustomerId":"e807d2fe-afeb-41db-bba7-0b7c53537445","locale":"en_US","paymentToken":"PSMOoxBjs3N4dfg"}'
+    http_version: 
+  recorded_at: Wed, 15 Jan 2020 16:49:31 GMT
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/260272e1-3dd1-4891-a00e-10304f36a2c8/addresses
+    body:
+      encoding: UTF-8
+      string: '{"country":"US","zip":"10014"}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Location:
+      - https://api.test.paysafe.com/customervault/v1/profiles/260272e1-3dd1-4891-a00e-10304f36a2c8/addresses/8eae5f18-a25f-41f1-a8b2-bbb3c6b4404a
+      Content-Length:
+      - '132'
+      X-Applicationuid:
+      - GUID=b1191378-cfea-429a-971d-e208a28be3ac
+      Content-Type:
+      - application/json
+      Expires:
+      - Wed, 15 Jan 2020 16:49:31 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 15 Jan 2020 16:49:31 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"8eae5f18-a25f-41f1-a8b2-bbb3c6b4404a","country":"US","zip":"10014","defaultShippingAddressIndicator":false,"status":"ACTIVE"}'
+    http_version: 
+  recorded_at: Wed, 15 Jan 2020 16:49:31 GMT
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/260272e1-3dd1-4891-a00e-10304f36a2c8/cards
+    body:
+      encoding: UTF-8
+      string: '{"billingAddressId":"8eae5f18-a25f-41f1-a8b2-bbb3c6b4404a","cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2050}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Location:
+      - https://api.test.paysafe.com/customervault/v1/profiles/260272e1-3dd1-4891-a00e-10304f36a2c8/cards/89978d4b-227b-4a43-87c5-526ed3430380
+      Content-Length:
+      - '342'
+      X-Applicationuid:
+      - GUID=73d2aaf2-c7ba-45b6-afb3-011967673992
+      Content-Type:
+      - application/json
+      Expires:
+      - Wed, 15 Jan 2020 16:49:31 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 15 Jan 2020 16:49:31 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"ACTIVE","id":"89978d4b-227b-4a43-87c5-526ed3430380","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2050,"month":12},"billingAddressId":"8eae5f18-a25f-41f1-a8b2-bbb3c6b4404a","cardType":"VI","cardCategory":"CREDIT","paymentToken":"CxEabFh2CI7z90v","storedCredentialTokenStatus":"UNVERIFIED","defaultCardIndicator":true}'
+    http_version: 
+  recorded_at: Wed, 15 Jan 2020 16:49:31 GMT
+- request:
+    method: put
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/260272e1-3dd1-4891-a00e-10304f36a2c8/cards/89978d4b-227b-4a43-87c5-526ed3430380
+    body:
+      encoding: UTF-8
+      string: '{"cardExpiry":{"month":6,"year":2055}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '240'
+      X-Applicationuid:
+      - GUID=78c913d1-e324-434e-a136-5c509fc9537f
+      Content-Type:
+      - application/json
+      Expires:
+      - Wed, 15 Jan 2020 16:49:31 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 15 Jan 2020 16:49:31 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"ACTIVE","id":"89978d4b-227b-4a43-87c5-526ed3430380","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2055,"month":6},"cardType":"VI","cardCategory":"CREDIT","paymentToken":"CxEabFh2CI7z90v","defaultCardIndicator":true}'
+    http_version: 
+  recorded_at: Wed, 15 Jan 2020 16:49:31 GMT
+recorded_with: VCR 5.0.0

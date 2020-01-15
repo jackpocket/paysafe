@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/customervault/v1/profiles
+    body:
+      encoding: UTF-8
+      string: '{"merchantCustomerId":"","locale":""}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '486'
+      X-Application-Status-Code:
+      - '5068'
+      X-Applicationuid:
+      - GUID=4bba3778-c6f5-4bb9-bdd1-7e95b3a343b8
+      Content-Type:
+      - application/json
+      X-Pad:
+      - avoid browser bug
+      Expires:
+      - Wed, 15 Jan 2020 16:24:29 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 15 Jan 2020 16:24:29 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"code":"5068","message":"Either you submitted a request that
+        is missing a mandatory field or the value of a field does not match the format
+        expected.","fieldErrors":[{"field":"locale","error":"may not be empty"},{"field":"merchantCustomerId","error":"may
+        not be empty"},{"field":"merchantCustomerId","error":"size must be between
+        1 and 100"}],"links":[{"rel":"errorinfo","href":"https://developer.paysafe.com/en/rest-api/vault/test-and-go-live/vault-errors/#ErrorCode5068"}]}}'
+    http_version: 
+  recorded_at: Wed, 15 Jan 2020 16:24:29 GMT
+recorded_with: VCR 5.0.0

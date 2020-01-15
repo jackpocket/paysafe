@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications
+    body:
+      encoding: UTF-8
+      string: '{"merchantRefNum":"32d8482b-c0d2-437b-b379-48fc54cb8e0f","billingDetails":{"country":"US","zip":"10014"},"card":{"cardNum":"4111111111111111","cvv":123,"cardExpiry":{"month":12,"year":2050}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '628'
+      X-Applicationuid:
+      - GUID=a4aaa26b-e5c0-4ad6-b006-9add0fab61d9
+      Content-Type:
+      - application/json
+      Expires:
+      - Wed, 15 Jan 2020 16:24:30 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 15 Jan 2020 16:24:30 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - WLSESSIONID=Q8uqBUYzAatnJim5M9C3GYUfSktneVGwyHHB3OU-rarYOWVNkwff!547168637!-1917487301;
+        path=/; secure; HttpOnly
+    body:
+      encoding: ASCII-8BIT
+      string: '{"links":[{"rel":"self","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications/a4aaa26b-e5c0-4ad6-b006-9add0fab61d9"}],"id":"a4aaa26b-e5c0-4ad6-b006-9add0fab61d9","merchantRefNum":"32d8482b-c0d2-437b-b379-48fc54cb8e0f","txnTime":"2020-01-15T16:24:30Z","status":"COMPLETED","card":{"type":"VI","lastDigits":"1111","cardExpiry":{"month":12,"year":2050}},"authCode":"173946","billingDetails":{"country":"US","zip":"10014"},"merchantDescriptor":{"dynamicDescriptor":"DD
+        Line 1","phone":"000-111000099"},"visaAdditionalAuthData":{},"currencyCode":"USD","avsResponse":"MATCH","cvvVerification":"MATCH"}'
+    http_version: 
+  recorded_at: Wed, 15 Jan 2020 16:24:30 GMT
+recorded_with: VCR 5.0.0

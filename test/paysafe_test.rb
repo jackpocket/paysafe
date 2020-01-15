@@ -50,112 +50,74 @@ class PaysafeTest < Minitest::Test
   end
 
   def test_credentials?
-    assert test_client.credentials?
+    client = Paysafe::REST::Client.new(api_key: 'api_key', api_secret: 'api_secret')
+    assert client.credentials?
 
     client = Paysafe::REST::Client.new(api_key: 'api_key')
+    refute client.credentials?
 
+    client = Paysafe::REST::Client.new(api_secret: 'api_secret')
     refute client.credentials?
   end
 
   def test_verify
-    VCR.use_cassette('verification') do
-      result = test_client.verify_card(
-        merchant_ref_num: '1445638620',
+    result = VCR.use_cassette('verification') do
+      authenticated_client.card_payments.verify_card(
+        merchant_ref_num: random_id,
         number: '4111111111111111',
-        month: 6,
-        year: 2019,
+        month: 12,
+        year: 2050,
         cvv: 123,
         address: {
           country: 'US',
           zip: '10014'
         }
       )
-
-      assert_equal '28e1c0ab-d118-43ad-bdb7-638702826e1b', result.id
-      assert_equal '1445638620', result.merchant_ref_num
-      assert_equal '2015-10-29T22:01:11Z', result.txn_time
-      assert_equal 'COMPLETED', result.status
-      assert_equal 'VI', result.card.type
-      assert_equal 'visa', result.card.brand
-      assert_equal '1111', result.card.last_digits
-      assert_equal 6, result.card.card_expiry.month
-      assert_equal 2019, result.card.card_expiry.year
-      assert_equal 'XXXXXX', result.auth_code
-      assert_equal 'US', result.billing_details.country
-      assert_equal '10014', result.billing_details.zip
-      assert_equal 'USD', result.currency_code
-      assert_equal 'MATCH_ZIP_ONLY', result.avs_response
-      assert_equal 'MATCH', result.cvv_verification
     end
+
+    assert_match(/([a-f0-9\-]+)/, result.id)
+    assert_match(/([a-f0-9\-]+)/, result.merchant_ref_num)
+    assert_match(/([\d\-\:TZ]+)/, result.txn_time)
+    assert_equal 'COMPLETED', result.status
+    assert_equal 'VI', result.card.type
+    assert_equal 'visa', result.card.brand
+    assert_equal '1111', result.card.last_digits
+    assert_equal 12, result.card.card_expiry.month
+    assert_equal 2050, result.card.card_expiry.year
+    assert_match(/\d+/, result.auth_code)
+    assert_equal 'US', result.billing_details.country
+    assert_equal '10014', result.billing_details.zip
+    assert_equal 'USD', result.currency_code
+    assert_equal 'MATCH', result.avs_response
+    assert_equal 'MATCH', result.cvv_verification
   end
 
   def test_get_profile
-    VCR.use_cassette('get_profile') do
-      result = test_client.get_profile(id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed')
-
-      assert_equal 'b088ac37-32cb-4320-9b64-f9f4923f53ed', result.id
-      assert_equal 'ACTIVE', result.status
-      assert_equal 'en_US', result.locale
-      assert_equal 'John', result.first_name
-      assert_equal 'Snakes', result.last_name
-      assert_equal 'test@test.com', result.email
-      refute_predicate result.merchant_customer_id, :empty?
-      refute_predicate result.payment_token, :empty?
+    result = VCR.use_cassette('get_profile') do
+      profile = authenticated_client.customer_vault.create_profile(
+        merchant_customer_id: random_id,
+        locale: 'en_US',
+        first_name: 'test',
+        last_name: 'test',
+        email: 'test@test.com'
+      )
+      authenticated_client.customer_vault.get_profile(id: profile.id)
     end
+
+    assert_match(/([a-f0-9\-]+)/, result.id)
+    assert_equal 'ACTIVE', result.status
+    assert_equal 'en_US', result.locale
+    assert_equal 'test', result.first_name
+    assert_equal 'test', result.last_name
+    assert_equal 'test@test.com', result.email
+    refute_predicate result.merchant_customer_id, :empty?
+    refute_predicate result.payment_token, :empty?
   end
 
   def test_get_profile_with_fields
-    VCR.use_cassette('get_profile_with_cards_and_addresses') do
-      profile = test_client.get_profile(id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', fields: [:cards,:addresses])
-
-      assert_equal 'b088ac37-32cb-4320-9b64-f9f4923f53ed', profile.id
-      assert_equal 'ACTIVE', profile.status
-      assert_equal 'en_US', profile.locale
-      assert_equal 'John', profile.first_name
-      assert_equal 'Snakes', profile.last_name
-      assert_equal 'test@test.com', profile.email
-      assert profile.merchant_customer_id?
-      assert profile.payment_token?
-
-      card = profile.cards.first
-      assert_equal '7f7513cd-f5ea-49c5-a249-72050bc750e7', card.id
-      assert_equal '411111', card.card_bin
-      assert_equal '1111', card.last_digits
-      assert_equal 'VI', card.card_type
-      assert_equal 'visa', card.brand
-      assert_equal 12, card.card_expiry.month
-      assert_equal 2019, card.card_expiry.year
-      assert_equal '6146cd5e-b7bd-4867-870e-0adc910d01df', card.billing_address_id
-      assert_equal 'VI', card.card_type
-      assert_equal 'CNpnmxFwDSK3s9p', card.payment_token
-      assert_equal 'ACTIVE', card.status
-
-      address = profile.addresses.first
-      assert_equal '6146cd5e-b7bd-4867-870e-0adc910d01df', address.id
-      assert_equal 'US', address.country
-      assert_equal '10014', address.zip
-      assert_equal 'ACTIVE', address.status
-    end
-  end
-
-  def test_create_profile
-    VCR.use_cassette('create_profile') do
-      result = test_client.create_profile(merchant_customer_id: '1445638620', locale: 'en_US', first_name: 'test', last_name: 'test', email: 'test@test.com')
-
-      assert_equal '1445638620', result.merchant_customer_id
-      assert_equal 'en_US', result.locale
-      assert_equal 'test', result.first_name
-      assert_equal 'test', result.last_name
-      assert_equal 'test@test.com', result.email
-      assert_equal 'ACTIVE', result.status
-      assert result.payment_token?
-    end
-  end
-
-  def test_create_profile_with_card_and_address
-    VCR.use_cassette('create_profile_with_card_and_address') do
-      profile = test_client.create_profile(
-        merchant_customer_id: '1446069505',
+    profile = VCR.use_cassette('get_profile_with_cards_and_addresses') do
+      result = authenticated_client.customer_vault.create_profile(
+        merchant_customer_id: random_id,
         locale: 'en_US',
         first_name: 'test',
         last_name: 'test',
@@ -164,195 +126,340 @@ class PaysafeTest < Minitest::Test
           card_num: '4111111111111111',
           card_expiry: {
             month: 12,
-            year: 2019
+            year: 2050
           },
           billing_address: {
-            country: 'US', zip: '10014'
+            country: 'US',
+            zip: '10014'
           }
         }
       )
-
-      assert profile.id?
-      assert_equal '1446069505', profile.merchant_customer_id
-      assert_equal 'ACTIVE', profile.status
-      assert_equal 'en_US', profile.locale
-      assert_equal 'test', profile.first_name
-      assert_equal 'test', profile.last_name
-      assert_equal 'test@test.com', profile.email
-      assert_equal 'PovQX1RKgd8daYh', profile.payment_token
-
-      card = profile.cards.first
-      assert_equal '7f7513cd-f5ea-49c5-a249-72050bc750e7', card.id
-      assert_equal '411111', card.card_bin
-      assert_equal '1111', card.last_digits
-      assert_equal 'VI', card.card_type
-      assert_equal 'visa', card.brand
-      assert_equal 12, card.card_expiry.month
-      assert_equal 2019, card.card_expiry.year
-      assert_equal '6146cd5e-b7bd-4867-870e-0adc910d01df', card.billing_address_id
-      assert_equal 'VI', card.card_type
-      assert_equal 'CNpnmxFwDSK3s9p', card.payment_token
-      assert_equal 'ACTIVE', card.status
-
-      address = profile.addresses.first
-      assert_equal '6146cd5e-b7bd-4867-870e-0adc910d01df', address.id
-      assert_equal 'US', address.country
-      assert_equal '10014', address.zip
-      assert_equal 'ACTIVE', address.status
+      authenticated_client.customer_vault.get_profile(id: result.id, fields: [:cards,:addresses])
     end
+
+    assert_match(/([a-f0-9\-]+)/, profile.id)
+    assert_match(/([a-f0-9\-]+)/, profile.merchant_customer_id)
+    assert profile.merchant_customer_id?
+    assert_match(/([\w]+)/, profile.payment_token)
+    assert profile.payment_token?
+    assert_equal 'ACTIVE', profile.status
+    assert_equal 'en_US', profile.locale
+    assert_equal 'test', profile.first_name
+    assert_equal 'test', profile.last_name
+    assert_equal 'test@test.com', profile.email
+
+    card = profile.cards.first
+    assert_match(/([a-f0-9\-]+)/, card.id)
+    assert_equal '411111', card.card_bin
+    assert_equal '1111', card.last_digits
+    assert_equal 'VI', card.card_type
+    assert_equal 'visa', card.brand
+    assert_equal 12, card.card_expiry.month
+    assert_equal 2050, card.card_expiry.year
+    assert_match(/([a-f0-9\-]+)/, card.billing_address_id)
+    assert_match(/([\w]+)/, card.payment_token)
+    assert_equal 'ACTIVE', card.status
+
+    address = profile.addresses.first
+    assert_match(/([a-f0-9\-]+)/, address.id)
+    assert_equal 'US', address.country
+    assert_equal '10014', address.zip
+    assert_equal 'ACTIVE', address.status
   end
 
-  def test_create_profile_with_card_and_address_failed
-    VCR.use_cassette('create_profile_with_card_and_address_failed') do
-      assert_raises(Paysafe::Error::Conflict) do
-        test_client.create_profile(
-          merchant_customer_id: '1445638620',
-          locale: 'en_US',
-          first_name: 'test',
-          last_name: 'test',
-          email: 'test@test.com',
-          card: {
-            card_num: '4111111111111111',
-            card_expiry: {
-              month: 12,
-              year: 2019
-            },
-            billing_address: {
-              country: 'US', zip: '10014'
-            }
-          }
+  def test_create_profile
+    result = VCR.use_cassette('create_profile') do
+      authenticated_client.customer_vault.create_profile(
+        merchant_customer_id: random_id,
+        locale: 'en_US',
+        first_name: 'test',
+        last_name: 'test',
+        email: 'test@test.com'
+      )
+    end
+
+    assert_match(/([a-f0-9\-]+)/, result.merchant_customer_id)
+    assert_equal 'en_US', result.locale
+    assert_equal 'test', result.first_name
+    assert_equal 'test', result.last_name
+    assert_equal 'test@test.com', result.email
+    assert_equal 'ACTIVE', result.status
+    assert result.payment_token?
+  end
+
+  def test_create_profile_failed
+    error = assert_raises(Paysafe::Error::BadRequest) do
+      VCR.use_cassette('create_profile_failed') do
+        authenticated_client.customer_vault.create_profile(
+          merchant_customer_id: '',
+          locale: ''
         )
       end
     end
+
+    assert_equal '5068', error.code
+    assert_equal 'Either you submitted a request that is missing a mandatory field or the value of a field does not match the format expected.', error.message
+  end
+
+  def test_create_profile_with_card_and_address
+    profile = VCR.use_cassette('create_profile_with_card_and_address') do
+      authenticated_client.customer_vault.create_profile(
+        merchant_customer_id: random_id,
+        locale: 'en_US',
+        first_name: 'test',
+        last_name: 'test',
+        email: 'test@test.com',
+        card: {
+          card_num: '4111111111111111',
+          card_expiry: {
+            month: 12,
+            year: 2050
+          },
+          billing_address: {
+            country: 'US',
+            zip: '10014'
+          }
+        }
+      )
+    end
+
+    assert profile.id?
+    assert_match(/([a-f0-9\-]+)/, profile.merchant_customer_id)
+    assert_equal 'ACTIVE', profile.status
+    assert_equal 'en_US', profile.locale
+    assert_equal 'test', profile.first_name
+    assert_equal 'test', profile.last_name
+    assert_equal 'test@test.com', profile.email
+    assert_match(/([\w]+)/, profile.payment_token)
+
+    card = profile.cards.first
+    assert_match(/([a-f0-9\-]+)/, card.id)
+    assert_equal '411111', card.card_bin
+    assert_equal '1111', card.last_digits
+    assert_equal 'VI', card.card_type
+    assert_equal 'visa', card.brand
+    assert_equal 12, card.card_expiry.month
+    assert_equal 2050, card.card_expiry.year
+    assert_match(/([a-f0-9\-]+)/, card.billing_address_id)
+    assert_match(/([\w]+)/, card.payment_token)
+    assert_equal 'ACTIVE', card.status
+
+    address = profile.addresses.first
+    assert_match(/([a-f0-9\-]+)/, address.id)
+    assert_equal 'US', address.country
+    assert_equal '10014', address.zip
+    assert_equal 'ACTIVE', address.status
   end
 
   def test_update_profile
-    VCR.use_cassette('update_profile') do
-      profile = test_client.update_profile(
-        id: '0978224b-5116-48d4-8a8e-e4b5b7a32285',
-        merchant_customer_id: '1445638620',
+    profile = VCR.use_cassette('update_profile') do
+      profile = create_empty_profile
+      assert_match(/([a-f0-9\-]+)/, profile.id)
+      assert_nil profile.first_name
+      assert_nil profile.last_name
+      assert_nil profile.email
+
+      authenticated_client.customer_vault.update_profile(
+        id: profile.id,
+        merchant_customer_id: random_id,
         locale: 'en_US',
         first_name: 'Testing',
         last_name: 'Testing',
         email: 'example@test.com'
       )
-
-      assert_equal '1445638620', profile.merchant_customer_id
-      assert_equal 'en_US', profile.locale
-      assert_equal 'Testing', profile.first_name
-      assert_equal 'Testing', profile.last_name
-      assert_equal 'example@test.com', profile.email
-      assert_equal 'ACTIVE', profile.status
-      assert_equal 'PSs8LGTqy2y2PcY', profile.payment_token
     end
+
+    assert_match(/([a-f0-9\-]+)/, profile.id)
+    assert_match(/([a-f0-9\-]+)/, profile.merchant_customer_id)
+    assert_equal 'en_US', profile.locale
+    assert_equal 'Testing', profile.first_name
+    assert_equal 'Testing', profile.last_name
+    assert_equal 'example@test.com', profile.email
+    assert_equal 'ACTIVE', profile.status
+    assert_match(/([\w]+)/, profile.payment_token)
   end
 
   def test_create_address
-    VCR.use_cassette('create_address') do
-      result = test_client.create_address(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', country: 'US', zip: '10014')
-
-      assert_equal 'US', result.country
-      assert_equal '10014', result.zip
-      assert_equal 'ACTIVE', result.status
+    result = VCR.use_cassette('create_address') do
+      profile = create_empty_profile
+      authenticated_client.customer_vault.create_address(
+        profile_id: profile.id,
+        country: 'US',
+        zip: '10014'
+      )
     end
+
+    assert_match(/([a-f0-9\-]+)/, result.id)
+    assert_equal 'US', result.country
+    assert_equal '10014', result.zip
+    assert_equal 'ACTIVE', result.status
   end
 
   def test_create_card
-    VCR.use_cassette('create_card') do
-      card = test_client.create_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', number: '4111111111111111', month: 12, year: 2019, billing_address_id: '4bf9d2e7-4be0-4d13-b483-223640cb40a0')
+    card = VCR.use_cassette('create_card') do
+      profile = create_empty_profile
 
-      assert_equal 'd63b2910-9ab5-4803-a2a2-1aadcc790cc2', card.id
-      assert_equal '411111', card.card_bin
-      assert_equal '1111', card.last_digits
-      assert_equal 'VI', card.card_type
-      assert_equal 'visa', card.brand
-      assert_equal 12, card.card_expiry.month
-      assert_equal 2019, card.card_expiry.year
-      assert_equal 'VI', card.card_type
-      assert_equal '4bf9d2e7-4be0-4d13-b483-223640cb40a0', card.billing_address_id
-      assert_equal 'ACTIVE', card.status
-      assert_equal 'CHHzoulx4Xpm31I', card.payment_token
+      address = authenticated_client.customer_vault.create_address(
+        profile_id: profile.id,
+        country: 'US',
+        zip: '10014'
+      )
+
+      authenticated_client.customer_vault.create_card(
+        profile_id: profile.id,
+        number: '4111111111111111',
+        month: 12,
+        year: 2050,
+        billing_address_id: address.id
+      )
     end
+
+    assert_match(/([a-f0-9\-]+)/, card.id)
+    assert_equal '411111', card.card_bin
+    assert_equal '1111', card.last_digits
+    assert_equal 'VI', card.card_type
+    assert_equal 'visa', card.brand
+    assert_equal 12, card.card_expiry.month
+    assert_equal 2050, card.card_expiry.year
+    assert_match(/([a-f0-9\-]+)/, card.billing_address_id)
+    assert_equal 'ACTIVE', card.status
+    assert_match(/([\w]+)/, card.payment_token)
   end
 
   def test_create_card_failed_400
-    VCR.use_cassette('create_card_failed_400') do
-      error = assert_raises(Paysafe::Error::BadRequest) {
-        test_client.create_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', number: '4111111111', month: 12, year: 2017)
-      }
-
-      # Converts response keys to snake_case
-      assert error.response[:error][:field_errors].any?
+    error = assert_raises(Paysafe::Error::BadRequest) do
+      VCR.use_cassette('create_card_failed_bad_request') do
+        profile = create_empty_profile
+        authenticated_client.customer_vault.create_card(
+          profile_id: profile.id,
+          number: '4111111111',
+          month: 12,
+          year: 2017
+        )
+      end
     end
+
+    assert_equal "5068", error.code
+    assert_equal 'Either you submitted a request that is missing a mandatory field or the value of a field does not match the format expected.', error.message
+    assert error.response[:error][:field_errors].any?
   end
 
   def test_create_card_failed_409
-    VCR.use_cassette('create_card_failed_409') do
-      assert_raises(Paysafe::Error::Conflict) {
-        test_client.create_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', number: '4111111111111111', month: 12, year: 2019)
-      }
+    error = assert_raises(Paysafe::Error::Conflict) do
+      VCR.use_cassette('create_card_failed_conflict') do
+        profile = create_empty_profile
+        authenticated_client.customer_vault.create_card(
+          profile_id: profile.id,
+          number: '4111111111111111',
+          month: 12,
+          year: 2050
+        )
+
+        # Should fail since card already exists
+        authenticated_client.customer_vault.create_card(
+          profile_id: profile.id,
+          number: '4111111111111111',
+          month: 12,
+          year: 2050
+        )
+      end
     end
+
+    assert_equal "7503", error.code
+    assert_match(/Card number already in use -/, error.message)
   end
 
   def test_delete_card
     VCR.use_cassette('delete_card') do
-      test_client.delete_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', id: '8e176fa6-9803-40a3-b870-0cd1fdb0e64e')
+      profile = create_empty_profile
+
+      address = authenticated_client.customer_vault.create_address(
+        profile_id: profile.id,
+        country: 'US',
+        zip: '10014'
+      )
+
+      card = authenticated_client.customer_vault.create_card(
+        profile_id: profile.id,
+        number: '4111111111111111',
+        month: 12,
+        year: 2050,
+        billing_address_id: address.id
+      )
+
+      authenticated_client.customer_vault.delete_card(profile_id: profile.id, id: card.id)
     end
   end
 
   def test_get_card
-    VCR.use_cassette('get_card') do
-      card = test_client.get_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', id: '972ed74f-6ff1-4a5b-a460-a11e606e2fa9')
+    card = VCR.use_cassette('get_card') do
+      profile = create_empty_profile
 
-      assert_equal '972ed74f-6ff1-4a5b-a460-a11e606e2fa9', card.id
-      assert_equal '411111', card.card_bin
-      assert_equal '1111', card.last_digits
-      assert_equal 'VI', card.card_type
-      assert_equal 'visa', card.brand
-      assert_equal 12, card.card_expiry.month
-      assert_equal 2017, card.card_expiry.year
-      assert_equal 'John Smith', card.holder_name
-      assert_equal '4bf9d2e7-4be0-4d13-b483-223640cb40a0', card.billing_address_id
-      assert_equal 'ACTIVE', card.status
-      assert_equal 'CdZk1Yk5EUSJb2v', card.payment_token
+      address = authenticated_client.customer_vault.create_address(
+        profile_id: profile.id,
+        country: 'US',
+        zip: '10014'
+      )
+
+      card = authenticated_client.customer_vault.create_card(
+        profile_id: profile.id,
+        number: '4111111111111111',
+        month: 12,
+        year: 2050,
+        billing_address_id: address.id
+      )
+
+      authenticated_client.customer_vault.get_card(profile_id: profile.id, id: card.id)
     end
+
+    assert_match(/([a-f0-9\-]+)/, card.id)
+    assert_equal '411111', card.card_bin
+    assert_equal '1111', card.last_digits
+    assert_equal 'VI', card.card_type
+    assert_equal 'visa', card.brand
+    assert_equal 12, card.card_expiry.month
+    assert_equal 2050, card.card_expiry.year
+    assert_match(/([a-f0-9\-]+)/, card.billing_address_id)
+    assert_equal 'ACTIVE', card.status
+    assert_match(/([\w]+)/, card.payment_token)
   end
 
   def test_update_card
-    VCR.use_cassette('update_card') do
-      card = test_client.update_card(profile_id: 'b088ac37-32cb-4320-9b64-f9f4923f53ed', id: '972ed74f-6ff1-4a5b-a460-a11e606e2fa9', month: 6, year: 2019)
+    card = VCR.use_cassette('update_card') do
+      profile = create_empty_profile
 
-      assert_equal '972ed74f-6ff1-4a5b-a460-a11e606e2fa9', card.id
-      assert_equal '411111', card.card_bin
-      assert_equal '1111', card.last_digits
-      assert_equal 'VI', card.card_type
-      assert_equal 'visa', card.brand
-      assert_equal 6, card.card_expiry.month
-      assert_equal 2019, card.card_expiry.year
-      assert_equal 'John Smith', card.holder_name
-      assert_equal '4bf9d2e7-4be0-4d13-b483-223640cb40a0', card.billing_address_id
-      assert_equal 'ACTIVE', card.status
-      assert_equal 'CNBkqXXjTFdZNa3', card.payment_token
+      address = authenticated_client.customer_vault.create_address(
+        profile_id: profile.id,
+        country: 'US',
+        zip: '10014'
+      )
+
+      card = authenticated_client.customer_vault.create_card(
+        profile_id: profile.id,
+        number: '4111111111111111',
+        month: 12,
+        year: 2050,
+        billing_address_id: address.id
+      )
+
+      authenticated_client.customer_vault.update_card(
+        profile_id: profile.id,
+        id: card.id,
+        month: 6,
+        year: 2055
+      )
     end
-  end
 
-  def test_purchase
-    VCR.use_cassette('purchase') do
-      result = test_client.purchase(amount: 400, token: 'CrHElYip7kRAgXY', merchant_ref_num: '1445888963')
-
-      assert result.id?
-      assert_equal 400, result.amount
-      assert_equal true, result.settle_with_auth
-      assert_equal '1445888963', result.merchant_ref_num
-      assert result.txn_time?
-      assert_equal 'COMPLETED', result.status
-      assert_equal 'USD', result.currency_code
-      assert_equal 'NOT_PROCESSED', result.avs_response
-      assert_equal '100550', result.auth_code
-      assert result.card?
-      assert result.profile?
-      assert result.billing_details?
-    end
+    assert_match(/([a-f0-9\-]+)/, card.id)
+    assert_equal '411111', card.card_bin
+    assert_equal '1111', card.last_digits
+    assert_equal 'VI', card.card_type
+    assert_equal 'visa', card.brand
+    assert_equal 6, card.card_expiry.month
+    assert_equal 2055, card.card_expiry.year
+    assert_nil card.billing_address_id
+    assert_equal 'ACTIVE', card.status
+    assert_match(/([\w]+)/, card.payment_token)
   end
 
 end

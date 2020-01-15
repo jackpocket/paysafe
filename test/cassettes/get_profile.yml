@@ -1,0 +1,105 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/customervault/v1/profiles
+    body:
+      encoding: UTF-8
+      string: '{"firstName":"test","lastName":"test","email":"test@test.com","merchantCustomerId":"21f9ec70-d240-4e65-981f-f0566e934b24","locale":"en_US"}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Location:
+      - https://api.test.paysafe.com/customervault/v1/profiles/2c898426-d237-4de2-854b-d95ac1cd83aa
+      Content-Length:
+      - '234'
+      X-Applicationuid:
+      - GUID=6e97609a-890a-4b53-970b-1240a4dbfc99
+      Content-Type:
+      - application/json
+      Expires:
+      - Wed, 15 Jan 2020 16:24:29 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 15 Jan 2020 16:24:29 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"2c898426-d237-4de2-854b-d95ac1cd83aa","status":"ACTIVE","merchantCustomerId":"21f9ec70-d240-4e65-981f-f0566e934b24","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"Pn9YNUasOnjEdoz","email":"test@test.com"}'
+    http_version: 
+  recorded_at: Wed, 15 Jan 2020 16:24:29 GMT
+- request:
+    method: get
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/2c898426-d237-4de2-854b-d95ac1cd83aa
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '234'
+      X-Applicationuid:
+      - GUID=414198c3-a58e-4336-ac52-5a161ec7ba7a
+      Etag:
+      - '"0ec7ef24b7421e127b7a84511c0bd4789"'
+      Content-Type:
+      - application/json
+      Expires:
+      - Wed, 15 Jan 2020 16:24:29 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 15 Jan 2020 16:24:29 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"2c898426-d237-4de2-854b-d95ac1cd83aa","status":"ACTIVE","merchantCustomerId":"21f9ec70-d240-4e65-981f-f0566e934b24","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"Pn9YNUasOnjEdoz","email":"test@test.com"}'
+    http_version: 
+  recorded_at: Wed, 15 Jan 2020 16:24:29 GMT
+recorded_with: VCR 5.0.0

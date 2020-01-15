@@ -6,11 +6,7 @@ class SingleUseTokenTest < Minitest::Test
     skip if ENV['SKIP_INTEGRATION'] == 'true' || ENV['PAYSAFE_SUT_API_KEY'].nil?
     turn_off_vcr!
 
-    @sut_client = Paysafe::REST::Client.new do |config|
-      config.api_key = ENV['PAYSAFE_SUT_API_KEY']
-      config.api_secret = ENV['PAYSAFE_SUT_API_SECRET']
-    end
-
+    @sut_client = authenticated_sut_client
     @year = Time.now.year + 1
   end
 
