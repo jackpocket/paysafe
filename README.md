@@ -24,15 +24,14 @@ To try out the gem, just follow the Development section instructions as the buil
 Create and configure a client with your API authentication.
 
 ```ruby
-client = Paysafe::REST::Client.new do |config|
-  config.account_number = '1234567890'
-  config.api_key = 'api_key'
-  config.api_secret = 'api_secret'
-  # Enable production requests
-  # config.test_mode = false
-  # Provide explicit timeouts
-  # config.timeouts = { connect: 2, read: 5, write: 10 }
-end
+client = Paysafe::REST::Client.new(
+  account_number: '1234567890',
+  api_key: 'api_key',
+  api_secret: 'api_secret',
+  test_mode: false # to enable Production requests
+  # Provide optional timeouts
+  # timeouts: { connect: 2, read: 5, write: 10 }
+)
 ```
 
 ### Making Requests
