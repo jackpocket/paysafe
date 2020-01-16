@@ -7,7 +7,7 @@ class SingleUseTokenTest < Minitest::Test
     turn_off_vcr!
 
     @sut_client = authenticated_sut_client
-    @year = Time.now.year + 1
+    @year = 2050
   end
 
   def test_single_use_token_with_verification_request
