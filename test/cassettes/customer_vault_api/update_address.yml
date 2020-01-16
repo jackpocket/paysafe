@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.test.paysafe.com/customervault/v1/profiles
     body:
       encoding: UTF-8
-      string: '{"merchantCustomerId":"e5a68ee7-7528-4788-a927-2fee057fa2f2","locale":"en_US"}'
+      string: '{"firstName":"test","lastName":"test","email":"test@test.com","card":{"cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2050},"billingAddress":{"country":"US","zip":"10014"}},"merchantCustomerId":"5a900a56-4ed6-45cc-b3c1-40463db009d8","locale":"en_US"}'
     headers:
       Content-Type:
       - application/json
@@ -28,83 +28,30 @@ http_interactions:
     headers:
       Server:
       - WebServer32xS10i3
-      Location:
-      - https://api.test.paysafe.com/customervault/v1/profiles/c77205d9-60b4-4532-afbb-1617e3805559
       Content-Length:
-      - '173'
+      - '691'
       X-Applicationuid:
-      - GUID=ff2c6645-ce50-42f3-ae6a-f85acb486014
+      - GUID=63e5485b-f500-419a-adfe-0583eff235a6
       Content-Type:
       - application/json
       Expires:
-      - Wed, 15 Jan 2020 18:59:11 GMT
+      - Thu, 16 Jan 2020 20:59:14 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
       Date:
-      - Wed, 15 Jan 2020 18:59:11 GMT
+      - Thu, 16 Jan 2020 20:59:14 GMT
       Connection:
       - close
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"c77205d9-60b4-4532-afbb-1617e3805559","status":"ACTIVE","merchantCustomerId":"e5a68ee7-7528-4788-a927-2fee057fa2f2","locale":"en_US","paymentToken":"PGwU80dwpvNFDVA"}'
+      string: '{"id":"dd61aca0-7801-4e9a-b624-06fa53a87fb4","status":"ACTIVE","merchantCustomerId":"5a900a56-4ed6-45cc-b3c1-40463db009d8","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"POvjN8yxxAuG9oz","email":"test@test.com","addresses":[{"id":"e28004fb-ff1b-4cce-b7b1-6f7ad659119f","country":"US","zip":"10014","defaultShippingAddressIndicator":false,"status":"ACTIVE"}],"cards":[{"status":"ACTIVE","id":"4773d0cb-e281-4b7b-bcca-684cb618a495","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2050,"month":12},"billingAddressId":"e28004fb-ff1b-4cce-b7b1-6f7ad659119f","cardType":"VI","cardCategory":"CREDIT","paymentToken":"CdZLF91kg5HwSDB","defaultCardIndicator":true}]}'
     http_version: 
-  recorded_at: Wed, 15 Jan 2020 18:59:11 GMT
-- request:
-    method: post
-    uri: https://api.test.paysafe.com/customervault/v1/profiles/c77205d9-60b4-4532-afbb-1617e3805559/addresses
-    body:
-      encoding: UTF-8
-      string: '{"country":"US","zip":"10014"}'
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - PaysafeRubyGem/0.9.4
-      X-Ruby-Version:
-      - 2.6.5
-      X-Ruby-Platform:
-      - x86_64-darwin18
-      Authorization:
-      - Basic <API_TOKEN>
-      Connection:
-      - close
-      Host:
-      - api.test.paysafe.com
-  response:
-    status:
-      code: 201
-      message: Created
-    headers:
-      Server:
-      - WebServer32xS10i3
-      Location:
-      - https://api.test.paysafe.com/customervault/v1/profiles/c77205d9-60b4-4532-afbb-1617e3805559/addresses/5c1118d7-41ac-4e17-b937-612fa8c159c2
-      Content-Length:
-      - '132'
-      X-Applicationuid:
-      - GUID=604fe235-7178-4a52-8cd4-eb330acb5a65
-      Content-Type:
-      - application/json
-      Expires:
-      - Wed, 15 Jan 2020 18:59:11 GMT
-      Cache-Control:
-      - max-age=0, no-cache, no-store
-      Pragma:
-      - no-cache
-      Date:
-      - Wed, 15 Jan 2020 18:59:11 GMT
-      Connection:
-      - close
-    body:
-      encoding: ASCII-8BIT
-      string: '{"id":"5c1118d7-41ac-4e17-b937-612fa8c159c2","country":"US","zip":"10014","defaultShippingAddressIndicator":false,"status":"ACTIVE"}'
-    http_version: 
-  recorded_at: Wed, 15 Jan 2020 18:59:11 GMT
+  recorded_at: Thu, 16 Jan 2020 20:59:14 GMT
 - request:
     method: put
-    uri: https://api.test.paysafe.com/customervault/v1/profiles/c77205d9-60b4-4532-afbb-1617e3805559/addresses/5c1118d7-41ac-4e17-b937-612fa8c159c2
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/dd61aca0-7801-4e9a-b624-06fa53a87fb4/addresses/e28004fb-ff1b-4cce-b7b1-6f7ad659119f
     body:
       encoding: UTF-8
       string: '{"country":"US","zip":"10018"}'
@@ -133,22 +80,22 @@ http_interactions:
       Content-Length:
       - '132'
       X-Applicationuid:
-      - GUID=957dcb21-bc7c-4917-b30a-e35288bf45ac
+      - GUID=2b97d985-7031-44de-9ee4-a149feed2b76
       Content-Type:
       - application/json
       Expires:
-      - Wed, 15 Jan 2020 18:59:11 GMT
+      - Thu, 16 Jan 2020 20:59:14 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
       Date:
-      - Wed, 15 Jan 2020 18:59:11 GMT
+      - Thu, 16 Jan 2020 20:59:14 GMT
       Connection:
       - close
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"5c1118d7-41ac-4e17-b937-612fa8c159c2","country":"US","zip":"10018","defaultShippingAddressIndicator":false,"status":"ACTIVE"}'
+      string: '{"id":"e28004fb-ff1b-4cce-b7b1-6f7ad659119f","country":"US","zip":"10018","defaultShippingAddressIndicator":false,"status":"ACTIVE"}'
     http_version: 
-  recorded_at: Wed, 15 Jan 2020 18:59:11 GMT
+  recorded_at: Thu, 16 Jan 2020 20:59:14 GMT
 recorded_with: VCR 5.0.0

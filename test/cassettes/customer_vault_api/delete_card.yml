@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.test.paysafe.com/customervault/v1/profiles
     body:
       encoding: UTF-8
-      string: '{"merchantCustomerId":"84feb50b-4c25-4a9c-b683-c24d23bf0890","locale":"en_US"}'
+      string: '{"firstName":"test","lastName":"test","email":"test@test.com","card":{"cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2050},"billingAddress":{"country":"US","zip":"10014"}},"merchantCustomerId":"dd753698-0043-46ce-93de-9d4f83a64897","locale":"en_US"}'
     headers:
       Content-Type:
       - application/json
@@ -28,134 +28,32 @@ http_interactions:
     headers:
       Server:
       - WebServer32xS10i3
-      Location:
-      - https://api.test.paysafe.com/customervault/v1/profiles/767af5f8-0bd2-48fc-81eb-5b9392d8fc26
       Content-Length:
-      - '173'
+      - '691'
       X-Applicationuid:
-      - GUID=73485298-8d47-43d7-ac29-bc6bac26588f
+      - GUID=3d7c3ee5-7b1e-40c6-aa64-24e70ef3ff0a
       Content-Type:
       - application/json
+      X-Pad:
+      - avoid browser bug
       Expires:
-      - Wed, 15 Jan 2020 16:39:26 GMT
+      - Thu, 16 Jan 2020 21:10:33 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
       Date:
-      - Wed, 15 Jan 2020 16:39:26 GMT
+      - Thu, 16 Jan 2020 21:10:33 GMT
       Connection:
       - close
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"767af5f8-0bd2-48fc-81eb-5b9392d8fc26","status":"ACTIVE","merchantCustomerId":"84feb50b-4c25-4a9c-b683-c24d23bf0890","locale":"en_US","paymentToken":"PhCv64ZshhdgGaf"}'
+      string: '{"id":"845e1b28-a675-4fed-88a6-281af3016a01","status":"ACTIVE","merchantCustomerId":"dd753698-0043-46ce-93de-9d4f83a64897","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"PJtssZIr16endCl","email":"test@test.com","addresses":[{"id":"107288c2-9b84-4b98-9c3a-e599fa388fcd","country":"US","zip":"10014","defaultShippingAddressIndicator":false,"status":"ACTIVE"}],"cards":[{"status":"ACTIVE","id":"cb16a843-12d3-470a-a70a-3d26eed385b2","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2050,"month":12},"billingAddressId":"107288c2-9b84-4b98-9c3a-e599fa388fcd","cardType":"VI","cardCategory":"CREDIT","paymentToken":"C9MPa0sTQ99fdc0","defaultCardIndicator":true}]}'
     http_version: 
-  recorded_at: Wed, 15 Jan 2020 16:39:26 GMT
-- request:
-    method: post
-    uri: https://api.test.paysafe.com/customervault/v1/profiles/767af5f8-0bd2-48fc-81eb-5b9392d8fc26/addresses
-    body:
-      encoding: UTF-8
-      string: '{"country":"US","zip":"10014"}'
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - PaysafeRubyGem/0.9.4
-      X-Ruby-Version:
-      - 2.6.5
-      X-Ruby-Platform:
-      - x86_64-darwin18
-      Authorization:
-      - Basic <API_TOKEN>
-      Connection:
-      - close
-      Host:
-      - api.test.paysafe.com
-  response:
-    status:
-      code: 201
-      message: Created
-    headers:
-      Server:
-      - WebServer32xS10i3
-      Location:
-      - https://api.test.paysafe.com/customervault/v1/profiles/767af5f8-0bd2-48fc-81eb-5b9392d8fc26/addresses/503af98b-6276-4ffd-8fa7-30b206e154b6
-      Content-Length:
-      - '132'
-      X-Applicationuid:
-      - GUID=a1e3c551-ff5e-42c9-89fa-ae32aa19475f
-      Content-Type:
-      - application/json
-      Expires:
-      - Wed, 15 Jan 2020 16:39:26 GMT
-      Cache-Control:
-      - max-age=0, no-cache, no-store
-      Pragma:
-      - no-cache
-      Date:
-      - Wed, 15 Jan 2020 16:39:26 GMT
-      Connection:
-      - close
-    body:
-      encoding: ASCII-8BIT
-      string: '{"id":"503af98b-6276-4ffd-8fa7-30b206e154b6","country":"US","zip":"10014","defaultShippingAddressIndicator":false,"status":"ACTIVE"}'
-    http_version: 
-  recorded_at: Wed, 15 Jan 2020 16:39:26 GMT
-- request:
-    method: post
-    uri: https://api.test.paysafe.com/customervault/v1/profiles/767af5f8-0bd2-48fc-81eb-5b9392d8fc26/cards
-    body:
-      encoding: UTF-8
-      string: '{"billingAddressId":"503af98b-6276-4ffd-8fa7-30b206e154b6","cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2050}}'
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - PaysafeRubyGem/0.9.4
-      X-Ruby-Version:
-      - 2.6.5
-      X-Ruby-Platform:
-      - x86_64-darwin18
-      Authorization:
-      - Basic <API_TOKEN>
-      Connection:
-      - close
-      Host:
-      - api.test.paysafe.com
-  response:
-    status:
-      code: 201
-      message: Created
-    headers:
-      Server:
-      - WebServer32xS10i3
-      Location:
-      - https://api.test.paysafe.com/customervault/v1/profiles/767af5f8-0bd2-48fc-81eb-5b9392d8fc26/cards/a93c6e9a-196d-4e60-8330-b4a9b55ed4eb
-      Content-Length:
-      - '342'
-      X-Applicationuid:
-      - GUID=10149af4-1769-464e-b270-401430112931
-      Content-Type:
-      - application/json
-      Expires:
-      - Wed, 15 Jan 2020 16:39:26 GMT
-      Cache-Control:
-      - max-age=0, no-cache, no-store
-      Pragma:
-      - no-cache
-      Date:
-      - Wed, 15 Jan 2020 16:39:26 GMT
-      Connection:
-      - close
-    body:
-      encoding: ASCII-8BIT
-      string: '{"status":"ACTIVE","id":"a93c6e9a-196d-4e60-8330-b4a9b55ed4eb","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2050,"month":12},"billingAddressId":"503af98b-6276-4ffd-8fa7-30b206e154b6","cardType":"VI","cardCategory":"CREDIT","paymentToken":"C8CQSKWL0wN6rNX","storedCredentialTokenStatus":"UNVERIFIED","defaultCardIndicator":true}'
-    http_version: 
-  recorded_at: Wed, 15 Jan 2020 16:39:26 GMT
+  recorded_at: Thu, 16 Jan 2020 21:10:33 GMT
 - request:
     method: delete
-    uri: https://api.test.paysafe.com/customervault/v1/profiles/767af5f8-0bd2-48fc-81eb-5b9392d8fc26/cards/a93c6e9a-196d-4e60-8330-b4a9b55ed4eb
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/845e1b28-a675-4fed-88a6-281af3016a01/cards/cb16a843-12d3-470a-a70a-3d26eed385b2
     body:
       encoding: UTF-8
       string: ''
@@ -184,22 +82,22 @@ http_interactions:
       Content-Length:
       - '0'
       X-Applicationuid:
-      - GUID=e9fe78bb-6937-4611-9159-f05862513513
+      - GUID=50a45631-ce1e-4e60-b4c0-da4702b15598
       Content-Type:
       - application/json
       Expires:
-      - Wed, 15 Jan 2020 16:39:26 GMT
+      - Thu, 16 Jan 2020 21:10:33 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
       Date:
-      - Wed, 15 Jan 2020 16:39:26 GMT
+      - Thu, 16 Jan 2020 21:10:33 GMT
       Connection:
       - close
     body:
       encoding: ASCII-8BIT
       string: ''
     http_version: 
-  recorded_at: Wed, 15 Jan 2020 16:39:26 GMT
+  recorded_at: Thu, 16 Jan 2020 21:10:33 GMT
 recorded_with: VCR 5.0.0

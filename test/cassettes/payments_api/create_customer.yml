@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/paymenthub/v1/customers
+    body:
+      encoding: UTF-8
+      string: '{"merchantCustomerId":"d1b13fd6-3d40-4452-a9b3-ec6efcc778c9","locale":"en_US","dateOfBirth":{"year":1983,"month":2,"day":1}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      - application/json;charset=UTF-8
+      X-Rate-Limit-Limit:
+      - '1000'
+      X-Rate-Limit-Remaining:
+      - '999'
+      X-Rate-Limit-Reset:
+      - '59999'
+      X-Internal-Correlation-Id:
+      - b4a77621-ea67-49c3-8d24-e6c60f8353ee
+      Content-Length:
+      - '219'
+      Expires:
+      - Thu, 16 Jan 2020 16:29:53 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 16 Jan 2020 16:29:53 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"a41a4440-5916-4bc9-9d47-8666c8ad6b6c","status":"ACTIVE","merchantCustomerId":"d1b13fd6-3d40-4452-a9b3-ec6efcc778c9","locale":"en_US","dateOfBirth":{"day":1,"month":2,"year":1983},"paymentToken":"PSslKBbfI27Vsjn"}'
+    http_version: 
+  recorded_at: Thu, 16 Jan 2020 16:29:53 GMT
+recorded_with: VCR 5.0.0

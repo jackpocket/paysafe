@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.test.paysafe.com/customervault/v1/profiles
     body:
       encoding: UTF-8
-      string: '{"firstName":"test","lastName":"test","email":"test@test.com","card":{"cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2050},"billingAddress":{"country":"US","zip":"10014"}},"merchantCustomerId":"b9565c8e-8c8e-4a33-86e0-ffa47acec1dd","locale":"en_US"}'
+      string: '{"firstName":"test","lastName":"test","email":"test@test.com","card":{"cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2050},"billingAddress":{"country":"US","zip":"10014"}},"merchantCustomerId":"05e82811-67a5-41a3-9a7f-0abc6fe6cd15","locale":"en_US"}'
     headers:
       Content-Type:
       - application/json
@@ -31,29 +31,29 @@ http_interactions:
       Content-Length:
       - '691'
       X-Applicationuid:
-      - GUID=52b1091d-579f-4583-9980-250f7710e945
+      - GUID=b9821726-b170-4877-8ea3-3e8af51ec584
       Content-Type:
       - application/json
       X-Pad:
       - avoid browser bug
       Expires:
-      - Wed, 15 Jan 2020 18:09:07 GMT
+      - Thu, 16 Jan 2020 20:41:01 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
       Date:
-      - Wed, 15 Jan 2020 18:09:07 GMT
+      - Thu, 16 Jan 2020 20:41:01 GMT
       Connection:
       - close
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"46ee523a-f150-470a-a100-9d245dda2733","status":"ACTIVE","merchantCustomerId":"b9565c8e-8c8e-4a33-86e0-ffa47acec1dd","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"PYStXfgdmQWlpOe","email":"test@test.com","addresses":[{"id":"ee32e008-6e2f-40c5-b89a-08adc77a5b79","country":"US","zip":"10014","defaultShippingAddressIndicator":false,"status":"ACTIVE"}],"cards":[{"status":"ACTIVE","id":"00baca3e-8b54-4ea9-9216-1cb786e43556","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2050,"month":12},"billingAddressId":"ee32e008-6e2f-40c5-b89a-08adc77a5b79","cardType":"VI","cardCategory":"CREDIT","paymentToken":"CdWXiB28wV7Hrhc","defaultCardIndicator":true}]}'
+      string: '{"id":"f621983a-c6b0-4b5e-a4d9-700bc4f9fece","status":"ACTIVE","merchantCustomerId":"05e82811-67a5-41a3-9a7f-0abc6fe6cd15","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"PmucJyC78aze13f","email":"test@test.com","addresses":[{"id":"b0e0027a-a8fe-4f58-8066-dae7e67e2f55","country":"US","zip":"10014","defaultShippingAddressIndicator":false,"status":"ACTIVE"}],"cards":[{"status":"ACTIVE","id":"5ad3a69d-a0a1-4b92-843d-0d5b1f2b1e25","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2050,"month":12},"billingAddressId":"b0e0027a-a8fe-4f58-8066-dae7e67e2f55","cardType":"VI","cardCategory":"CREDIT","paymentToken":"CCvnMAXTYskBoat","defaultCardIndicator":true}]}'
     http_version: 
-  recorded_at: Wed, 15 Jan 2020 18:09:07 GMT
+  recorded_at: Thu, 16 Jan 2020 20:41:01 GMT
 - request:
     method: get
-    uri: https://api.test.paysafe.com/customervault/v1/profiles/46ee523a-f150-470a-a100-9d245dda2733?fields=cards,addresses
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/f621983a-c6b0-4b5e-a4d9-700bc4f9fece?fields=cards,addresses
     body:
       encoding: UTF-8
       string: ''
@@ -82,24 +82,24 @@ http_interactions:
       Content-Length:
       - '691'
       X-Applicationuid:
-      - GUID=3da7e930-d8fa-4740-b82a-50e2504e33f4
+      - GUID=379e7512-980e-48b8-a083-273bf58dd383
       Etag:
-      - '"0e7b1b7b170fa1d2bf7f07ca7a8feb6e3"'
+      - '"0bcbadbcfc5f7b89d055cd7d15eb9aa16"'
       Content-Type:
       - application/json
       Expires:
-      - Wed, 15 Jan 2020 18:09:08 GMT
+      - Thu, 16 Jan 2020 20:41:01 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
       Date:
-      - Wed, 15 Jan 2020 18:09:08 GMT
+      - Thu, 16 Jan 2020 20:41:01 GMT
       Connection:
       - close
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"46ee523a-f150-470a-a100-9d245dda2733","status":"ACTIVE","merchantCustomerId":"b9565c8e-8c8e-4a33-86e0-ffa47acec1dd","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"PYStXfgdmQWlpOe","email":"test@test.com","addresses":[{"id":"ee32e008-6e2f-40c5-b89a-08adc77a5b79","country":"US","zip":"10014","defaultShippingAddressIndicator":false,"status":"ACTIVE"}],"cards":[{"status":"ACTIVE","id":"00baca3e-8b54-4ea9-9216-1cb786e43556","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2050,"month":12},"billingAddressId":"ee32e008-6e2f-40c5-b89a-08adc77a5b79","cardType":"VI","cardCategory":"CREDIT","paymentToken":"CdWXiB28wV7Hrhc","defaultCardIndicator":true}]}'
+      string: '{"id":"f621983a-c6b0-4b5e-a4d9-700bc4f9fece","status":"ACTIVE","merchantCustomerId":"05e82811-67a5-41a3-9a7f-0abc6fe6cd15","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"PmucJyC78aze13f","email":"test@test.com","addresses":[{"id":"b0e0027a-a8fe-4f58-8066-dae7e67e2f55","country":"US","zip":"10014","defaultShippingAddressIndicator":false,"status":"ACTIVE"}],"cards":[{"status":"ACTIVE","id":"5ad3a69d-a0a1-4b92-843d-0d5b1f2b1e25","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2050,"month":12},"billingAddressId":"b0e0027a-a8fe-4f58-8066-dae7e67e2f55","cardType":"VI","cardCategory":"CREDIT","paymentToken":"CCvnMAXTYskBoat","defaultCardIndicator":true}]}'
     http_version: 
-  recorded_at: Wed, 15 Jan 2020 18:09:08 GMT
+  recorded_at: Thu, 16 Jan 2020 20:41:01 GMT
 recorded_with: VCR 5.0.0

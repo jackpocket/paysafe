@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.test.paysafe.com/customervault/v1/profiles
     body:
       encoding: UTF-8
-      string: '{"firstName":"test","lastName":"test","email":"test@test.com","merchantCustomerId":"c8125548-1cf5-457c-9dd6-35e95a866ae1","locale":"en_US"}'
+      string: '{"firstName":"test","lastName":"test","email":"test@test.com","merchantCustomerId":"3e091b8e-936b-4dcb-af3b-2be4e9471aa1","locale":"en_US"}'
     headers:
       Content-Type:
       - application/json
@@ -29,34 +29,34 @@ http_interactions:
       Server:
       - WebServer32xS10i3
       Location:
-      - https://api.test.paysafe.com/customervault/v1/profiles/7f77bfdf-0819-4af0-ab84-0727100c9ab6
+      - https://api.test.paysafe.com/customervault/v1/profiles/916dbdd5-9388-42e3-83fb-ea764dec95b7
       Content-Length:
       - '234'
       X-Applicationuid:
-      - GUID=75cbdca1-89a3-4d8d-83cf-0a680d304c4f
+      - GUID=2212dce0-ce8c-4364-9208-56a9fdf94310
       Content-Type:
       - application/json
       Expires:
-      - Thu, 16 Jan 2020 20:29:18 GMT
+      - Thu, 16 Jan 2020 21:04:15 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
       Date:
-      - Thu, 16 Jan 2020 20:29:18 GMT
+      - Thu, 16 Jan 2020 21:04:15 GMT
       Connection:
       - close
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"7f77bfdf-0819-4af0-ab84-0727100c9ab6","status":"ACTIVE","merchantCustomerId":"c8125548-1cf5-457c-9dd6-35e95a866ae1","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"PlcqkmvVgbi6dQL","email":"test@test.com"}'
+      string: '{"id":"916dbdd5-9388-42e3-83fb-ea764dec95b7","status":"ACTIVE","merchantCustomerId":"3e091b8e-936b-4dcb-af3b-2be4e9471aa1","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"PyfPvL8zOal7MFB","email":"test@test.com"}'
     http_version: 
-  recorded_at: Thu, 16 Jan 2020 20:29:18 GMT
+  recorded_at: Thu, 16 Jan 2020 21:04:15 GMT
 - request:
-    method: get
-    uri: https://api.test.paysafe.com/customervault/v1/profiles/7f77bfdf-0819-4af0-ab84-0727100c9ab6
+    method: post
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/916dbdd5-9388-42e3-83fb-ea764dec95b7/cards
     body:
       encoding: UTF-8
-      string: ''
+      string: '{"cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2050}}'
     headers:
       Content-Type:
       - application/json
@@ -74,32 +74,32 @@ http_interactions:
       - api.test.paysafe.com
   response:
     status:
-      code: 200
-      message: OK
+      code: 201
+      message: Created
     headers:
       Server:
       - WebServer32xS10i3
+      Location:
+      - https://api.test.paysafe.com/customervault/v1/profiles/916dbdd5-9388-42e3-83fb-ea764dec95b7/cards/666db3e5-cebd-40b9-accd-135c8f0b0532
       Content-Length:
-      - '234'
+      - '284'
       X-Applicationuid:
-      - GUID=a8c2ab52-535f-4173-9b46-c8f9fb61b676
-      Etag:
-      - '"0a8cf8fbfa3f73a614167a5c93e432452"'
+      - GUID=1c2fb0c1-4c1a-44fb-831f-2a70ce336df5
       Content-Type:
       - application/json
       Expires:
-      - Thu, 16 Jan 2020 20:29:18 GMT
+      - Thu, 16 Jan 2020 21:04:15 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
       Date:
-      - Thu, 16 Jan 2020 20:29:18 GMT
+      - Thu, 16 Jan 2020 21:04:15 GMT
       Connection:
       - close
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"7f77bfdf-0819-4af0-ab84-0727100c9ab6","status":"ACTIVE","merchantCustomerId":"c8125548-1cf5-457c-9dd6-35e95a866ae1","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"PlcqkmvVgbi6dQL","email":"test@test.com"}'
+      string: '{"status":"ACTIVE","id":"666db3e5-cebd-40b9-accd-135c8f0b0532","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2050,"month":12},"cardType":"VI","cardCategory":"CREDIT","paymentToken":"CRPxxNGd9iMyRi4","storedCredentialTokenStatus":"UNVERIFIED","defaultCardIndicator":true}'
     http_version: 
-  recorded_at: Thu, 16 Jan 2020 20:29:18 GMT
+  recorded_at: Thu, 16 Jan 2020 21:04:15 GMT
 recorded_with: VCR 5.0.0

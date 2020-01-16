@@ -46,10 +46,30 @@ def authenticated_sut_client
   )
 end
 
-def create_empty_profile
+def create_test_profile(**data)
   authenticated_client.customer_vault.create_profile(
     merchant_customer_id: random_id,
-    locale: 'en_US'
+    locale: 'en_US',
+    first_name: 'test',
+    last_name: 'test',
+    email: 'test@test.com',
+    **data
+  )
+end
+
+def create_test_profile_with_card_and_address
+  create_test_profile(
+    card: {
+      card_num: '4111111111111111',
+      card_expiry: {
+        month: 12,
+        year: 2050
+      },
+      billing_address: {
+        country: 'US',
+        zip: '10014'
+      }
+    }
   )
 end
 
