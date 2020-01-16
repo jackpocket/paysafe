@@ -11,7 +11,7 @@ class CardPaymentsApiVerificationsTest < Minitest::Test
   end
 
   def test_verify_card
-    result = VCR.use_cassette('verify_card') do
+    result = VCR.use_cassette('card_payments_api/verify_card') do
       authenticated_client.card_payments.verify_card(
         merchant_ref_num: random_id,
         number: '4111111111111111',

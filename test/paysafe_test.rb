@@ -15,7 +15,7 @@ class PaysafeTest < Minitest::Test
   end
 
   def test_get_profile
-    result = VCR.use_cassette('get_profile') do
+    result = VCR.use_cassette('customer_vault_api/get_profile') do
       profile = authenticated_client.customer_vault.create_profile(
         merchant_customer_id: random_id,
         locale: 'en_US',
@@ -37,7 +37,7 @@ class PaysafeTest < Minitest::Test
   end
 
   def test_get_profile_with_fields
-    profile = VCR.use_cassette('get_profile_with_cards_and_addresses') do
+    profile = VCR.use_cassette('customer_vault_api/get_profile_with_cards_and_addresses') do
       result = authenticated_client.customer_vault.create_profile(
         merchant_customer_id: random_id,
         locale: 'en_US',
@@ -90,7 +90,7 @@ class PaysafeTest < Minitest::Test
   end
 
   def test_create_profile
-    result = VCR.use_cassette('create_profile') do
+    result = VCR.use_cassette('customer_vault_api/create_profile') do
       authenticated_client.customer_vault.create_profile(
         merchant_customer_id: random_id,
         locale: 'en_US',
@@ -111,7 +111,7 @@ class PaysafeTest < Minitest::Test
 
   def test_create_profile_failed
     error = assert_raises(Paysafe::Error::BadRequest) do
-      VCR.use_cassette('create_profile_failed') do
+      VCR.use_cassette('customer_vault_api/create_profile_failed') do
         authenticated_client.customer_vault.create_profile(
           merchant_customer_id: '',
           locale: ''
@@ -124,7 +124,7 @@ class PaysafeTest < Minitest::Test
   end
 
   def test_create_profile_with_card_and_address
-    profile = VCR.use_cassette('create_profile_with_card_and_address') do
+    profile = VCR.use_cassette('customer_vault_api/create_profile_with_card_and_address') do
       authenticated_client.customer_vault.create_profile(
         merchant_customer_id: random_id,
         locale: 'en_US',
@@ -174,7 +174,7 @@ class PaysafeTest < Minitest::Test
   end
 
   def test_update_profile
-    profile = VCR.use_cassette('update_profile') do
+    profile = VCR.use_cassette('customer_vault_api/update_profile') do
       profile = create_empty_profile
       assert_match UUID_REGEX, profile.id
       assert_nil profile.first_name
@@ -202,7 +202,7 @@ class PaysafeTest < Minitest::Test
   end
 
   def test_create_address
-    result = VCR.use_cassette('create_address') do
+    result = VCR.use_cassette('customer_vault_api/create_address') do
       profile = create_empty_profile
       authenticated_client.customer_vault.create_address(
         profile_id: profile.id,
@@ -218,7 +218,7 @@ class PaysafeTest < Minitest::Test
   end
 
   def test_delete_address
-    VCR.use_cassette('delete_address') do
+    VCR.use_cassette('customer_vault_api/delete_address') do
       profile = create_empty_profile
       address = authenticated_client.customer_vault.create_address(
         profile_id: profile.id,
@@ -234,7 +234,7 @@ class PaysafeTest < Minitest::Test
   end
 
   def test_update_address
-    result = VCR.use_cassette('update_address') do
+    result = VCR.use_cassette('customer_vault_api/update_address') do
       profile = create_empty_profile
       address = authenticated_client.customer_vault.create_address(
         profile_id: profile.id,
@@ -257,7 +257,7 @@ class PaysafeTest < Minitest::Test
   end
 
   def test_create_card
-    card = VCR.use_cassette('create_card') do
+    card = VCR.use_cassette('customer_vault_api/create_card') do
       profile = create_empty_profile
 
       address = authenticated_client.customer_vault.create_address(
@@ -289,7 +289,7 @@ class PaysafeTest < Minitest::Test
 
   def test_create_card_failed_400
     error = assert_raises(Paysafe::Error::BadRequest) do
-      VCR.use_cassette('create_card_failed_bad_request') do
+      VCR.use_cassette('customer_vault_api/create_card_failed_bad_request') do
         profile = create_empty_profile
         authenticated_client.customer_vault.create_card(
           profile_id: profile.id,
@@ -307,7 +307,7 @@ class PaysafeTest < Minitest::Test
 
   def test_create_card_failed_409
     error = assert_raises(Paysafe::Error::Conflict) do
-      VCR.use_cassette('create_card_failed_conflict') do
+      VCR.use_cassette('customer_vault_api/create_card_failed_conflict') do
         profile = create_empty_profile
         authenticated_client.customer_vault.create_card(
           profile_id: profile.id,
@@ -331,7 +331,7 @@ class PaysafeTest < Minitest::Test
   end
 
   def test_delete_card
-    VCR.use_cassette('delete_card') do
+    VCR.use_cassette('customer_vault_api/delete_card') do
       profile = create_empty_profile
 
       address = authenticated_client.customer_vault.create_address(
@@ -353,7 +353,7 @@ class PaysafeTest < Minitest::Test
   end
 
   def test_get_card
-    card = VCR.use_cassette('get_card') do
+    card = VCR.use_cassette('customer_vault_api/get_card') do
       profile = create_empty_profile
 
       address = authenticated_client.customer_vault.create_address(
@@ -386,7 +386,7 @@ class PaysafeTest < Minitest::Test
   end
 
   def test_update_card
-    card = VCR.use_cassette('update_card') do
+    card = VCR.use_cassette('customer_vault_api/update_card') do
       profile = create_empty_profile
 
       address = authenticated_client.customer_vault.create_address(
