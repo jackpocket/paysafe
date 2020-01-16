@@ -70,11 +70,11 @@ Further API methods are provided in the `Paysafe::REST::Client` object.
 ## Development
 
 1. `git clone https://github.com/javierjulio/paysafe.git`
-2. Run `./bin/setup` to install dependencies and fill out API key info
+2. Run `./bin/setup` to install dependencies and fill out API key/secret info
 3. Run `./bin/console` for an interactive prompt with an authenticated client for you to experiment:
 
     ```ruby
-    profile = client.create_profile(merchant_customer_id: '123', locale: 'en_US')
+    profile = client.create_profile(merchant_customer_id: SecureRandom.uuid, locale: 'en_US')
     puts profile.id
     # => b088ac37...
     ```
@@ -83,7 +83,9 @@ All code is written in snake_case since requests and responses are converted to 
 
 ### Tests
 
-Run `bundle exec rake test` or to skip integration tests run with `SKIP_INTEGRATION=true`.
+If the API key/secret info is different from what was used to record the cassettes, you'll need to run `bundle exec rake test RECORD_MODE=all` otherwise run `bundle exec rake test`.
+
+To skip integration tests run with `SKIP_INTEGRATION=true`.
 
 ### Releasing
 
