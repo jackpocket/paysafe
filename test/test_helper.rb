@@ -33,9 +33,9 @@ TOKEN_REGEX = /([a-zA-Z0-9]+)/
 
 def authenticated_client
   Paysafe::REST::Client.new(
-    account_number: ENV['PAYSAFE_ACCOUNT_NUMBER'] || '1234567890',
-    api_key: ENV['PAYSAFE_API_KEY'] || 'api_key',
-    api_secret: ENV['PAYSAFE_API_SECRET'] || 'api_secret'
+    account_number: ENV['PAYSAFE_ACCOUNT_NUMBER'],
+    api_key: ENV['PAYSAFE_API_KEY'],
+    api_secret: ENV['PAYSAFE_API_SECRET']
   )
 end
 
