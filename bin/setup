@@ -23,10 +23,15 @@ echo "Enter your account credentials below."
 read -p 'Account Number: ' account_number
 read -p 'API Key: ' api_key
 read -p 'API Secret: ' api_secret
+read -p 'Single Use Token API Key: ' sut_api_key
+read -p 'Single Use Token API Secret: ' sut_api_secret
 
 cp .env.sample .env
+
 sed -i '' -e "s/YOUR_ACCOUNT_NUMBER/$account_number/g" .env
 sed -i '' -e "s/YOUR_API_KEY/$api_key/g" .env
 sed -i '' -e "s/YOUR_API_SECRET/$api_secret/g" .env
+sed -i '' -e "s/YOUR_SUT_API_KEY/$sut_api_key/g" .env
+sed -i '' -e "s/YOUR_SUT_API_SECRET/$sut_api_secret/g" .env
 
 echo "Done."
