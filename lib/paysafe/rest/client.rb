@@ -67,8 +67,8 @@ module Paysafe
         customer_vault.create_card_from_token(profile_id: profile_id, token: token)
       end
 
-      def create_card(profile_id:, number:, month:, year:, **args)
-        customer_vault.create_card(profile_id: profile_id, number: number, month: month, year: year, **args)
+      def create_card(profile_id:, **data)
+        customer_vault.create_card(profile_id: profile_id, **data)
       end
 
       def delete_card(profile_id:, id:)
@@ -80,7 +80,14 @@ module Paysafe
       end
 
       def update_card(profile_id:, id:, month:, year:, **args)
-        customer_vault.update_card(profile_id: profile_id, id: id, month: month, year: year, **args)
+        data = args.merge({
+          card_expiry: {
+            month: month,
+            year: year
+          }
+        }).reject { |key, value| value.nil? }
+
+        customer_vault.update_card(profile_id: profile_id, id: id, **data)
       end
 
       def purchase(amount:, token:, merchant_ref_num:, **args)
@@ -89,10 +96,6 @@ module Paysafe
 
       def create_verification_from_token(merchant_ref_num:, token:, **args)
         card_payments.create_verification_from_token(merchant_ref_num: merchant_ref_num, token: token, **args)
-      end
-
-      def verify_card(merchant_ref_num:, number:, month:, year:, cvv:, address:, **args)
-        card_payments.verify_card(merchant_ref_num: merchant_ref_num, number: number, month: month, year: year, cvv: cvv, address: address, **args)
       end
     end
   end

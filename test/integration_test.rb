@@ -32,13 +32,17 @@ class IntegrationTest < Minitest::Test
   def test_verification
     id = Time.now.to_f.to_s
 
-    result = authenticated_client.verify_card(
+    result = authenticated_client.card_payments.create_verification(
       merchant_ref_num: id,
-      number: '5410110488911728',
-      month: 6,
-      year: @year,
-      cvv: 123,
-      address: {
+      card: {
+        card_num: '5410110488911728',
+        card_expiry: {
+          month: 6,
+          year: @year
+        },
+        cvv: 123
+      },
+      billing_details: {
         country: 'US',
         zip: '10014'
       }
@@ -180,7 +184,7 @@ class IntegrationTest < Minitest::Test
     @address = authenticated_client.create_address(profile_id: @profile.id, country: 'US', zip: '10014')
 
     # 2 - Create Card and attach to Profile
-    @card = authenticated_client.create_card(profile_id: @profile.id, number: '4111111111111111', month: 12, year: @year, billing_address_id: @address.id)
+    @card = authenticated_client.create_card(profile_id: @profile.id, card_num: '4111111111111111', card_expiry: { month: 12, year: @year }, billing_address_id: @address.id)
 
     # 3 - Retrieve Profile with Cards and Addresses
     profile = authenticated_client.get_profile(id: @profile.id, fields: [:cards,:addresses])
@@ -216,13 +220,17 @@ class IntegrationTest < Minitest::Test
     id = Time.now.to_f.to_s
 
     # 1 - Verify Card
-    result = authenticated_client.verify_card(
+    result = authenticated_client.card_payments.create_verification(
       merchant_ref_num: id,
-      number: '5410110488911728',
-      month: 6,
-      year: @year,
-      cvv: 123,
-      address: {
+      card: {
+        card_num: '5410110488911728',
+        card_expiry: {
+          month: 6,
+          year: @year
+        },
+        cvv: 123
+      },
+      billing_details: {
         street: 'Z', # trigger AVS MATCH_ZIP_ONLY response
         country: 'US',
         zip: '10014'
@@ -253,7 +261,7 @@ class IntegrationTest < Minitest::Test
     address = authenticated_client.create_address(profile_id: @profile.id, country: 'US', zip: '10014')
 
     # 3 - Create Card and attach to Profile
-    card = authenticated_client.create_card(profile_id: @profile.id, number: '5410110488911728', month: 6, year: @year, billing_address_id: address.id)
+    card = authenticated_client.create_card(profile_id: @profile.id, card_num: '5410110488911728', card_expiry: { month: 6, year: @year }, billing_address_id: address.id)
 
     assert_equal 'MC', card.card_type
     assert_equal 'master', card.brand
@@ -268,7 +276,7 @@ class IntegrationTest < Minitest::Test
     address = authenticated_client.create_address(profile_id: @profile.id, country: 'US', zip: '10014')
 
     # 2 - Create Card and attach to Profile
-    card = authenticated_client.create_card(profile_id: @profile.id, number: '5410110488911728', month: 12, year: @year, billing_address_id: address.id)
+    card = authenticated_client.create_card(profile_id: @profile.id, card_num: '5410110488911728', card_expiry: { month: 12, year: @year }, billing_address_id: address.id)
 
     # 3 - Delete Card
     authenticated_client.delete_card(profile_id: @profile.id, id: card.id)
@@ -281,7 +289,7 @@ class IntegrationTest < Minitest::Test
 
   def test_invalid_card_number
     assert_raises(Paysafe::Error::BadRequest) {
-      authenticated_client.create_card(profile_id: @profile.id, number: '4111111111', month: 12, year: @year)
+      authenticated_client.create_card(profile_id: @profile.id, card_num: '4111111111', card_expiry: { month: 12, year: @year })
     }
   end
 
@@ -291,7 +299,7 @@ class IntegrationTest < Minitest::Test
     address_id = address.id
 
     # 2 - Create Card and attach to Profile
-    card = authenticated_client.create_card(profile_id: @profile.id, number: '5410110488911728', month: 12, year: @year, billing_address_id: address_id, holder_name: 'John Smith')
+    card = authenticated_client.create_card(profile_id: @profile.id, card_num: '5410110488911728', card_expiry: { month: 12, year: @year }, billing_address_id: address_id, holder_name: 'John Smith')
 
     # 3 - Update Card
     card = authenticated_client.update_card(profile_id: @profile.id, id: card.id, month: 6, year: @year + 1, billing_address_id: address_id, holder_name: 'Johnny Smith')
@@ -323,7 +331,7 @@ class IntegrationTest < Minitest::Test
     address_id = address.id
 
     # 2 - Create Card and attach to Profile
-    card = authenticated_client.create_card(profile_id: @profile.id, number: '5410110488911728', month: 12, year: @year, billing_address_id: address_id)
+    card = authenticated_client.create_card(profile_id: @profile.id, card_num: '5410110488911728', card_expiry: { month: 12, year: @year }, billing_address_id: address_id)
 
     refute_predicate card.id, :empty?
     assert_equal '541011', card.card_bin

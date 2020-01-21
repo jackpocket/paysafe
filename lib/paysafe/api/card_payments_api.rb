@@ -26,20 +26,7 @@ module Paysafe
         perform_post_with_object("/cardpayments/v1/accounts/#{account_number}/auths", data, Authorization)
       end
 
-      def verify_card(merchant_ref_num:, number:, month:, year:, cvv:, address:, **args)
-        data = args.merge({
-          merchant_ref_num: merchant_ref_num,
-          billing_details: address,
-          card: {
-            card_num: number,
-            cvv: cvv,
-            card_expiry: {
-              month: month,
-              year: year
-            }
-          }
-        })
-
+      def create_verification(data)
         perform_post_with_object("/cardpayments/v1/accounts/#{account_number}/verifications", data, Verification)
       end
 

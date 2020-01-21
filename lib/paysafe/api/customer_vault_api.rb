@@ -7,15 +7,7 @@ module Paysafe
         perform_post_with_object("/customervault/v1/profiles/#{profile_id}/addresses", data, Address)
       end
 
-      def create_card(profile_id:, number:, month:, year:, **args)
-        data = args.merge({
-          card_num: number,
-          card_expiry: {
-            month: month,
-            year: year
-          }
-        }).reject { |key, value| value.nil? }
-
+      def create_card(profile_id:, **data)
         perform_post_with_object("/customervault/v1/profiles/#{profile_id}/cards", data, Card)
       end
 
@@ -73,14 +65,7 @@ module Paysafe
         perform_put_with_object("/customervault/v1/profiles/#{profile_id}/addresses/#{id}", data, Address)
       end
 
-      def update_card(profile_id:, id:, month:, year:, **args)
-        data = args.merge({
-          card_expiry: {
-            month: month,
-            year: year
-          }
-        }).reject { |key, value| value.nil? }
-
+      def update_card(profile_id:, id:, **data)
         perform_put_with_object("/customervault/v1/profiles/#{profile_id}/cards/#{id}", data, Card)
       end
 

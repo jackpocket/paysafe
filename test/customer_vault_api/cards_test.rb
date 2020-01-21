@@ -22,9 +22,11 @@ class CustomerVaultApiCardsTest < Minitest::Test
 
       authenticated_client.customer_vault.create_card(
         profile_id: profile.id,
-        number: '4111111111111111',
-        month: 12,
-        year: 2050,
+        card_num: '4111111111111111',
+        card_expiry: {
+          month: 12,
+          year: 2050
+        },
         billing_address_id: address.id
       )
     end
@@ -46,9 +48,11 @@ class CustomerVaultApiCardsTest < Minitest::Test
       profile = create_test_profile
       authenticated_client.customer_vault.create_card(
         profile_id: profile.id,
-        number: '4111111111111111',
-        month: 12,
-        year: 2050
+        card_num: '4111111111111111',
+        card_expiry: {
+          month: 12,
+          year: 2050
+        }
       )
     end
 
@@ -71,9 +75,11 @@ class CustomerVaultApiCardsTest < Minitest::Test
         profile = create_test_profile
         authenticated_client.customer_vault.create_card(
           profile_id: profile.id,
-          number: '4111111111',
-          month: 12,
-          year: 2017
+          card_num: '4111111111111111',
+          card_expiry: {
+            month: 12,
+            year: 2050
+          }
         )
       end
     end
@@ -89,17 +95,21 @@ class CustomerVaultApiCardsTest < Minitest::Test
         profile = create_test_profile
         authenticated_client.customer_vault.create_card(
           profile_id: profile.id,
-          number: '4111111111111111',
-          month: 12,
-          year: 2050
+          card_num: '4111111111111111',
+          card_expiry: {
+            month: 12,
+            year: 2050
+          }
         )
 
         # Should fail since card already exists
         authenticated_client.customer_vault.create_card(
           profile_id: profile.id,
-          number: '4111111111111111',
-          month: 12,
-          year: 2050
+          card_num: '4111111111111111',
+          card_expiry: {
+            month: 12,
+            year: 2050
+          }
         )
       end
     end
@@ -149,8 +159,10 @@ class CustomerVaultApiCardsTest < Minitest::Test
       authenticated_client.customer_vault.update_card(
         profile_id: profile.id,
         id: card.id,
-        month: 6,
-        year: 2055
+        card_expiry: {
+          month: 6,
+          year: 2055
+        }
       )
     end
 

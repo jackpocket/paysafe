@@ -10,15 +10,19 @@ class CardPaymentsApiVerificationsTest < Minitest::Test
     turn_off_vcr!
   end
 
-  def test_verify_card
-    result = VCR.use_cassette('card_payments_api/verify_card') do
-      authenticated_client.card_payments.verify_card(
+  def test_create_verification
+    result = VCR.use_cassette('card_payments_api/create_verification') do
+      authenticated_client.card_payments.create_verification(
         merchant_ref_num: random_id,
-        number: '4111111111111111',
-        month: 12,
-        year: 2050,
-        cvv: 123,
-        address: {
+        card: {
+          card_num: '4111111111111111',
+          card_expiry: {
+            month: 12,
+            year: 2050
+          },
+          cvv: 123
+        },
+        billing_details: {
           country: 'US',
           zip: '10014'
         }
