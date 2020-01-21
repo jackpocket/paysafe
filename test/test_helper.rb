@@ -26,6 +26,9 @@ VCR.configure do |c|
   c.filter_sensitive_data('<SUT_TOKEN>') do |interaction|
     Base64.strict_encode64("#{ENV['PAYSAFE_SUT_API_KEY']}:#{ENV['PAYSAFE_SUT_API_SECRET']}")
   end
+  c.filter_sensitive_data('<UNITY_TOKEN>') do |interaction|
+    Base64.strict_encode64("#{ENV['PAYSAFE_UNITY_API_KEY']}:#{ENV['PAYSAFE_UNITY_API_SECRET']}")
+  end
 end
 
 UUID_REGEX = /([a-f0-9\-]+)/
@@ -43,6 +46,13 @@ def authenticated_sut_client
   Paysafe::REST::Client.new(
     api_key: ENV['PAYSAFE_SUT_API_KEY'],
     api_secret: ENV['PAYSAFE_SUT_API_SECRET']
+  )
+end
+
+def unity_client
+  Paysafe::REST::Client.new(
+    api_key: ENV['PAYSAFE_UNITY_API_KEY'],
+    api_secret: ENV['PAYSAFE_UNITY_API_SECRET']
   )
 end
 

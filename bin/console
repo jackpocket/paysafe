@@ -15,6 +15,20 @@ def client
   )
 end
 
+def sut_client
+  Paysafe::REST::Client.new(
+    api_key: ENV['PAYSAFE_SUT_API_KEY'],
+    api_secret: ENV['PAYSAFE_SUT_API_SECRET']
+  )
+end
+
+def unity_client
+  Paysafe::REST::Client.new(
+    api_key: ENV['PAYSAFE_UNITY_API_KEY'],
+    api_secret: ENV['PAYSAFE_UNITY_API_SECRET']
+  )
+end
+
 # (If you use this, don't forget to add pry to your Gemfile!)
 # require "pry"
 # Pry.start
