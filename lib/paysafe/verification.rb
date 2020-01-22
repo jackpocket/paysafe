@@ -12,13 +12,13 @@ module Paysafe
 
     [:unknown, :not_processed, :no_match, :match, :match_address_only, :match_zip_only].each do |key|
       define_method("avs_#{key}?") do
-        avs_response == key.to_s.upcase
+        avs_response.to_s.upcase == key.to_s.upcase
       end
     end
 
     [:unknown, :match, :no_match, :not_processed].each do |key|
       define_method("cvv_#{key}?") do
-        cvv_verification == key.to_s.upcase
+        cvv_verification.to_s.upcase == key.to_s.upcase
       end
     end
   end
