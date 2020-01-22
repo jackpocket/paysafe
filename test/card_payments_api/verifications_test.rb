@@ -34,7 +34,9 @@ class CardPaymentsApiVerificationsTest < Minitest::Test
     assert_equal 'COMPLETED', result.status
     assert_match AUTH_CODE_REGEX, result.auth_code
     assert_equal 'MATCH', result.avs_response
+    assert result.avs_match?
     assert_equal 'MATCH', result.cvv_verification
+    assert result.cvv_match?
     assert_equal 'USD', result.currency_code
     assert Time.parse(result.txn_time)
 
