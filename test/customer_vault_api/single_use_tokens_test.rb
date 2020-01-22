@@ -1,28 +1,32 @@
 require 'test_helper'
 
-class SingleUseTokenTest < Minitest::Test
+class CustomerVaultApiSingleUseTokensTest < Minitest::Test
 
   def setup
-    skip if ENV['SKIP_INTEGRATION'] == 'true' || ENV['PAYSAFE_SUT_API_KEY'].nil?
+    turn_on_vcr!
+  end
+
+  def teardown
     turn_off_vcr!
   end
 
-  def test_single_use_token_with_verification_request
-    sut = sut_client.create_single_use_token(
-      card: {
-        card_num: '5200400000000009',
-        card_expiry: {
-          month: 12,
-          year: 2050
-        },
-        cvv: '123',
-        billing_address: {
-          street: 'U', # trigger AVS not processed for verification response
-          country: 'US',
-          zip: '10014'
+  def test_create_single_use_token
+    sut = VCR.use_cassette('customer_vault_api/create_single_use_token') do
+      sut_client.create_single_use_token(
+        card: {
+          card_num: '5200400000000009',
+          card_expiry: {
+            month: 12,
+            year: 2050
+          },
+          cvv: '123',
+          billing_address: {
+            country: 'US',
+            zip: '10014'
+          }
         }
-      }
-    )
+      )
+    end
 
     assert_match UUID_REGEX, sut.id
     assert_match TOKEN_REGEX, sut.payment_token
@@ -34,11 +38,34 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal 2050, sut.card.card_expiry.year
     assert_equal 'US', sut.billing_address.country
     assert_equal '10014', sut.billing_address.zip
+  end
 
-    result = authenticated_client.create_verification_from_token(
-      merchant_ref_num: random_id,
-      token: sut.payment_token
-    )
+  def test_single_use_token_with_verification
+    result = VCR.use_cassette('customer_vault_api/single_use_token_with_verification') do
+      sut = sut_client.create_single_use_token(
+        card: {
+          card_num: '5200400000000009',
+          card_expiry: {
+            month: 12,
+            year: 2050
+          },
+          cvv: '123',
+          billing_address: {
+            street: 'U', # trigger AVS not processed for verification response
+            country: 'US',
+            zip: '10014'
+          }
+        }
+      )
+
+      assert_match UUID_REGEX, sut.id
+      assert_match TOKEN_REGEX, sut.payment_token
+
+      authenticated_client.create_verification_from_token(
+        merchant_ref_num: random_id,
+        token: sut.payment_token
+      )
+    end
 
     assert_match UUID_REGEX, result.id
     assert_match UUID_REGEX, result.merchant_ref_num
@@ -59,30 +86,28 @@ class SingleUseTokenTest < Minitest::Test
     assert result.cvv_match?
   end
 
-  def test_single_use_token_and_redeem_with_create_profile
-    sut = sut_client.create_single_use_token(
-      card: {
-        card_num: '4111111111111111',
-        card_expiry: {
-          month: 12,
-          year: 2050
-        },
-        cvv: 123,
-        billing_address: {
-          country: 'US',
-          zip: '10014'
+  def test_single_use_token_with_profile_creation
+    profile = VCR.use_cassette('customer_vault_api/single_use_token_with_profile_creation') do
+      sut = sut_client.create_single_use_token(
+        card: {
+          card_num: '4111111111111111',
+          card_expiry: {
+            month: 12,
+            year: 2050
+          },
+          cvv: 123,
+          billing_address: {
+            country: 'US',
+            zip: '10014'
+          }
         }
-      }
-    )
+      )
 
-    assert_match UUID_REGEX, sut.id
-    assert_match TOKEN_REGEX, sut.payment_token
+      assert_match UUID_REGEX, sut.id
+      assert_match TOKEN_REGEX, sut.payment_token
 
-    profile = create_test_profile(
-      card: {
-        single_use_token: sut.payment_token
-      }
-    )
+      create_test_profile(card: { single_use_token: sut.payment_token })
+    end
 
     assert_match UUID_REGEX, profile.merchant_customer_id
     assert_match TOKEN_REGEX, profile.payment_token
@@ -111,30 +136,32 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal 'ACTIVE', card.status
   end
 
-  def test_redeem_sut_with_create_card
-    sut = sut_client.create_single_use_token(
-      card: {
-        card_num: '4111111111111111',
-        card_expiry: {
-          month: 12,
-          year: 2050
-        },
-        cvv: '123',
-        billing_address: {
-          country: 'US',
-          zip: '10014'
+  def test_single_use_token_with_card_creation_for_existing_profile
+    card = VCR.use_cassette('customer_vault_api/single_use_token_with_card_creation') do
+      sut = sut_client.create_single_use_token(
+        card: {
+          card_num: '4111111111111111',
+          card_expiry: {
+            month: 12,
+            year: 2050
+          },
+          cvv: '123',
+          billing_address: {
+            country: 'US',
+            zip: '10014'
+          }
         }
-      }
-    )
+      )
 
-    assert_match UUID_REGEX, sut.id
-    assert_match TOKEN_REGEX, sut.payment_token
+      assert_match UUID_REGEX, sut.id
+      assert_match TOKEN_REGEX, sut.payment_token
 
-    profile = create_test_profile
-    card = authenticated_client.create_card_from_token(
-      profile_id: profile.id,
-      token: sut.payment_token
-    )
+      profile = create_test_profile
+      authenticated_client.create_card_from_token(
+        profile_id: profile.id,
+        token: sut.payment_token
+      )
+    end
 
     assert_match UUID_REGEX, card.id
     assert_match UUID_REGEX, card.billing_address_id

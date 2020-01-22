@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/customervault/v1/singleusetokens
+    body:
+      encoding: UTF-8
+      string: '{"card":{"cardNum":"5200400000000009","cardExpiry":{"month":12,"year":2050},"cvv":"123","billingAddress":{"country":"US","zip":"10014"}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <SUT_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '277'
+      X-Applicationuid:
+      - GUID=256cdb2b-c4c7-424c-81a4-a46e13e13c8d
+      Content-Type:
+      - application/json
+      Expires:
+      - Wed, 22 Jan 2020 22:04:43 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 22 Jan 2020 22:04:43 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"1618347b-bac1-483f-a395-562d082b7447","paymentToken":"SCCtUl97MFABvPm3","timeToLiveSeconds":299,"billingAddress":{"country":"US","zip":"10014"},"card":{"cardBin":"520040","lastDigits":"0009","cardExpiry":{"year":2050,"month":12},"cardType":"MC","cardCategory":"CREDIT"}}'
+    http_version: 
+  recorded_at: Wed, 22 Jan 2020 22:04:43 GMT
+recorded_with: VCR 5.0.0
