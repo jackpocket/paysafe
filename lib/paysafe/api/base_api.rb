@@ -2,9 +2,9 @@ module Paysafe
   module Api
     class BaseApi
       HEADERS = {
-        'Content-Type'    => 'application/json',
-        'User-Agent'      => "PaysafeRubyGem/#{Paysafe::VERSION}",
-        'X-Ruby-Version'  => RUBY_VERSION,
+        'Content-Type' => 'application/json',
+        'User-Agent' => "PaysafeRubyGem/#{Paysafe::VERSION}",
+        'X-Ruby-Version' => RUBY_VERSION,
         'X-Ruby-Platform' => RUBY_PLATFORM
       }
 
