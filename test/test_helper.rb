@@ -34,6 +34,7 @@ end
 UUID_REGEX = /([a-f0-9\-]+)/
 TOKEN_REGEX = /([a-zA-Z0-9]+)/
 IP_ADDRESS_REGEX = /([0-9\.]+)/
+AUTH_CODE_REGEX = /\d+/
 
 def authenticated_client
   Paysafe::REST::Client.new(

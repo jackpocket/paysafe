@@ -52,7 +52,7 @@ class SingleUseTokenTest < Minitest::Test
     assert_equal '0009', result.card.last_digits
     assert_equal 12, result.card.card_expiry.month
     assert_equal @year, result.card.card_expiry.year
-    refute_predicate result.auth_code, :empty?
+    assert_match AUTH_CODE_REGEX, result.auth_code
     assert_equal 'US', result.billing_details.country
     assert_equal '10014', result.billing_details.zip
     assert_equal 'USD', result.currency_code

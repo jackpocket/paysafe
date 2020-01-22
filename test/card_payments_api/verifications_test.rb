@@ -32,7 +32,7 @@ class CardPaymentsApiVerificationsTest < Minitest::Test
     assert_match UUID_REGEX, result.id
     assert_match UUID_REGEX, result.merchant_ref_num
     assert_equal 'COMPLETED', result.status
-    assert_match(/\d+/, result.auth_code)
+    assert_match AUTH_CODE_REGEX, result.auth_code
     assert_equal 'MATCH', result.avs_response
     assert_equal 'MATCH', result.cvv_verification
     assert_equal 'USD', result.currency_code
