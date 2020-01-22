@@ -44,7 +44,7 @@ def authenticated_client
   )
 end
 
-def authenticated_sut_client
+def sut_client
   Paysafe::REST::Client.new(
     api_key: ENV['PAYSAFE_SUT_API_KEY'],
     api_secret: ENV['PAYSAFE_SUT_API_SECRET']

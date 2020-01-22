@@ -5,53 +5,50 @@ class SingleUseTokenTest < Minitest::Test
   def setup
     skip if ENV['SKIP_INTEGRATION'] == 'true' || ENV['PAYSAFE_SUT_API_KEY'].nil?
     turn_off_vcr!
-
-    @sut_client = authenticated_sut_client
-    @year = 2050
   end
 
   def test_single_use_token_with_verification_request
-    sut = @sut_client.create_single_use_token(
+    sut = sut_client.create_single_use_token(
       card: {
         card_num: '5200400000000009',
         card_expiry: {
           month: 12,
-          year: @year
+          year: 2050
         },
         cvv: '123',
         billing_address: {
-          street: 'U', # trigger AVS NOT_PROCESSED response
+          street: 'U', # trigger AVS not processed for verification response
           country: 'US',
           zip: '10014'
         }
       }
     )
 
-    refute_predicate sut.id, :empty?
-    refute_predicate sut.payment_token, :empty?
+    assert_match UUID_REGEX, sut.id
+    assert_match TOKEN_REGEX, sut.payment_token
     assert_equal '520040', sut.card.card_bin
     assert_equal '0009', sut.card.last_digits
     assert_equal 'MC', sut.card.card_type
     assert_equal 'master', sut.card.brand
     assert_equal 12, sut.card.card_expiry.month
-    assert_equal @year, sut.card.card_expiry.year
+    assert_equal 2050, sut.card.card_expiry.year
     assert_equal 'US', sut.billing_address.country
     assert_equal '10014', sut.billing_address.zip
 
-    single_use_token = sut.payment_token
+    result = authenticated_client.create_verification_from_token(
+      merchant_ref_num: random_id,
+      token: sut.payment_token
+    )
 
-    id = Time.now.to_f.to_s
-    result = authenticated_client.create_verification_from_token(merchant_ref_num: id, token: single_use_token)
-
-    refute_predicate result.id, :empty?
-    assert_equal id, result.merchant_ref_num
-    refute_predicate result.txn_time, :empty?
-    assert_equal 'COMPLETED', result.status
+    assert_match UUID_REGEX, result.id
+    assert_match UUID_REGEX, result.merchant_ref_num
     assert_equal 'MC', result.card.type
     assert_equal 'master', result.card.brand
     assert_equal '0009', result.card.last_digits
     assert_equal 12, result.card.card_expiry.month
-    assert_equal @year, result.card.card_expiry.year
+    assert_equal 2050, result.card.card_expiry.year
+    assert_equal 'COMPLETED', result.status
+    assert Time.parse(result.txn_time)
     assert_match AUTH_CODE_REGEX, result.auth_code
     assert_equal 'US', result.billing_details.country
     assert_equal '10014', result.billing_details.zip
@@ -63,12 +60,12 @@ class SingleUseTokenTest < Minitest::Test
   end
 
   def test_single_use_token_and_redeem_with_create_profile
-    sut = @sut_client.create_single_use_token(
+    sut = sut_client.create_single_use_token(
       card: {
         card_num: '4111111111111111',
         card_expiry: {
           month: 12,
-          year: @year
+          year: 2050
         },
         cvv: 123,
         billing_address: {
@@ -78,60 +75,49 @@ class SingleUseTokenTest < Minitest::Test
       }
     )
 
-    refute_predicate sut.id, :empty?
-    refute_predicate sut.payment_token, :empty?
-    assert_equal '411111', sut.card.card_bin
-    assert_equal '1111', sut.card.last_digits
-    assert_equal 'VI', sut.card.card_type
-    assert_equal 'visa', sut.card.brand
-    assert_equal 12, sut.card.card_expiry.month
-    assert_equal @year, sut.card.card_expiry.year
-    assert_equal 'US', sut.billing_address.country
-    assert_equal '10014', sut.billing_address.zip
+    assert_match UUID_REGEX, sut.id
+    assert_match TOKEN_REGEX, sut.payment_token
 
-    id = Time.now.to_f.to_s
-    profile = authenticated_client.create_profile_from_token(
-      merchant_customer_id: id,
-      locale: 'en_US',
-      first_name: 'test',
-      last_name: 'test',
-      email: 'test@test.com',
+    profile = create_test_profile(
       card: {
-        single_use_token: sut.payment_token,
+        single_use_token: sut.payment_token
       }
     )
 
-    assert_equal id, profile.merchant_customer_id
-    assert_equal 'en_US', profile.locale
+    assert_match UUID_REGEX, profile.merchant_customer_id
+    assert_match TOKEN_REGEX, profile.payment_token
     assert_equal 'test', profile.first_name
     assert_equal 'test', profile.last_name
     assert_equal 'test@test.com', profile.email
     assert_equal 'ACTIVE', profile.status
-    refute_predicate profile.payment_token, :empty?
+    assert_equal 'en_US', profile.locale
 
     address = profile.addresses.first
-    refute_predicate address.id, :empty?
+    assert_match UUID_REGEX, address.id
     assert_equal 'US', address.country
     assert_equal '10014', address.zip
     assert_equal 'ACTIVE', address.status
 
     card = profile.cards.first
-    refute_predicate card.id, :empty?
+    assert_match UUID_REGEX, card.id
+    assert_match UUID_REGEX, card.billing_address_id
+    assert_match TOKEN_REGEX, card.payment_token
+    assert_equal '411111', card.card_bin
+    assert_equal '1111', card.last_digits
     assert_equal 'VI', card.card_type
     assert_equal 'visa', card.brand
     assert_equal 12, card.card_expiry.month
-    assert_equal @year, card.card_expiry.year
+    assert_equal 2050, card.card_expiry.year
     assert_equal 'ACTIVE', card.status
-    refute_predicate card.billing_address_id, :empty?
   end
 
   def test_redeem_sut_with_create_card
-    sut = @sut_client.create_single_use_token(
+    sut = sut_client.create_single_use_token(
       card: {
         card_num: '4111111111111111',
         card_expiry: {
           month: 12,
-          year: @year
+          year: 2050
         },
         cvv: '123',
         billing_address: {
@@ -141,62 +127,25 @@ class SingleUseTokenTest < Minitest::Test
       }
     )
 
-    refute_predicate sut.id, :empty?
-    refute_predicate sut.payment_token, :empty?
-    assert_equal 'VI', sut.card.card_type
-    assert_equal 'visa', sut.card.brand
-    assert_equal '411111', sut.card.card_bin
-    assert_equal '1111', sut.card.last_digits
-    assert_equal 12, sut.card.card_expiry.month
-    assert_equal @year, sut.card.card_expiry.year
-    assert_equal 'US', sut.billing_address.country
-    assert_equal '10014', sut.billing_address.zip
+    assert_match UUID_REGEX, sut.id
+    assert_match TOKEN_REGEX, sut.payment_token
 
-    profile = authenticated_client.create_profile(
-      merchant_customer_id: Time.now.to_f.to_s,
-      locale: 'en_US'
-    )
-
+    profile = create_test_profile
     card = authenticated_client.create_card_from_token(
       profile_id: profile.id,
       token: sut.payment_token
     )
 
-    refute_predicate card.id, :empty?
-    refute_predicate card.payment_token, :empty?
+    assert_match UUID_REGEX, card.id
+    assert_match UUID_REGEX, card.billing_address_id
+    assert_match TOKEN_REGEX, card.payment_token
     assert_equal '411111', card.card_bin
     assert_equal '1111', card.last_digits
     assert_equal 'VI', card.card_type
     assert_equal 'visa', card.brand
     assert_equal 12, card.card_expiry.month
-    assert_equal @year, card.card_expiry.year
+    assert_equal 2050, card.card_expiry.year
     assert_equal 'ACTIVE', card.status
-    assert card.billing_address_id?
-
-    address = authenticated_client.create_address(
-      profile_id: profile.id,
-      country: 'US',
-      zip: '10014'
-    )
-    card = authenticated_client.update_card(
-      profile_id: profile.id,
-      id: card.id,
-      year: card.card_expiry.year,
-      month: card.card_expiry.month,
-      billing_address_id: address.id,
-    )
-
-    refute_predicate card.id, :empty?
-    refute_predicate card.payment_token, :empty?
-    assert_equal '411111', card.card_bin
-    assert_equal '1111', card.last_digits
-    assert_equal 'VI', card.card_type
-    assert_equal 'visa', card.brand
-    assert_equal 12, card.card_expiry.month
-    assert_equal @year, card.card_expiry.year
-    assert_equal 'ACTIVE', card.status
-    assert card.billing_address_id?
-    assert_equal address.id, card.billing_address_id
   end
 
 end
