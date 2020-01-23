@@ -2,14 +2,6 @@ require 'test_helper'
 
 class CardPaymentsApiVerificationsTest < Minitest::Test
 
-  def setup
-    turn_on_vcr!
-  end
-
-  def teardown
-    turn_off_vcr!
-  end
-
   def test_create_verification
     result = VCR.use_cassette('card_payments_api/create_verification') do
       authenticated_client.card_payments.create_verification(

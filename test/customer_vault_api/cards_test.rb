@@ -2,14 +2,6 @@ require 'test_helper'
 
 class CustomerVaultApiCardsTest < Minitest::Test
 
-  def setup
-    turn_on_vcr!
-  end
-
-  def teardown
-    turn_off_vcr!
-  end
-
   def test_create_card_with_address_id
     card = VCR.use_cassette('customer_vault_api/create_card_with_address_id') do
       profile = create_test_profile

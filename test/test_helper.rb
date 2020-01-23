@@ -84,13 +84,3 @@ end
 def random_id
   SecureRandom.uuid
 end
-
-def turn_on_vcr!
-  VCR.turn_on!
-  WebMock.disable_net_connect!
-end
-
-def turn_off_vcr!
-  WebMock.allow_net_connect!
-  VCR.turn_off!
-end

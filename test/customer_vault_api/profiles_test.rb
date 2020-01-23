@@ -2,14 +2,6 @@ require 'test_helper'
 
 class CustomerVaultApiProfilesTest < Minitest::Test
 
-  def setup
-    turn_on_vcr!
-  end
-
-  def teardown
-    turn_off_vcr!
-  end
-
   def test_create_profile
     profile = VCR.use_cassette('customer_vault_api/create_profile') do
       create_test_profile

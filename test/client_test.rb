@@ -55,8 +55,6 @@ class ClientTest < Minitest::Test
   end
 
   def test_client_unauthorized_error
-    turn_on_vcr!
-
     error = assert_raises(Paysafe::Error::Unauthorized) do
       VCR.use_cassette('client_unauthorized_error') do
         client = Paysafe::REST::Client.new
@@ -66,8 +64,6 @@ class ClientTest < Minitest::Test
 
     assert_equal '5279', error.code
     assert_equal 'The authentication credentials are invalid.', error.message
-
-    turn_off_vcr!
   end
 
 end

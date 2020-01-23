@@ -2,14 +2,6 @@ require 'test_helper'
 
 class CustomerVaultApiSingleUseTokensTest < Minitest::Test
 
-  def setup
-    turn_on_vcr!
-  end
-
-  def teardown
-    turn_off_vcr!
-  end
-
   def test_create_single_use_token
     sut = VCR.use_cassette('customer_vault_api/create_single_use_token') do
       sut_client.create_single_use_token(

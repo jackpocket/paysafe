@@ -2,14 +2,6 @@ require 'test_helper'
 
 class CardPaymentsApiAuthorizationsTest < Minitest::Test
 
-  def setup
-    turn_on_vcr!
-  end
-
-  def teardown
-    turn_off_vcr!
-  end
-
   def test_create_purchase
     result = VCR.use_cassette('card_payments_api/create_purchase') do
       profile = create_test_profile_with_card_and_address
