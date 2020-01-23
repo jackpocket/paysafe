@@ -85,8 +85,6 @@ All code is written in snake_case since requests and responses are converted to 
 
 If the API key/secret info is different from what was used to record the cassettes, you'll need to run `bundle exec rake test RECORD_MODE=all` otherwise run `bundle exec rake test`.
 
-To skip integration tests run with `SKIP_INTEGRATION=true`.
-
 ### Releasing
 
 To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).

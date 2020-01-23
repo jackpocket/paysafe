@@ -127,6 +127,18 @@ class CustomerVaultApiCardsTest < Minitest::Test
     end
   end
 
+  def test_delete_card_failed_not_found
+    error = assert_raises(Paysafe::Error::NotFound) do
+      VCR.use_cassette('customer_vault_api/delete_card_failed_not_found') do
+        profile = create_test_profile
+        authenticated_client.customer_vault.delete_card(profile_id: profile.id, id: 'invalid')
+      end
+    end
+
+    assert_equal "5269", error.code
+    assert_equal "The ID(s) specified in the URL do not correspond to the values in the system.: invalid", error.message
+  end
+
   def test_get_card
     card = VCR.use_cassette('customer_vault_api/get_card') do
       profile = create_test_profile_with_card_and_address

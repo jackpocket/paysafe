@@ -1,0 +1,106 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/customervault/v1/profiles
+    body:
+      encoding: UTF-8
+      string: '{"firstName":"test","lastName":"test","email":"test@test.com","merchantCustomerId":"2d6d8b1d-6880-470a-87a9-0a944768fd34","locale":"en_US"}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Location:
+      - https://api.test.paysafe.com/customervault/v1/profiles/c81d57b6-2c37-461c-a064-9f560e49ab2b
+      Content-Length:
+      - '234'
+      X-Applicationuid:
+      - GUID=84c4992d-0a38-4d6f-bc8a-30067dd4293c
+      Content-Type:
+      - application/json
+      Expires:
+      - Thu, 23 Jan 2020 15:58:16 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 23 Jan 2020 15:58:16 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"c81d57b6-2c37-461c-a064-9f560e49ab2b","status":"ACTIVE","merchantCustomerId":"2d6d8b1d-6880-470a-87a9-0a944768fd34","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"PSL6vnR83UXY5x4","email":"test@test.com"}'
+    http_version: 
+  recorded_at: Thu, 23 Jan 2020 15:58:16 GMT
+- request:
+    method: delete
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/c81d57b6-2c37-461c-a064-9f560e49ab2b/cards/invalid
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '256'
+      X-Application-Status-Code:
+      - '5269'
+      X-Applicationuid:
+      - GUID=2b89589b-2d5f-4bcb-af98-f6dc4c18f9f7
+      Content-Type:
+      - application/json
+      Expires:
+      - Thu, 23 Jan 2020 15:58:16 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 23 Jan 2020 15:58:16 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"code":"5269","message":"The ID(s) specified in the URL do
+        not correspond to the values in the system.: invalid","links":[{"rel":"errorinfo","href":"https://developer.paysafe.com/en/rest-api/vault/test-and-go-live/vault-errors/#ErrorCode5269"}]}}'
+    http_version: 
+  recorded_at: Thu, 23 Jan 2020 15:58:16 GMT
+recorded_with: VCR 5.0.0

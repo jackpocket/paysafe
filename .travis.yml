@@ -10,8 +10,6 @@ before_install:
 cache: bundler
 sudo: false
 fast_finish: true
-env:
-  - SKIP_INTEGRATION=true
 notifications:
   email:
     on_success: always

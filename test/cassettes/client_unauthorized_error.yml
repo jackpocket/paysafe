@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.test.paysafe.com/customervault/v1/profiles/id
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic Og==
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '219'
+      X-Application-Status-Code:
+      - '5279'
+      Www-Authenticate:
+      - Basic realm="authSecurity"
+      X-Applicationuid:
+      - GUID=08af566c-003e-4dc3-9d1f-4cb9e4cfab0e
+      Content-Type:
+      - application/json
+      Expires:
+      - Thu, 23 Jan 2020 17:07:06 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 23 Jan 2020 17:07:06 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error": {"code": "5279","message": "The authentication credentials
+        are invalid.","links": [{"rel": "errorinfo","href": "https://developer.paysafe.com/en/rest-api/vault/test-and-go-live/vault-errors/#ErrorCode5279"}]}}'
+    http_version: 
+  recorded_at: Thu, 23 Jan 2020 17:07:06 GMT
+recorded_with: VCR 5.0.0
