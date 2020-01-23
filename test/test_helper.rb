@@ -94,15 +94,3 @@ def turn_off_vcr!
   WebMock.allow_net_connect!
   VCR.turn_off!
 end
-
-#   def assert_json(expected, message=nil)
-#     @json ||= JSON.parse(response.body)
-#
-#     if expected.is_a?(Array)
-#       expected.map! &:deep_stringify_keys!
-#     else
-#       expected.deep_stringify_keys!
-#     end
-#
-#     assert_equal @json, expected, message
-#   end
