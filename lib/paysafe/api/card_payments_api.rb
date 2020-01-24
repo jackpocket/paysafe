@@ -2,6 +2,10 @@ module Paysafe
   module Api
     class CardPaymentsApi < BaseApi
 
+      def create_verification(data)
+        perform_post_with_object("/cardpayments/v1/accounts/#{account_number}/verifications", data, Verification)
+      end
+
       def create_verification_from_token(merchant_ref_num:, token:, **args)
         data = args.merge({
           merchant_ref_num: merchant_ref_num,
@@ -9,8 +13,7 @@ module Paysafe
             payment_token: token
           }
         })
-
-        perform_post_with_object("/cardpayments/v1/accounts/#{account_number}/verifications", data, Verification)
+        create_verification(data)
       end
 
       def purchase(amount:, token:, merchant_ref_num:, **args)
@@ -24,10 +27,6 @@ module Paysafe
         })
 
         perform_post_with_object("/cardpayments/v1/accounts/#{account_number}/auths", data, Authorization)
-      end
-
-      def create_verification(data)
-        perform_post_with_object("/cardpayments/v1/accounts/#{account_number}/verifications", data, Verification)
       end
 
     end
