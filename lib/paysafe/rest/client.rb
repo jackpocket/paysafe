@@ -31,6 +31,10 @@ module Paysafe
         @card_payments ||= Api::CardPaymentsApi.new(@config)
       end
 
+      def payments
+        @payments ||= Api::PaymentsApi.new(@config)
+      end
+
       def create_single_use_token(data)
         customer_vault.create_single_use_token(data)
       end

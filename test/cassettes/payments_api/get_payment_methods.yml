@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.test.paysafe.com/paymenthub/v1/paymentmethods?currencyCode=USD
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <UNITY_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      - application/json;charset=UTF-8
+      X-Rate-Limit-Limit:
+      - '1000'
+      X-Rate-Limit-Remaining:
+      - '999'
+      X-Rate-Limit-Reset:
+      - '59998'
+      X-Internal-Correlation-Id:
+      - 023b0ef0-715b-4837-a8ee-2c7c972ae83b
+      Content-Length:
+      - '126'
+      Expires:
+      - Fri, 24 Jan 2020 15:32:38 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Fri, 24 Jan 2020 15:32:38 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"paymentMethods":[{"paymentMethod":"SIGHTLINE","currencyCode":"USD","currency":"USD","accountId":"<%= account_id %>","mcc":"8999"}]}'
+    http_version:
+  recorded_at: Fri, 24 Jan 2020 15:32:38 GMT
+recorded_with: VCR 5.0.0
