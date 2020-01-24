@@ -43,7 +43,7 @@ class ClientTest < Minitest::Test
     assert_equal client.credentials, { api_key: 'api_key', api_secret: 'api_secret' }
   end
 
-  def test_credentials?
+  def test_credentials_predicate
     client = Paysafe::REST::Client.new(api_key: 'api_key', api_secret: 'api_secret')
     assert client.credentials?
 
