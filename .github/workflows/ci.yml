@@ -13,6 +13,19 @@ jobs:
     - uses: actions/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
+
+    - name: Install rubygems
+      run: |
+        gem update --system
+
+    - name: Install bundler
+      run: |
+        gem install bundler
+
+    - name: Install dependencies
+      run: |
+        bundle install --jobs 4 --retry 3
+
     - name: Run Tests
       env:
         PAYSAFE_ACCOUNT_NUMBER: test
@@ -25,7 +38,4 @@ jobs:
         PAYSAFE_UNITY_SUT_API_KEY: test
         PAYSAFE_UNITY_SUT_API_SECRET: test
       run: |
-        gem update --system
-        gem install bundler
-        bundle install --jobs 4 --retry 3
         bundle exec rake
