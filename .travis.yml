@@ -10,6 +10,16 @@ before_install:
 cache: bundler
 sudo: false
 fast_finish: true
+env:
+  - PAYSAFE_ACCOUNT_NUMBER=test
+  - PAYSAFE_API_KEY=test
+  - PAYSAFE_API_SECRET=test
+  - PAYSAFE_SUT_API_KEY=test
+  - PAYSAFE_SUT_API_SECRET=test
+  - PAYSAFE_UNITY_API_KEY=test
+  - PAYSAFE_UNITY_API_SECRET=test
+  - PAYSAFE_UNITY_SUT_API_KEY=test
+  - PAYSAFE_UNITY_SUT_API_SECRET=test
 notifications:
   email:
     on_success: always
