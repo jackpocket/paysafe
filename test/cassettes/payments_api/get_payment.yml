@@ -1,0 +1,67 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.test.paysafe.com/paymenthub/v1/payments/116d0b71-cf56-4740-b18e-3691c04b4857
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <UNITY_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      - application/json;charset=utf-8
+      X-Rate-Limit-Limit:
+      - '1000'
+      X-Rate-Limit-Remaining:
+      - '998'
+      X-Rate-Limit-Reset:
+      - '6162'
+      X-Internal-Correlation-Id:
+      - cfe9854e-fa8a-4670-aa0c-e0e18c14bb9c
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - secure-no-value
+      Content-Length:
+      - '1110'
+      Expires:
+      - Mon, 27 Jan 2020 19:55:48 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Mon, 27 Jan 2020 19:55:48 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"116d0b71-cf56-4740-b18e-3691c04b4857","paymentType":"SIGHTLINE","paymentHandleToken":"SSpHdwYEqoXcDkcm","merchantRefNum":"7d700ea1-6a1c-49f2-bd42-4dfc57acaf7b","currencyCode":"USD","settleWithAuth":true,"txnTime":"2020-01-27T19:51:51.000+0000","billingDetails":{"street1":"353
+        West St","street2":"test","city":"New York","zip":"10014","state":"NY","country":"US"},"status":"COMPLETED","gatewayReconciliationId":"9b70d66f-e3be-45ea-a966-ecf56d1cd3d8","amount":12500,"availableToRefund":12500,"consumerIp":"172.0.0.1","profile":{"firstName":"test","lastName":"test","email":"test@test.com","dateOfBirth":{"day":1,"month":2,"year":1983},"phone":"234-567-8900"},"liveMode":false,"updatedTime":"2020-01-27T19:54:54Z","statusTime":"2020-01-27T19:54:54Z","gatewayResponse":{"paymentProcessorTransactionId":"e9b8e891-a1ea-486c-abc7-07e91d61d067","lcpTransactionId":"b006316a-ed6b-44c4-8193-0d701e206650","balance":"0","merchantTransactionId":"bnKub8DlQpKtFqcssd7CfXW4y","processor":"SIGHTLINE","lcpEncodedTransactionId":"!T\"i~-IIal_B\\Rzsr
+        5J<"},"availableToSettle":0,"sightline":{"consumerId":"452F8DE20DD8"}}'
+    http_version: 
+  recorded_at: Mon, 27 Jan 2020 19:55:48 GMT
+recorded_with: VCR 5.0.0
