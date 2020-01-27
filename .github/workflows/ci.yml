@@ -16,11 +16,11 @@ jobs:
 
     - name: Install rubygems
       run: |
-        gem update --system
+        gem update --system --no-document
 
     - name: Install bundler
       run: |
-        gem install bundler
+        gem install bundler --no-document
 
     - name: Install dependencies
       run: |
