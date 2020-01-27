@@ -1,0 +1,109 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications
+    body:
+      encoding: UTF-8
+      string: '{"merchantRefNum":"8ac36c68-9483-47ae-b6d9-61df5121b53b","card":{"cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2050},"cvv":123},"billingDetails":{"country":"US","zip":"10014"}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '628'
+      X-Applicationuid:
+      - GUID=0cf7b8f8-e615-44f7-9dc7-2dd12516a847
+      Content-Type:
+      - application/json
+      Expires:
+      - Mon, 27 Jan 2020 20:49:09 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Mon, 27 Jan 2020 20:49:09 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - WLSESSIONID=q7Tow-KwGw76i-o3N4ddfaIpjaUtWkadhwXUiMvZRJsr9W5mQnSA!1424506064!600893280;
+        path=/; secure; HttpOnly
+    body:
+      encoding: ASCII-8BIT
+      string: '{"links":[{"rel":"self","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications/0cf7b8f8-e615-44f7-9dc7-2dd12516a847"}],"id":"0cf7b8f8-e615-44f7-9dc7-2dd12516a847","merchantRefNum":"8ac36c68-9483-47ae-b6d9-61df5121b53b","txnTime":"2020-01-27T20:49:09Z","status":"COMPLETED","card":{"type":"VI","lastDigits":"1111","cardExpiry":{"month":12,"year":2050}},"authCode":"991459","billingDetails":{"country":"US","zip":"10014"},"merchantDescriptor":{"dynamicDescriptor":"DD
+        Line 1","phone":"000-111000099"},"visaAdditionalAuthData":{},"currencyCode":"USD","avsResponse":"MATCH","cvvVerification":"MATCH"}'
+    http_version: 
+  recorded_at: Mon, 27 Jan 2020 20:49:09 GMT
+- request:
+    method: get
+    uri: https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications/0cf7b8f8-e615-44f7-9dc7-2dd12516a847
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '600'
+      X-Applicationuid:
+      - GUID=36934811-dab8-4f20-b027-9d101e89f55b
+      Content-Type:
+      - application/json
+      Expires:
+      - Mon, 27 Jan 2020 20:49:09 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Mon, 27 Jan 2020 20:49:09 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - WLSESSIONID=pH3ow-OGQig1wbyEKhf8ejyKfgsb87KZFHMMx3C16-u0NiUfa3QH!600893280!1424506064;
+        path=/; secure; HttpOnly
+    body:
+      encoding: ASCII-8BIT
+      string: '{"links":[{"rel":"self","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications/0cf7b8f8-e615-44f7-9dc7-2dd12516a847"}],"id":"0cf7b8f8-e615-44f7-9dc7-2dd12516a847","merchantRefNum":"8ac36c68-9483-47ae-b6d9-61df5121b53b","txnTime":"2020-01-27T20:49:09Z","status":"COMPLETED","card":{"type":"VI","lastDigits":"1111","cardExpiry":{"month":12,"year":2050}},"authCode":"991459","billingDetails":{"country":"US","zip":"10014"},"merchantDescriptor":{"dynamicDescriptor":"DD
+        Line 1","phone":"000-111000099"},"currencyCode":"USD","avsResponse":"MATCH","cvvVerification":"MATCH"}'
+    http_version: 
+  recorded_at: Mon, 27 Jan 2020 20:49:09 GMT
+recorded_with: VCR 5.0.0
