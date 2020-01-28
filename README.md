@@ -39,7 +39,7 @@ client = Paysafe::REST::Client.new(
 Make an API request with a payload in the structure documented by the [Paysafe REST API](paysafe_api_reference) but using snake_case. The request payload will be converted to camelCase for you.
 
 ```ruby
-profile = client.create_profile(
+profile = client.customer_vault.create_profile(
   merchant_customer_id: '123',
   locale: 'en_US',
   card: {
@@ -74,7 +74,7 @@ Further API methods are provided in the `Paysafe::REST::Client` object.
 3. Run `./bin/console` for an interactive prompt with an authenticated client for you to experiment:
 
     ```ruby
-    profile = client.create_profile(merchant_customer_id: SecureRandom.uuid, locale: 'en_US')
+    profile = client.customer_vault.create_profile(merchant_customer_id: SecureRandom.uuid, locale: 'en_US')
     puts profile.id
     # => b088ac37...
     ```
