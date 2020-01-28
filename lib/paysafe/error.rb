@@ -48,7 +48,7 @@ module Paysafe
     # Raised on the HTTP status code 504
     GatewayTimeout = Class.new(ServerError)
 
-    ERRORS = {
+    ERRORS_BY_STATUS = {
       400 => Paysafe::Error::BadRequest,
       401 => Paysafe::Error::Unauthorized,
       402 => Paysafe::Error::RequestDeclined,
@@ -72,7 +72,7 @@ module Paysafe
       # @param status [Integer]
       # @return [Paysafe::Error]
       def from_response(body, status)
-        klass = ERRORS[status] || Paysafe::Error
+        klass = ERRORS_BY_STATUS[status] || Paysafe::Error
         message, error_code = parse_error(body)
         klass.new(message: message, code: error_code, response: body)
       end
@@ -109,5 +109,35 @@ module Paysafe
       @response = response
       super(message)
     end
+
+    def to_s
+      [ super, code_text, field_error_text, detail_text ].compact.join(' ')
+    end
+
+    private
+
+    def code_text
+      "(Code #{code})" if code
+    end
+
+    def field_error_text
+      if field_errors
+        msgs = field_errors.map { |f| "The \`#{f[:field]}\` #{f[:error]}." }.join(' ')
+        "Field Errors: #{msgs}".strip
+      end
+    end
+
+    def field_errors
+      response.dig(:error, :field_errors) if response.is_a?(Hash)
+    end
+
+    def detail_text
+      "Details: #{details.join('. ')}".strip if details
+    end
+
+    def details
+      response.dig(:error, :details) if response.is_a?(Hash)
+    end
+
   end
 end

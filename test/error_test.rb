@@ -2,7 +2,23 @@ require 'test_helper'
 
 class ErrorTest < Minitest::Test
 
-  def test_no_error_message_if_unrecognized_body
+  def test_error_response
+    response_body = { error: { code: '3009', message: 'message' } }
+    error = Paysafe::Error.from_response(response_body, 402)
+    assert_equal response_body, error.response
+  end
+
+  def test_error_code
+    error = Paysafe::Error.from_response({ error: { code: '3009' } }, 402)
+    assert_equal "3009", error.code
+  end
+
+  def test_error_message
+    error = Paysafe::Error.from_response({ error: { code: '3009', message: 'Message' } }, 402)
+    assert_equal "Message (Code 3009)", error.message
+  end
+
+  def test_blank_error_message_if_unrecognized_body
     error = Paysafe::Error.from_response('', 431)
     assert_equal "", error.message
 
@@ -10,54 +26,45 @@ class ErrorTest < Minitest::Test
     assert_equal "", error.message
   end
 
-  def test_returns_general_error_class_for_unrecognized_code
-    response = { error: { code: '9876', message: 'A custom error message' } }
-
-    error = Paysafe::Error.from_response(response, 431)
-
-    assert_instance_of Paysafe::Error, error
-    assert_equal "A custom error message", error.message
-    assert_equal '9876', error.code
-    assert_equal response, error.response
-  end
-
-  def test_returns_conflict_error_class
+  def test_error_message_with_fields_and_details
     response = {
       error: {
-        code: "7503",
-        message: "Card number already in use - d63b2910-9ab5-4803-a2a2-1aadcc790cc2",
-        links: [ { rel: "errorinfo", href: "https://developer.paysafe.com/..." } ]
-      },
-      links: [ { rel: "existing_entity", href: "https://api.test.paysafe.com/..." } ]
-    }
-
-    error = Paysafe::Error.from_response(response, 409)
-
-    assert_instance_of Paysafe::Error::Conflict, error
-    assert_kind_of Paysafe::Error::ClientError, error
-    assert_equal "Card number already in use - d63b2910-9ab5-4803-a2a2-1aadcc790cc2", error.message
-    assert_equal '7503', error.code
-    assert_equal response, error.response
-  end
-
-  def test_returns_bad_gateway_error_class
-    response = {
-      error: {
-        code: "3028",
-        message: "The external processing gateway has reported a system error.",
-        links: [
-          { rel: "errorinfo", href: "https://developer.paysafe.com/..." }
+        code: "3009",
+        message: "Message",
+        details: [ "access denied" ],
+        field_errors: [
+          { field: "locale", error: "may not be empty" },
+          { field: "merchantCustomerId", error: "may not be empty" }
         ]
       }
     }
+    error = Paysafe::Error.from_response(response, 409)
 
-    error = Paysafe::Error.from_response(response, 502)
+    assert_equal "Message (Code 3009) Field Errors: The \`locale\` may not be empty. The \`merchantCustomerId\` may not be empty. Details: access denied", error.message
+  end
 
-    assert_instance_of Paysafe::Error::BadGateway, error
-    assert_kind_of Paysafe::Error::ServerError, error
-    assert_equal "The external processing gateway has reported a system error.", error.message
-    assert_equal '3028', error.code
-    assert_equal response, error.response
+  def test_error_message_with_details
+    error = Paysafe::Error.from_response({ error: { code: '3009', message: 'Message', details: [ "access denied" ] } }, 402)
+    assert_equal "Message (Code 3009) Details: access denied", error.message
+  end
+
+  def test_general_error_class_used_for_unrecognized_http_status
+    error = Paysafe::Error.from_response({}, 431)
+    assert_instance_of Paysafe::Error, error
+  end
+
+  def test_specific_error_class_used_for_matching_http_status
+    Paysafe::Error::ERRORS_BY_STATUS.each do |status, klass|
+      assert_instance_of klass, Paysafe::Error.from_response({}, status)
+
+      if (400..499).cover?(status)
+        assert_kind_of Paysafe::Error::ClientError, Paysafe::Error.from_response({}, status)
+      end
+
+      if (500..599).cover?(status)
+        assert_kind_of Paysafe::Error::ServerError, Paysafe::Error.from_response({}, status)
+      end
+    end
   end
 
 end

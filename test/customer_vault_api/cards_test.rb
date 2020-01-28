@@ -76,9 +76,8 @@ class CustomerVaultApiCardsTest < Minitest::Test
       end
     end
 
-    assert_equal "5068", error.code
-    assert_equal 'Either you submitted a request that is missing a mandatory field or the value of a field does not match the format expected.', error.message
-    assert error.response[:error][:field_errors].any?
+    assert_equal '5068', error.code
+    assert_equal 'Either you submitted a request that is missing a mandatory field or the value of a field does not match the format expected. (Code 5068) Field Errors: The `cardNum` size must be between 12 and 20. The `cardNum` Luhn checksum failed.', error.message
   end
 
   def test_create_card_failed_409
@@ -107,7 +106,7 @@ class CustomerVaultApiCardsTest < Minitest::Test
     end
 
     assert_equal "7503", error.code
-    assert_match(/Card number already in use -/, error.message)
+    assert_match(/^Card number already in use - #{UUID_REGEX} \(Code 7503\)$/, error.message)
   end
 
   def test_delete_card
@@ -128,7 +127,7 @@ class CustomerVaultApiCardsTest < Minitest::Test
     end
 
     assert_equal "5269", error.code
-    assert_equal "The ID(s) specified in the URL do not correspond to the values in the system.: invalid", error.message
+    assert_equal "The ID(s) specified in the URL do not correspond to the values in the system.: invalid (Code 5269)", error.message
   end
 
   def test_get_card

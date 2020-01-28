@@ -28,8 +28,7 @@ class CustomerVaultApiProfilesTest < Minitest::Test
     end
 
     assert_equal '5068', error.code
-    assert_equal 'Either you submitted a request that is missing a mandatory field or the value of a field does not match the format expected.', error.message
-    assert error.response[:error][:field_errors].any?
+    assert_equal 'Either you submitted a request that is missing a mandatory field or the value of a field does not match the format expected. (Code 5068) Field Errors: The `locale` may not be empty. The `merchantCustomerId` may not be empty. The `merchantCustomerId` size must be between 1 and 100.', error.message
   end
 
   def test_create_profile_with_card_and_address

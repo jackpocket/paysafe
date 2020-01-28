@@ -63,7 +63,7 @@ class ClientTest < Minitest::Test
     end
 
     assert_equal '5279', error.code
-    assert_equal 'The authentication credentials are invalid.', error.message
+    assert_equal 'The authentication credentials are invalid. (Code 5279)', error.message
   end
 
 end
