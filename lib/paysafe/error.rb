@@ -69,10 +69,10 @@ module Paysafe
       # Create a new error from an HTTP response
       #
       # @param body [String]
-      # @param code [Integer]
+      # @param status [Integer]
       # @return [Paysafe::Error]
-      def from_response(body, code)
-        klass = ERRORS[code] || Paysafe::Error
+      def from_response(body, status)
+        klass = ERRORS[status] || Paysafe::Error
         message, error_code = parse_error(body)
         klass.new(message: message, code: error_code, response: body)
       end
