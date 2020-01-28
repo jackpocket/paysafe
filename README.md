@@ -25,14 +25,16 @@ Create and configure a client with your API authentication.
 
 ```ruby
 client = Paysafe::REST::Client.new(
-  account_number: '1234567890',
-  api_key: 'api_key',
-  api_secret: 'api_secret',
-  test_mode: false # to enable Production requests
+  api_key: 'your api key',
+  api_secret: 'you api secret',
+  test_mode: false, # to enable Production requests (default is true)
+  account_number: '1234', # used for the Card Payments API
   # Provide optional timeouts
   # timeouts: { connect: 2, read: 5, write: 10 }
 )
 ```
+
+At a minimum the following options: `api_key`, `api_secret`, and `test_mode` should be specified. The `account_number` is only necessary for certain API's such as the Card Payments API.
 
 ### Making Requests
 
