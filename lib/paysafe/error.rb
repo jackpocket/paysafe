@@ -65,16 +65,6 @@ module Paysafe
       504 => Paysafe::Error::GatewayTimeout,
     }
 
-    # The Paysafe API Error Code
-    #
-    # @return [Integer]
-    attr_reader :code
-
-    # The JSON HTTP response in Hash form
-    #
-    # @return [Hash]
-    attr_reader :response
-
     class << self
       # Create a new error from an HTTP response
       #
@@ -98,10 +88,20 @@ module Paysafe
       end
     end
 
+    # The Paysafe API Error Code
+    #
+    # @return [String]
+    attr_reader :code
+
+    # The JSON HTTP response in Hash form
+    #
+    # @return [Hash]
+    attr_reader :response
+
     # Initializes a new Error object
     #
     # @param message [Exception, String]
-    # @param code [Integer]
+    # @param code [String]
     # @param response [Hash]
     # @return [Paysafe::Error]
     def initialize(message: '', code: nil, response: {})
