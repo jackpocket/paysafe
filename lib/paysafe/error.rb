@@ -105,9 +105,9 @@ module Paysafe
     # @param response [Hash]
     # @return [Paysafe::Error]
     def initialize(message: '', code: nil, response: {})
-      super(message)
       @code = code
       @response = response
+      super(message)
     end
   end
 end
