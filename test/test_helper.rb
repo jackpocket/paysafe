@@ -8,13 +8,10 @@ require 'dotenv/load'
 
 Minitest::Reporters.use!([Minitest::Reporters::SpecReporter.new])
 
-RECORD_MODE = (ENV['RECORD_MODE'] || 'once').to_sym
-VCR_CASSETTE_DIR = "test/cassettes"
-
 VCR.configure do |c|
-  c.cassette_library_dir = VCR_CASSETTE_DIR
+  c.cassette_library_dir = "test/cassettes"
+  c.default_cassette_options = { record: (ENV['RECORD_MODE'] || :once).to_sym }
   c.hook_into :webmock
-  c.default_cassette_options = { record: RECORD_MODE }
   c.filter_sensitive_data('<ACCOUNT_NUMBER>') { ENV['PAYSAFE_ACCOUNT_NUMBER'] }
   c.filter_sensitive_data('<API_TOKEN>') do |interaction|
     Base64.strict_encode64("#{ENV['PAYSAFE_API_KEY']}:#{ENV['PAYSAFE_API_SECRET']}")
