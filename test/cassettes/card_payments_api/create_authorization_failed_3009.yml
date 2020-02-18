@@ -1,0 +1,109 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/customervault/v1/profiles
+    body:
+      encoding: UTF-8
+      string: '{"firstName":"test","lastName":"test","email":"test@test.com","card":{"cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2050},"billingAddress":{"country":"US","zip":"10014"}},"merchantCustomerId":"90b5690b-e39d-4235-8794-83b9836bed8e","locale":"en_US"}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '691'
+      X-Applicationuid:
+      - GUID=ec718674-a5d2-4239-bcfe-51ab71887e19
+      Content-Type:
+      - application/json
+      X-Pad:
+      - avoid browser bug
+      Expires:
+      - Tue, 11 Feb 2020 20:38:37 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Tue, 11 Feb 2020 20:38:37 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"e5f16056-23f6-4db3-838a-ed01a85ab0fd","status":"ACTIVE","merchantCustomerId":"90b5690b-e39d-4235-8794-83b9836bed8e","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"PpOsOxmxINqs6fz","email":"test@test.com","addresses":[{"id":"89625826-d76f-458c-b3cd-a94fdaf35997","country":"US","zip":"10014","defaultShippingAddressIndicator":false,"status":"ACTIVE"}],"cards":[{"status":"ACTIVE","id":"f2f921f7-eec0-4c49-88b9-1b2a17dae947","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2050,"month":12},"billingAddressId":"89625826-d76f-458c-b3cd-a94fdaf35997","cardType":"VI","cardCategory":"CREDIT","paymentToken":"C7YNTRlx3ZYuP1S","defaultCardIndicator":true}]}'
+    http_version: 
+  recorded_at: Tue, 11 Feb 2020 20:38:37 GMT
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/auths
+    body:
+      encoding: UTF-8
+      string: '{"amount":5,"merchantRefNum":"b7a78a1a-74cb-4cec-9a1e-60c8214596b4","settleWithAuth":true,"recurring":"RECURRING","card":{"paymentToken":"C7YNTRlx3ZYuP1S"}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.9.4
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 402
+      message: Payment Required
+    headers:
+      Server:
+      - WebServer32xS10i3
+      Content-Length:
+      - '508'
+      X-Application-Status-Code:
+      - '3009'
+      X-Applicationuid:
+      - GUID=01b2aea2-d9d2-4138-b670-fa08aa43a6f1
+      Content-Type:
+      - application/json
+      Expires:
+      - Tue, 11 Feb 2020 20:38:38 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Tue, 11 Feb 2020 20:38:38 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - WLSESSIONID=Mj01-aOQHO2PampxYQx884ZzvNRLX4JtEbK87uicsTwaeew5pxaA!435481739!16902947;
+        path=/; secure; HttpOnly
+    body:
+      encoding: ASCII-8BIT
+      string: '{"links":[{"rel":"self","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/auths/01b2aea2-d9d2-4138-b670-fa08aa43a6f1"}],"id":"01b2aea2-d9d2-4138-b670-fa08aa43a6f1","merchantRefNum":"b7a78a1a-74cb-4cec-9a1e-60c8214596b4","error":{"code":"3009","message":"Your
+        request has been declined by the issuing bank.","links":[{"rel":"errorinfo","href":"https://developer.paysafe.com/en/rest-api/cards/test-and-go-live/card-errors/#ErrorCode3009"}]},"riskReasonCode":[1005],"settleWithAuth":true}'
+    http_version: 
+  recorded_at: Tue, 11 Feb 2020 20:38:38 GMT
+recorded_with: VCR 5.0.0

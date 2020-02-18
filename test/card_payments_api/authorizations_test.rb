@@ -45,6 +45,30 @@ class CardPaymentsApiAuthorizationsTest < Minitest::Test
     assert_equal '10014', auth.billing_details.zip
   end
 
+  def test_create_authorization_failed_3009
+    error = assert_raises(Paysafe::Error::RequestDeclined) do
+      VCR.use_cassette('card_payments_api/create_authorization_failed_3009') do
+        profile = create_test_profile_with_card_and_address
+        card = profile.cards.first
+
+        authenticated_client.card_payments.create_authorization(
+          amount: 5, # simulate 3009 error code
+          merchant_ref_num: random_id,
+          settle_with_auth: true,
+          recurring: 'RECURRING',
+          card: {
+            payment_token: card.payment_token
+          }
+        )
+      end
+    end
+
+    assert_equal '3009', error.code
+    assert_equal 'Your request has been declined by the issuing bank. (Code 3009)', error.message
+    assert_match UUID_REGEX, error.id
+    assert_match UUID_REGEX, error.merchant_ref_num
+  end
+
   def test_create_purchase
     auth = VCR.use_cassette('card_payments_api/create_purchase') do
       profile = create_test_profile_with_card_and_address

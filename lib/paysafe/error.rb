@@ -114,6 +114,14 @@ module Paysafe
       [ super, code_text, field_error_text, detail_text ].compact.join(' ')
     end
 
+    def id
+      response.dig(:id) if response.is_a?(Hash)
+    end
+
+    def merchant_ref_num
+      response.dig(:merchant_ref_num) if response.is_a?(Hash)
+    end
+
     private
 
     def code_text
