@@ -67,8 +67,6 @@ profile.cards.first.card_expiry.year
 # => 2020
 ```
 
-Further API methods are provided in the `Paysafe::REST::Client` object.
-
 ## Development
 
 1. `git clone https://github.com/javierjulio/paysafe.git`
