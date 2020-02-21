@@ -3,7 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/paysafe.svg)][gem]
 ![Build Status](https://github.com/javierjulio/paysafe/workflows/Paysafe/badge.svg?branch=master)
 
-A well tested Ruby interface to the [Paysafe REST API](paysafe_api_reference) (formerly Optimal Payments). Requires Ruby 2.3 and up. Not all API actions are supported yet. Since the Paysafe API uses camelCase, this gem will handle converting to and from snake_case for you.
+A well tested Ruby interface to the [Paysafe REST API](paysafe_api_reference) (formerly Optimal Payments). Requires Ruby 2.4 and up. Not all API actions are supported yet. Since the Paysafe API uses camelCase, this gem will handle converting to and from snake_case for you.
 
 ## Installation
 
