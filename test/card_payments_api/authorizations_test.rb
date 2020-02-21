@@ -114,11 +114,14 @@ class CardPaymentsApiAuthorizationsTest < Minitest::Test
       profile = create_test_profile_with_card_and_address
       card = profile.cards.first
 
-      result = authenticated_client.card_payments.purchase(
+      result = authenticated_client.card_payments.create_authorization(
         amount: 4_00,
-        token: card.payment_token,
         merchant_ref_num: random_id,
-        recurring: 'RECURRING'
+        settle_with_auth: true,
+        recurring: 'RECURRING',
+        card: {
+          payment_token: card.payment_token
+        }
       )
       authenticated_client.card_payments.get_authorization(id: result.id)
     end
