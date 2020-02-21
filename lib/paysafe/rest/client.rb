@@ -40,7 +40,7 @@ module Paysafe
       end
 
       def create_profile_from_token(data)
-        customer_vault.create_profile_from_token(data)
+        customer_vault.create_profile(**data)
       end
 
       def create_profile(merchant_customer_id:, locale:, **args)
@@ -68,7 +68,7 @@ module Paysafe
       end
 
       def create_card_from_token(profile_id:, token:)
-        customer_vault.create_card_from_token(profile_id: profile_id, token: token)
+        customer_vault.create_card(profile_id: profile_id, single_use_token: token)
       end
 
       def create_card(profile_id:, **data)
@@ -95,12 +95,28 @@ module Paysafe
       end
 
       def purchase(amount:, token:, merchant_ref_num:, **args)
-        card_payments.purchase(amount: amount, token: token, merchant_ref_num: merchant_ref_num, **args)
+        data = args.merge({
+          amount: amount,
+          merchant_ref_num: merchant_ref_num,
+          settle_with_auth: true,
+          card: {
+            payment_token: token
+          }
+        })
+        card_payments.create_authorization(**data)
       end
 
       def create_verification_from_token(merchant_ref_num:, token:, **args)
-        card_payments.create_verification_from_token(merchant_ref_num: merchant_ref_num, token: token, **args)
+        data = args.merge({
+          merchant_ref_num: merchant_ref_num,
+          card: {
+            payment_token: token
+          }
+        })
+
+        card_payments.create_verification(**data)
       end
+
     end
   end
 end

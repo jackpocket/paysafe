@@ -11,21 +11,12 @@ module Paysafe
         perform_post_with_object("/customervault/v1/profiles/#{profile_id}/cards", data, Card)
       end
 
-      def create_card_from_token(profile_id:, token:)
-        data = { single_use_token: token }
-        perform_post_with_object("/customervault/v1/profiles/#{profile_id}/cards", data, Card)
-      end
-
       def create_profile(merchant_customer_id:, locale:, **args)
         data = args.merge({
           merchant_customer_id: merchant_customer_id,
           locale: locale
         })
 
-        perform_post_with_object("/customervault/v1/profiles", data, Profile)
-      end
-
-      def create_profile_from_token(data)
         perform_post_with_object("/customervault/v1/profiles", data, Profile)
       end
 
