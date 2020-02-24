@@ -20,7 +20,7 @@ module Paysafe
         perform_post_with_object("/customervault/v1/profiles", data, Profile)
       end
 
-      def create_single_use_token(data)
+      def create_single_use_token(**data)
         perform_post_with_object("/customervault/v1/singleusetokens", data, SingleUseToken)
       end
 

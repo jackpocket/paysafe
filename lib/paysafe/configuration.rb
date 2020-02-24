@@ -6,7 +6,7 @@ module Paysafe
 
     attr_reader :account_number, :api_base, :api_key, :api_secret, :test_mode, :timeouts
 
-    def initialize(options={})
+    def initialize(**options)
       @test_mode = true
 
       options.each do |key, value|
