@@ -4,7 +4,7 @@ class CustomerVaultApiSingleUseTokensTest < Minitest::Test
 
   def test_create_single_use_token
     sut = VCR.use_cassette('customer_vault_api/create_single_use_token') do
-      sut_client.create_single_use_token(
+      sut_client.customer_vault.create_single_use_token(
         card: {
           card_num: '5200400000000009',
           card_expiry: {
@@ -34,7 +34,7 @@ class CustomerVaultApiSingleUseTokensTest < Minitest::Test
 
   def test_single_use_token_with_verification
     result = VCR.use_cassette('customer_vault_api/single_use_token_with_verification') do
-      sut = sut_client.create_single_use_token(
+      sut = sut_client.customer_vault.create_single_use_token(
         card: {
           card_num: '5200400000000009',
           card_expiry: {
@@ -53,7 +53,7 @@ class CustomerVaultApiSingleUseTokensTest < Minitest::Test
       assert_match UUID_REGEX, sut.id
       assert_match TOKEN_REGEX, sut.payment_token
 
-      authenticated_client.create_verification_from_token(
+      authenticated_client.card_payments.create_verification(
         merchant_ref_num: random_id,
         token: sut.payment_token
       )
@@ -80,7 +80,7 @@ class CustomerVaultApiSingleUseTokensTest < Minitest::Test
 
   def test_single_use_token_with_profile_creation
     profile = VCR.use_cassette('customer_vault_api/single_use_token_with_profile_creation') do
-      sut = sut_client.create_single_use_token(
+      sut = sut_client.customer_vault.create_single_use_token(
         card: {
           card_num: '4111111111111111',
           card_expiry: {
@@ -130,7 +130,7 @@ class CustomerVaultApiSingleUseTokensTest < Minitest::Test
 
   def test_single_use_token_with_card_creation_for_existing_profile
     card = VCR.use_cassette('customer_vault_api/single_use_token_with_card_creation') do
-      sut = sut_client.create_single_use_token(
+      sut = sut_client.customer_vault.create_single_use_token(
         card: {
           card_num: '4111111111111111',
           card_expiry: {
@@ -149,9 +149,9 @@ class CustomerVaultApiSingleUseTokensTest < Minitest::Test
       assert_match TOKEN_REGEX, sut.payment_token
 
       profile = create_test_profile
-      authenticated_client.create_card_from_token(
+      authenticated_client.customer_vault.create_card(
         profile_id: profile.id,
-        token: sut.payment_token
+        single_use_token: sut.payment_token
       )
     end
 
