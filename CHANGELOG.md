@@ -3,12 +3,12 @@ Changelog
 
 ## Unreleased
 
-* Deprecated `Client` object API methods.
-* All API methods are now grouped by API, for example:
-  * `client.create_profile` is now `client.customer_vault.create_profile` (Customer Vault API)
-  * `client.create_verification` is now `client.card_payments.create_verification` (Card Payements API)
-  * Includes new Payments API (aka Paysafe Unity Platform) through `client.payments`
 * Removed client configuration using a block.
+* Deprecated `Client` object API methods.
+* All API methods are now grouped by API objects, for example:
+  * Customer Vault API: `client.create_profile` is now `client.customer_vault.create_profile`
+  * Card Payments API: `client.create_verification` is now `client.card_payments.create_verification`
+  * Includes some methods for new Payments API through `client.payments` (aka Paysafe Unity Platform)
 * Requires http gem v4.
 * Requires Ruby 2.4 and up.
 * Added Ruby 2.7 build to CI.
