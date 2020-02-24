@@ -66,4 +66,35 @@ class ClientTest < Minitest::Test
     assert_equal 'The authentication credentials are invalid. (Code 5279)', error.message
   end
 
+  def test_client_deprecations
+    client = Paysafe::REST::Client.new
+
+    [
+      [ :customer_vault, :create_single_use_token, nil, {} ],
+      [ :customer_vault, :create_profile_from_token, :create_profile, {} ],
+      [ :customer_vault, :create_profile, nil, { merchant_customer_id: '', locale: '' } ],
+      [ :customer_vault, :delete_profile, nil, { id: '' } ],
+      [ :customer_vault, :get_profile, nil, { id: '' } ],
+      [ :customer_vault, :update_profile, nil, { id: '', merchant_customer_id: '', locale: '' } ],
+      [ :customer_vault, :create_address, nil, { profile_id: '', country: '', zip: '' } ],
+      [ :customer_vault, :get_address, nil, { profile_id: '', id: '' } ],
+      [ :customer_vault, :create_card_from_token, :create_card, { profile_id: '', token: '' } ],
+      [ :customer_vault, :create_card, nil, { profile_id: '' } ],
+      [ :customer_vault, :delete_card, nil, { profile_id: '', id: '' } ],
+      [ :customer_vault, :get_card, nil, { profile_id: '', id: '' } ],
+      [ :customer_vault, :update_card, nil, { profile_id: '', id: '', month: '', year: '' } ],
+      [ :card_payments, :purchase, :create_authorization, { amount: '', token: '', merchant_ref_num: '' } ],
+      [ :card_payments, :create_verification_from_token, :create_verification, { merchant_ref_num: '', token: '' } ]
+    ].each do |api_name, method_name, new_method_name, arguments|
+      new_method_name = new_method_name || method_name
+
+      assert_called(client.send(api_name), new_method_name, times: 1) do
+        _, stderror = capture_io do
+          client.send(method_name, arguments)
+        end
+
+        assert_match "[DEPRECATION] '#{method_name}' is deprecated. Please use '#{api_name}.#{new_method_name}' instead", stderror
+      end
+    end
+  end
 end
