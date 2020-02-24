@@ -2,6 +2,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'paysafe'
 require 'minitest/autorun'
 require 'minitest/reporters'
+require 'minitest/mock_expectations'
 require 'webmock/minitest'
 require 'vcr'
 require 'dotenv/load'
