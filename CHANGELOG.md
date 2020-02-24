@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## Unreleased
+## 0.10.0 (2020-02-24)
 
 * Removed client configuration using a block.
 * Deprecated `Client` object API methods.
