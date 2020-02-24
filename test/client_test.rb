@@ -66,7 +66,7 @@ class ClientTest < Minitest::Test
     assert_equal 'The authentication credentials are invalid. (Code 5279)', error.message
   end
 
-  def test_client_deprecations
+  def test_client_method_deprecations
     client = Paysafe::REST::Client.new
 
     [
