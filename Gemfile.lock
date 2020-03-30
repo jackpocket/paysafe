@@ -21,7 +21,7 @@ GEM
       ffi (>= 1.0.0)
       rake
     hashdiff (1.0.1)
-    http (4.4.0)
+    http (4.4.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
@@ -44,7 +44,7 @@ GEM
     safe_yaml (1.0.5)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.6)
+    unf_ext (0.0.7.7)
     vcr (5.1.0)
     webmock (3.8.3)
       addressable (>= 2.3.6)
