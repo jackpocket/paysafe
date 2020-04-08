@@ -1,0 +1,66 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/paymenthub/v1/standalonecredits
+    body:
+      encoding: UTF-8
+      string: '{"merchantRefNum":"2c98a6a2-36de-4d6a-8695-8f173b483718","paymentHandleToken":"SSa1YzvnJT6S4Hss","amount":6500,"currencyCode":"USD"}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.10.0
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <UNITY_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      - application/json;charset=utf-8
+      X-Rate-Limit-Limit:
+      - '1000'
+      X-Rate-Limit-Remaining:
+      - '999'
+      X-Rate-Limit-Reset:
+      - '59998'
+      X-Internal-Correlation-Id:
+      - 2b5c3901-e9de-4309-8102-9b67896b1500
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - secure-no-value
+      Content-Length:
+      - '1393'
+      Expires:
+      - Wed, 08 Apr 2020 18:14:57 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 08 Apr 2020 18:14:57 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"b529e9c2-6ece-4fde-8f63-de9bcf002063","paymentType":"SIGHTLINE","paymentHandleToken":"SSa1YzvnJT6S4Hss","merchantRefNum":"2c98a6a2-36de-4d6a-8695-8f173b483718","currencyCode":"USD","txnTime":"2020-04-08T18:14:56.000+0000","billingDetails":{"street1":"353
+        West St","city":"New York","zip":"10014","state":"NY","country":"US"},"status":"COMPLETED","gatewayReconciliationId":"a79cf3f4-e56a-4ae1-8ffd-52ebd99ab29c","amount":6500,"returnLinks":[{"rel":"on_completed","href":"https://hosted.test.paysafe.com/checkout/v2/pages/redirect-success.html"},{"rel":"default","href":"https://hosted.test.paysafe.com/checkout/v2/pages/redirect-success.html"},{"rel":"on_failed","href":"https://hosted.test.paysafe.com/checkout/v2/pages/redirect-error.html"}],"liveMode":false,"simulator":"EXTERNAL","updatedTime":"2020-04-08T18:14:57Z","statusTime":"2020-04-08T18:14:57Z","gatewayResponse":{"paymentProcessorTransactionId":"a0e354aa-7833-4281-827f-472d60e1ca65","lcpTransactionId":"57a2b538-ebf1-4357-9eb8-71cabc5106cc","balance":"65.0000","authorizationCode":"a0e354aa-7833-4281-827f-472d60e1ca65","merchantTransactionId":"lTM3mM8BCR56gcgEktkuWD0rv","processor":"SIGHTLINE","lcpEncodedTransactionId":"345J^n`s7DTvxd_]MSmW"},"sightline":{"consumerId":"1"},"profile":{"firstName":"John","lastName":"Smith","email":"johnsmith@test.com","dateOfBirth":{"day":1,"month":2,"year":1983},"phone":"6464138000"}}'
+    http_version: null
+  recorded_at: Wed, 08 Apr 2020 18:14:57 GMT
+recorded_with: VCR 5.1.0

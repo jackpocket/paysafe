@@ -10,8 +10,16 @@ module Paysafe
         perform_post_with_object("/paymenthub/v1/payments", data, Payment)
       end
 
+      def create_standalone_credit(**data)
+        perform_post_with_object("/paymenthub/v1/standalonecredits", data, StandaloneCredit)
+      end
+
       def get_payment(id:)
         perform_get_with_object("/paymenthub/v1/payments/#{id}", Payment)
+      end
+
+      def get_standalone_credit(id:)
+        perform_get_with_object("/paymenthub/v1/standalonecredits/#{id}", StandaloneCredit)
       end
 
     end
