@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 0.11.0 (2020-04-08)
+
+* Added standalone credits support for Payments API:
+  * `client.payments.create_standalone_credit`
+  * `client.payments.get_standalone_credit`
+
 ## 0.10.0 (2020-02-24)
 
 * Removed client configuration using a block.
