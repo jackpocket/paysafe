@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## Unreleased
+
+* Removed deprecated methods on `Client` object. Please use API scoped methods defined on `payments`, `customer_vault`, or `card_payments`.
+
 ## 0.11.0 (2020-04-08)
 
 * Added standalone credits support for Payments API:
