@@ -69,46 +69,6 @@ class CardPaymentsApiAuthorizationsTest < Minitest::Test
     assert_match UUID_REGEX, error.merchant_ref_num
   end
 
-  def test_create_purchase
-    auth = VCR.use_cassette('card_payments_api/create_purchase') do
-      profile = create_test_profile_with_card_and_address
-      card = profile.cards.first
-
-      authenticated_client.purchase(
-        amount: 4_00,
-        token: card.payment_token,
-        merchant_ref_num: random_id,
-        recurring: 'RECURRING'
-      )
-    end
-
-    assert_match UUID_REGEX, auth.id
-    assert_match UUID_REGEX, auth.merchant_ref_num
-    assert_equal 4_00, auth.amount
-    assert_equal true, auth.settle_with_auth
-    assert_equal false, auth.pre_auth
-    assert_match AUTH_CODE_REGEX, auth.auth_code
-    assert_equal 0, auth.available_to_settle
-    assert_equal 'COMPLETED', auth.status
-    assert_equal 'MATCH', auth.avs_response
-    assert_equal 'NOT_PROCESSED', auth.cvv_verification
-    assert_equal 'USD', auth.currency_code
-    assert Time.parse(auth.txn_time)
-
-    assert_equal 'test', auth.profile.first_name
-    assert_equal 'test', auth.profile.last_name
-    assert_equal 'test@test.com', auth.profile.email
-
-    assert_equal 'VI', auth.card.type
-    assert_equal 'visa', auth.card.brand
-    assert_equal '1111', auth.card.last_digits
-    assert_equal 12, auth.card.card_expiry.month
-    assert_equal 2050, auth.card.card_expiry.year
-
-    assert_equal 'US', auth.billing_details.country
-    assert_equal '10014', auth.billing_details.zip
-  end
-
   def test_get_authorization
     auth = VCR.use_cassette('card_payments_api/get_authorization') do
       profile = create_test_profile_with_card_and_address
