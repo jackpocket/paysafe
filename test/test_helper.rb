@@ -80,6 +80,13 @@ def create_test_profile_with_card_and_address
   )
 end
 
+def create_test_customer(**data)
+  unity_client.payments.create_customer(
+    merchant_customer_id: random_id,
+    **data
+  )
+end
+
 def random_id
   SecureRandom.uuid
 end

@@ -1,0 +1,111 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/paymenthub/v1/customers
+    body:
+      encoding: UTF-8
+      string: '{"merchantCustomerId":"b7685a23-3741-40aa-9837-d88db1baeff5"}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.11.0
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <UNITY_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      - application/json;charset=UTF-8
+      X-Rate-Limit-Limit:
+      - '1000'
+      X-Rate-Limit-Remaining:
+      - '999'
+      X-Rate-Limit-Reset:
+      - '59999'
+      X-Internal-Correlation-Id:
+      - 21ee143a-5796-43e6-8ebd-d45c45d3c9fe
+      Content-Length:
+      - '173'
+      Expires:
+      - Thu, 14 May 2020 14:20:17 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 14 May 2020 14:20:17 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"8b2d8c09-74fd-42e0-9a05-019c69ed631c","status":"ACTIVE","merchantCustomerId":"b7685a23-3741-40aa-9837-d88db1baeff5","locale":"en_US","paymentToken":"PNKIW50NiBW5v0O"}'
+    http_version: null
+  recorded_at: Thu, 14 May 2020 14:20:17 GMT
+- request:
+    method: get
+    uri: https://api.test.paysafe.com/paymenthub/v1/customers/8b2d8c09-74fd-42e0-9a05-019c69ed631c
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.11.0
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <UNITY_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      - application/json;charset=UTF-8
+      X-Rate-Limit-Limit:
+      - '1000'
+      X-Rate-Limit-Remaining:
+      - '998'
+      X-Rate-Limit-Reset:
+      - '59865'
+      X-Internal-Correlation-Id:
+      - 55478955-bf84-4b45-accd-7e6e37cad07c
+      Content-Length:
+      - '173'
+      Expires:
+      - Thu, 14 May 2020 14:20:17 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 14 May 2020 14:20:17 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"8b2d8c09-74fd-42e0-9a05-019c69ed631c","status":"ACTIVE","merchantCustomerId":"b7685a23-3741-40aa-9837-d88db1baeff5","locale":"en_US","paymentToken":"PNKIW50NiBW5v0O"}'
+    http_version: null
+  recorded_at: Thu, 14 May 2020 14:20:17 GMT
+recorded_with: VCR 5.1.0
