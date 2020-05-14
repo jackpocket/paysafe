@@ -3,6 +3,14 @@ Changelog
 
 ## Unreleased
 
+...
+
+## 0.12.0 (2020-05-14)
+
+* Added customers and single use tokens support for Payments API:
+  * `client.payments.create_single_use_customer_token`
+  * `client.payments.create_customer`
+  * `client.payments.get_customer`
 * Removed deprecated methods on `Client` object. Please use API scoped methods defined on `payments`, `customer_vault`, or `card_payments`.
 
 ## 0.11.0 (2020-04-08)
