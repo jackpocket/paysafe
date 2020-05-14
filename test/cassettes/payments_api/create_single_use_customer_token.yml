@@ -1,0 +1,111 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/paymenthub/v1/customers
+    body:
+      encoding: UTF-8
+      string: '{"merchantCustomerId":"e5def537-aa8d-400b-833f-3419d71be5fb"}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.11.0
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <UNITY_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      - application/json;charset=UTF-8
+      X-Rate-Limit-Limit:
+      - '1000'
+      X-Rate-Limit-Remaining:
+      - '999'
+      X-Rate-Limit-Reset:
+      - '59997'
+      X-Internal-Correlation-Id:
+      - 38f38b29-0a30-4c89-ae1a-cbdb38532d5d
+      Content-Length:
+      - '173'
+      Expires:
+      - Wed, 13 May 2020 18:21:52 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 13 May 2020 18:21:52 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"86d0150f-31cc-4613-8b9e-18fae15f2ba1","status":"ACTIVE","merchantCustomerId":"e5def537-aa8d-400b-833f-3419d71be5fb","locale":"en_US","paymentToken":"PWiKCEm8MlZXPsm"}'
+    http_version: null
+  recorded_at: Wed, 13 May 2020 18:21:52 GMT
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/paymenthub/v1/customers/86d0150f-31cc-4613-8b9e-18fae15f2ba1/singleusecustomertokens
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.11.0
+      X-Ruby-Version:
+      - 2.6.5
+      X-Ruby-Platform:
+      - x86_64-darwin18
+      Authorization:
+      - Basic <UNITY_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      - application/json;charset=UTF-8
+      X-Rate-Limit-Limit:
+      - '1000'
+      X-Rate-Limit-Remaining:
+      - '998'
+      X-Rate-Limit-Reset:
+      - '59787'
+      X-Internal-Correlation-Id:
+      - a082eefc-9f82-437d-9caa-b6a1a58ea55d
+      Content-Length:
+      - '200'
+      Expires:
+      - Wed, 13 May 2020 18:21:52 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 13 May 2020 18:21:52 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"42f86094-8bbf-4807-8da9-7089cdb60fa2","customerId":"86d0150f-31cc-4613-8b9e-18fae15f2ba1","timeToLiveSeconds":899,"status":"ACTIVE","singleUseCustomerToken":"SPHmTci81mguTBVf","locale":"en_US"}'
+    http_version: null
+  recorded_at: Wed, 13 May 2020 18:21:52 GMT
+recorded_with: VCR 5.1.0
