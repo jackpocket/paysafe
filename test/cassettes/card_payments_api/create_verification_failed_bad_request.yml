@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications
+    body:
+      encoding: UTF-8
+      string: '{"merchantRefNum":"fb33af44-f0fa-42c1-b9a8-5cc7ccd7135f","card":{"cardNum":"9999999999999999","cardExpiry":{"month":12,"year":2050},"cvv":123},"billingDetails":{"country":"US","zip":"10014"}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.12.0
+      X-Ruby-Version:
+      - 2.6.6
+      X-Ruby-Platform:
+      - x86_64-darwin19
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - WebServer64xS113i1
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Content-Length:
+      - '615'
+      X-Application-Status-Code:
+      - '5068'
+      X-Applicationuid:
+      - GUID=ec790920-5170-4b4e-bd4d-0fa851563e25
+      Content-Type:
+      - application/json
+      Expires:
+      - Thu, 25 Jun 2020 15:30:42 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 25 Jun 2020 15:30:42 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - WLSESSIONID=SdbsGj71pDOR2pkbsYWQZI208s8e0lcrGELytTeWU_1cOI3ew3u5!863651920!-320599205;
+        path=/; secure; HttpOnly
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"ec790920-5170-4b4e-bd4d-0fa851563e25","merchantRefNum":"fb33af44-f0fa-42c1-b9a8-5cc7ccd7135f","error":{"code":"5068","message":"Either
+        you submitted a request that is missing a mandatory field or the value of
+        a field does not match the format expected.","fieldErrors":[{"field":"card.cardNum","error":"Luhn
+        checksum failed"}],"links":[{"rel":"errorinfo","href":"https://developer.paysafe.com/en/rest-api/cards/test-and-go-live/card-errors/#ErrorCode5068"}]},"links":[{"rel":"self","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications/ec790920-5170-4b4e-bd4d-0fa851563e25"}]}'
+  recorded_at: Thu, 25 Jun 2020 15:30:42 GMT
+recorded_with: VCR 6.0.0
