@@ -10,7 +10,7 @@ module Paysafe
       # @param options [Hash]
       # @return [Paysafe::REST::Client]
       def initialize(**options)
-        @config = Configuration.new(options)
+        @config = Configuration.new(**options)
       end
 
       # @return [Hash]
