@@ -4,6 +4,7 @@ Changelog
 ## Unreleased
 
 * Renamed client `timeouts` option to `timeout`.
+* Requires Ruby 2.5 and up.
 
 ## 0.12.0 (2020-05-14)
 
