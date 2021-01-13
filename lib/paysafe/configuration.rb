@@ -4,7 +4,7 @@ module Paysafe
     API_TEST = 'https://api.test.paysafe.com'
     API_LIVE = 'https://api.paysafe.com'
 
-    attr_reader :account_number, :api_base, :api_key, :api_secret, :test_mode, :timeouts
+    attr_reader :account_number, :api_base, :api_key, :api_secret, :test_mode, :timeout
 
     def initialize(**options)
       @test_mode = true

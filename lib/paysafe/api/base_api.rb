@@ -25,7 +25,7 @@ module Paysafe
       def http_client
         HTTP
           .headers(HEADERS)
-          .timeout(@config.timeouts ? @config.timeouts : :null)
+          .timeout(@config.timeout || :null)
           .basic_auth(user: @config.api_key, pass: @config.api_secret)
       end
 

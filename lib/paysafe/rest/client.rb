@@ -3,7 +3,7 @@ module Paysafe
     class Client
       extend Forwardable
 
-      delegate [:account_number, :api_base, :api_key, :api_secret, :test_mode, :timeouts] => :@config
+      delegate [:account_number, :api_base, :api_key, :api_secret, :test_mode, :timeout] => :@config
 
       # Initializes a new Client object
       #

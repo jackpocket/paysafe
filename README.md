@@ -29,8 +29,10 @@ client = Paysafe::REST::Client.new(
   api_secret: 'your_api_secret',
   test_mode: false, # to enable Production requests, default is `true`
   account_number: '1234', # used for the Card Payments API
-  # Provide optional timeouts
-  # timeouts: { connect: 2, read: 5, write: 10 }
+  # Provide optional timeouts in seconds
+  # timeout: { connect: 2, read: 5, write: 10 }
+  # Or as a global timeout in seconds
+  # timeout: 20
 )
 ```
 

@@ -3,7 +3,7 @@ Changelog
 
 ## Unreleased
 
-...
+* Renamed client `timeouts` option to `timeout`.
 
 ## 0.12.0 (2020-05-14)
 
