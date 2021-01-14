@@ -1,10 +1,11 @@
 Changelog
 =========
 
-## Unreleased
+## 0.13.0 (2021-01-14)
 
 * Renamed client `timeouts` option to `timeout`.
 * Requires Ruby 2.5 and up.
+* Added Ruby 3.0 build to CI.
 
 ## 0.12.0 (2020-05-14)
 
