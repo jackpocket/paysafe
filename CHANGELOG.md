@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.14.0 (2021-01-19)
+
+* No code changes - moved repository to Jackpocket organization and updated URLs
+
 ## 0.13.0 (2021-01-14)
 
 * Renamed client `timeouts` option to `timeout`.
