@@ -1,7 +1,7 @@
 # The Paysafe Ruby Gem
 
 [![Gem Version](https://badge.fury.io/rb/paysafe.svg)](https://badge.fury.io/rb/paysafe)
-![Build Status](https://github.com/javierjulio/paysafe/workflows/Paysafe/badge.svg?branch=master)
+![Build Status](https://github.com/jackpocket/paysafe/workflows/Paysafe/badge.svg?branch=master)
 
 A well tested Ruby interface to the [Paysafe REST API](paysafe_api_reference) (formerly Optimal Payments). Requires Ruby 2.5 and up. Not all API actions are supported yet. Since the Paysafe API uses camelCase, this gem will handle converting to and from snake_case for you.
 
@@ -71,7 +71,7 @@ profile.cards.first.card_expiry.year
 
 ## Development
 
-1. `git clone https://github.com/javierjulio/paysafe.git`
+1. `git clone https://github.com/jackpocket/paysafe.git`
 2. Run `./bin/setup` to install dependencies and fill out API key/secret info
 3. Run `./bin/console` for an interactive prompt with an authenticated client for you to experiment:
 
@@ -93,7 +93,7 @@ To release a new version, update the version number in `version.rb`, and then ru
 
 ## Contributing
 
-Bug reports and pull requests for missing API support are welcome on GitHub at https://github.com/javierjulio/paysafe. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests for missing API support are welcome on GitHub at https://github.com/jackpocket/paysafe. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
 ## License
 

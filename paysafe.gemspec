@@ -7,11 +7,11 @@ Gem::Specification.new do |spec|
   spec.name          = "paysafe"
   spec.version       = Paysafe::VERSION
   spec.authors       = ["Javier Julio"]
-  spec.email         = ["jjfutbol@gmail.com"]
+  spec.email         = ["javier@jackpocket.com"]
 
   spec.summary       = "A Ruby interface to the Paysafe REST API."
   spec.description   = "A Ruby interface to the Paysafe REST API."
-  spec.homepage      = "https://github.com/javierjulio/paysafe"
+  spec.homepage      = "https://github.com/jackpocket/paysafe"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
@@ -31,5 +31,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest-mock_expectations"
   spec.add_development_dependency "vcr"
   spec.add_development_dependency "webmock"
-
 end
