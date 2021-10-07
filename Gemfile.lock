@@ -21,7 +21,7 @@ GEM
       ffi (>= 1.0.0)
       rake
     hashdiff (1.0.1)
-    http (5.0.2)
+    http (5.0.3)
       addressable (~> 2.8)
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
@@ -45,7 +45,7 @@ GEM
     ruby-progressbar (1.11.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.7)
+    unf_ext (0.0.8)
     vcr (6.0.0)
     webmock (3.14.0)
       addressable (>= 2.8.0)
