@@ -64,6 +64,24 @@ class CustomerVaultApiProfilesTest < Minitest::Test
     assert_equal 'ACTIVE', address.status
   end
 
+  def test_delete_profile
+    VCR.use_cassette('customer_vault_api/delete_profile') do
+      profile_id = create_test_profile.id
+      authenticated_client.customer_vault.delete_profile(id: profile_id)
+    end
+  end
+
+  def test_delete_profile_failed_not_found
+    error = assert_raises(Paysafe::Error::NotFound) do
+      VCR.use_cassette('customer_vault_api/delete_profile_failed_not_found') do
+        authenticated_client.customer_vault.delete_profile(id: 'unknown')
+      end
+    end
+
+    assert_equal "5269", error.code
+    assert_equal "The ID(s) specified in the URL do not correspond to the values in the system.: unknown (Code 5269)", error.message
+  end
+
   def test_get_profile
     profile = VCR.use_cassette('customer_vault_api/get_profile') do
       profile_id = create_test_profile.id
