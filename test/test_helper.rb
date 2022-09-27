@@ -1,3 +1,13 @@
+if ENV.fetch("COVERAGE", false)
+  require "simplecov"
+  require "simplecov-cobertura"
+  SimpleCov.start do
+    minimum_coverage 99
+    maximum_coverage_drop 0.2
+    formatter SimpleCov::Formatter::CoberturaFormatter
+  end
+end
+
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'paysafe'
 require 'minitest/autorun'
