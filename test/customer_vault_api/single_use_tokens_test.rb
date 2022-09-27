@@ -55,7 +55,9 @@ class CustomerVaultApiSingleUseTokensTest < Minitest::Test
 
       authenticated_client.card_payments.create_verification(
         merchant_ref_num: random_id,
-        token: sut.payment_token
+        card: {
+          paymentToken: sut.payment_token
+        }
       )
     end
 
