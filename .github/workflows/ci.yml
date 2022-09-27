@@ -21,6 +21,7 @@ jobs:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Run Tests
         env:
+          COVERAGE: true
           RUBYOPT: "-W:deprecated"
           PAYSAFE_ACCOUNT_NUMBER: test
           PAYSAFE_API_KEY: test
@@ -33,3 +34,7 @@ jobs:
           PAYSAFE_UNITY_SUT_API_SECRET: test
         run: |
           bundle exec rake
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
