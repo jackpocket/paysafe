@@ -41,3 +41,4 @@ jobs:
         with:
           env_vars: CODECOV_UPLOAD_TAG
           fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
