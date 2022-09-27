@@ -12,6 +12,8 @@ jobs:
     strategy:
       matrix:
         ruby: [ '2.7', '3.0', '3.1' ]
+    env:
+      CODECOV_UPLOAD_TAG: ${{ matrix.ruby }}
     name: Ruby ${{ matrix.ruby }}
     steps:
       - uses: actions/checkout@v3
@@ -37,4 +39,5 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
+          env_vars: CODECOV_UPLOAD_TAG
           fail_ci_if_error: true
