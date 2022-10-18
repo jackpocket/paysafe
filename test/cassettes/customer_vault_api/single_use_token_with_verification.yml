@@ -5,16 +5,16 @@ http_interactions:
     uri: https://api.test.paysafe.com/customervault/v1/singleusetokens
     body:
       encoding: UTF-8
-      string: '{"card":{"cardNum":"5200400000000009","cardExpiry":{"month":12,"year":2050},"cvv":"123","billingAddress":{"street":"U","country":"US","zip":"10014"}}}'
+      string: '{"card":{"cardNum":"5200400000000009","cardExpiry":{"month":12,"year":2050},"cvv":"123","billingAddress":{"street":"18","country":"US","zip":"10014"}}}'
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - PaysafeRubyGem/0.9.4
+      - PaysafeRubyGem/0.14.0
       X-Ruby-Version:
-      - 2.6.5
+      - 3.0.3
       X-Ruby-Platform:
-      - x86_64-darwin18
+      - x86_64-darwin20
       Authorization:
       - Basic <SUT_TOKEN>
       Connection:
@@ -26,44 +26,49 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - WebServer32xS10i3
-      Content-Length:
-      - '290'
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      X-Internal-Correlation-Id:
+      - 6c9c637c-a3dd-4b3b-8e88-b1bccd600fc2
+      Pmle:
+      - '379900'
       X-Applicationuid:
-      - GUID=c318a928-d178-4361-b4aa-d2c9958e896d
+      - GUID=a98862d5-55f7-4ea7-9348-16a12a4671be
       Content-Type:
       - application/json
+      Content-Length:
+      - '291'
       Expires:
-      - Wed, 22 Jan 2020 22:04:43 GMT
+      - Tue, 18 Oct 2022 16:03:52 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
       Date:
-      - Wed, 22 Jan 2020 22:04:43 GMT
+      - Tue, 18 Oct 2022 16:03:52 GMT
       Connection:
       - close
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"47e93e8a-fdad-4b33-81d9-17e1b00a051e","paymentToken":"SCZIa9M865bbU6Xu","timeToLiveSeconds":299,"billingAddress":{"street":"U","country":"US","zip":"10014"},"card":{"cardBin":"520040","lastDigits":"0009","cardExpiry":{"year":2050,"month":12},"cardType":"MC","cardCategory":"CREDIT"}}'
-    http_version: 
-  recorded_at: Wed, 22 Jan 2020 22:04:43 GMT
+      string: '{"id":"8c004c0e-ee75-4e8e-8135-20f9969ba957","paymentToken":"SCPz5wnRERwlxmif","timeToLiveSeconds":299,"billingAddress":{"street":"18","country":"US","zip":"10014"},"card":{"cardBin":"520040","lastDigits":"0009","cardExpiry":{"year":2050,"month":12},"cardType":"MC","cardCategory":"CREDIT"}}'
+  recorded_at: Tue, 18 Oct 2022 16:03:52 GMT
 - request:
     method: post
     uri: https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications
     body:
       encoding: UTF-8
-      string: '{"merchantRefNum":"1a498005-d39c-4bbb-a1d2-655940c7a028","card":{"paymentToken":"SCZIa9M865bbU6Xu"}}'
+      string: '{"merchantRefNum":"1008b9a4-4828-44b2-a838-c79ed09a7d32","card":{"paymentToken":"SCPz5wnRERwlxmif"}}'
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - PaysafeRubyGem/0.9.4
+      - PaysafeRubyGem/0.14.0
       X-Ruby-Version:
-      - 2.6.5
+      - 3.0.3
       X-Ruby-Platform:
-      - x86_64-darwin18
+      - x86_64-darwin20
       Authorization:
       - Basic <API_TOKEN>
       Connection:
@@ -75,31 +80,35 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - WebServer32xS10i3
-      Content-Length:
-      - '649'
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
       X-Applicationuid:
-      - GUID=7c8e9dfe-453b-44d2-a6cd-9db5a22d08e8
+      - GUID=da217b4b-9fa7-4db9-b191-453f209a6ff5
       Content-Type:
       - application/json
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      Content-Length:
+      - '650'
       Expires:
-      - Wed, 22 Jan 2020 22:04:44 GMT
+      - Tue, 18 Oct 2022 16:03:52 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
       Date:
-      - Wed, 22 Jan 2020 22:04:44 GMT
+      - Tue, 18 Oct 2022 16:03:52 GMT
       Connection:
       - close
-      Set-Cookie:
-      - WLSESSIONID=Tx7PSUgYgOThGBTqShmQ9rlCjT3hOoTw5PbSFDdyOtHxzQrIzury!1424506064!600893280;
-        path=/; secure; HttpOnly
     body:
       encoding: ASCII-8BIT
-      string: '{"links":[{"rel":"self","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications/7c8e9dfe-453b-44d2-a6cd-9db5a22d08e8"}],"id":"7c8e9dfe-453b-44d2-a6cd-9db5a22d08e8","merchantRefNum":"1a498005-d39c-4bbb-a1d2-655940c7a028","txnTime":"2020-01-22T22:04:43Z","status":"COMPLETED","card":{"type":"MC","lastDigits":"0009","cardExpiry":{"month":12,"year":2050}},"authCode":"100911","billingDetails":{"street":"U","country":"US","zip":"10014"},"merchantDescriptor":{"dynamicDescriptor":"DD
-        Line 1","phone":"000-111000099"},"visaAdditionalAuthData":{},"currencyCode":"USD","avsResponse":"NOT_PROCESSED","cvvVerification":"MATCH"}'
-    http_version: 
-  recorded_at: Wed, 22 Jan 2020 22:04:44 GMT
-recorded_with: VCR 5.0.0
+      string: '{"id":"da217b4b-9fa7-4db9-b191-453f209a6ff5","merchantRefNum":"1008b9a4-4828-44b2-a838-c79ed09a7d32","txnTime":"2022-10-18T16:03:52Z","status":"COMPLETED","card":{"type":"MC","lastDigits":"0009","cardExpiry":{"month":12,"year":2050}},"authCode":"641888","billingDetails":{"street":"18","country":"US","zip":"10014"},"merchantDescriptor":{"dynamicDescriptor":"DD
+        Line 1","phone":"000-111000099"},"visaAdditionalAuthData":{},"currencyCode":"USD","avsResponse":"NOT_PROCESSED","cvvVerification":"MATCH","links":[{"rel":"self","href":"https://api.test.paysafe.com/cardpayments/v1/accounts/<ACCOUNT_NUMBER>/verifications/da217b4b-9fa7-4db9-b191-453f209a6ff5"}]}'
+  recorded_at: Tue, 18 Oct 2022 16:03:52 GMT
+recorded_with: VCR 6.0.0

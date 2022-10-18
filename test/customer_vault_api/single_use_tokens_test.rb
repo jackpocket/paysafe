@@ -43,7 +43,7 @@ class CustomerVaultApiSingleUseTokensTest < Minitest::Test
           },
           cvv: '123',
           billing_address: {
-            street: 'U', # trigger AVS not processed for verification response
+            street: '18', # trigger AVS not processed for verification response
             country: 'US',
             zip: '10014'
           }
