@@ -17,14 +17,7 @@ module Paysafe
         private
 
         def underscore_key(key)
-          case key
-          when Symbol
-            underscore(key.to_s).to_sym
-          when String
-            underscore(key).to_sym
-          else
-            key
-          end
+          underscore(key.to_s).to_sym
         end
 
         def underscore(string)

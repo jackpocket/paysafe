@@ -77,8 +77,6 @@ module Paysafe
         @attributes[key].map do |value|
           Paysafe.const_get(klass).new(value)
         end
-      else
-        @attributes[key]
       end
     end
 

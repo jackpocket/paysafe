@@ -17,14 +17,7 @@ module Paysafe
         private
 
         def camel_case_key(key)
-          case key
-          when Symbol
-            camel_case(key.to_s).to_sym
-          when String
-            camel_case(key).to_sym
-          else
-            key
-          end
+          camel_case(key.to_s).to_sym
         end
 
         def camel_case(string)
