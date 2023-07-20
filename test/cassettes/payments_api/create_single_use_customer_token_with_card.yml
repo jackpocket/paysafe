@@ -1,0 +1,113 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/customervault/v1/profiles
+    body:
+      encoding: UTF-8
+      string: '{"firstName":"test","lastName":"test","email":"test@test.com","card":{"cardNum":"4111111111111111","cardExpiry":{"month":12,"year":2050},"billingAddress":{"country":"US","zip":"10014"}},"merchantCustomerId":"test-e0403503-ac16-49f7-a26b-d7b197558557","locale":"en_US"}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.14.0
+      X-Ruby-Version:
+      - 3.2.2
+      X-Ruby-Platform:
+      - arm64-darwin22
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      X-Internal-Correlation-Id:
+      - aec4b7ec-7df2-47ee-83f2-4acc2a7cba9d
+      Pmle:
+      - '18789'
+      X-Applicationuid:
+      - GUID=053ffaa3-218f-4c27-82e9-c9034659606c
+      Content-Length:
+      - '696'
+      Content-Type:
+      - application/json
+      Expires:
+      - Thu, 20 Jul 2023 14:56:34 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 20 Jul 2023 14:56:34 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"id":"ff6c77af-327c-400f-9a9a-9b22398914b7","status":"ACTIVE","merchantCustomerId":"test-e0403503-ac16-49f7-a26b-d7b197558557","locale":"en_US","firstName":"test","lastName":"test","paymentToken":"PGCM4ziIbTBkIZp","email":"test@test.com","addresses":[{"id":"d0d5af46-024f-4604-97f9-5af610e86ca6","country":"US","zip":"10014","defaultShippingAddressIndicator":false,"status":"ACTIVE"}],"cards":[{"status":"ACTIVE","id":"56b6a7ce-e253-4aeb-a321-812de8894812","cardBin":"411111","lastDigits":"1111","cardExpiry":{"year":2050,"month":12},"billingAddressId":"d0d5af46-024f-4604-97f9-5af610e86ca6","cardType":"VI","cardCategory":"CREDIT","paymentToken":"CkBNyy9aSL8pj2r","defaultCardIndicator":true}]}'
+  recorded_at: Thu, 20 Jul 2023 14:56:34 GMT
+- request:
+    method: post
+    uri: https://api.test.paysafe.com/paymenthub/v1/customers/ff6c77af-327c-400f-9a9a-9b22398914b7/singleusecustomertokens
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - PaysafeRubyGem/0.14.0
+      X-Ruby-Version:
+      - 3.2.2
+      X-Ruby-Platform:
+      - arm64-darwin22
+      Authorization:
+      - Basic <API_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.test.paysafe.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      X-Rate-Limit-Limit:
+      - '1000'
+      X-Rate-Limit-Remaining:
+      - '999'
+      X-Rate-Limit-Reset:
+      - '0'
+      X-Internal-Correlation-Id:
+      - 9df9f6f6-abef-4772-bec7-ce561ca82997
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '742'
+      Expires:
+      - Thu, 20 Jul 2023 14:56:34 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 20 Jul 2023 14:56:34 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"id":"457dc47c-0f17-416b-a7d5-c440a64926cc","timeToLiveSeconds":899,"status":"ACTIVE","singleUseCustomerToken":"SPeQdukkbCdaHnYy","locale":"en_US","firstName":"test","lastName":"test","email":"test@test.com","addresses":[{"id":"d0d5af46-024f-4604-97f9-5af610e86ca6","country":"US","zip":"10014","status":"ACTIVE"}],"paymentHandles":[{"id":"053a061e-4a5a-434e-81ae-38f2a76aa7bb","status":"INITIATED","usage":"SINGLE_USE","paymentType":"CARD","paymentHandleToken":"SClSWDZeRcvniEIz","card":{"lastDigits":"1111","cardExpiry":{"month":"12","year":"2050"},"cardBin":"411111","cardType":"VI","status":"ACTIVE","cardCategory":"CREDIT"},"billingDetailsId":"d0d5af46-024f-4604-97f9-5af610e86ca6"}],"customerId":"ff6c77af-327c-400f-9a9a-9b22398914b7"}'
+  recorded_at: Thu, 20 Jul 2023 14:56:34 GMT
+recorded_with: VCR 6.1.0

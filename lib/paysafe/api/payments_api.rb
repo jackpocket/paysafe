@@ -11,7 +11,7 @@ module Paysafe
       end
 
       def create_single_use_customer_token(id:)
-        perform_post_with_object("/paymenthub/v1/customers/#{id}/singleusecustomertokens", {}, SingleUseToken)
+        perform_post_with_object("/paymenthub/v1/customers/#{id}/singleusecustomertokens", {}, SingleUseCustomerToken)
       end
 
       def create_payment(**data)
