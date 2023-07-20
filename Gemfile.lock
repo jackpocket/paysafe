@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    paysafe (0.14.0)
+    paysafe (0.15.0)
       http (>= 4, < 6)
 
 GEM

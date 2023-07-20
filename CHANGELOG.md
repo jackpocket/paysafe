@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.15.0 (2023-07-20)
+
+* Updated the `create_single_use_customer_token` method to account for more fields in the response object.
+
 ## 0.14.0 (2021-01-19)
 
 * No code changes - moved repository to Jackpocket organization and updated URLs
