@@ -99,5 +99,5 @@ def create_test_customer(**data)
 end
 
 def random_id
-  SecureRandom.uuid
+  "test-#{SecureRandom.uuid}"
 end
