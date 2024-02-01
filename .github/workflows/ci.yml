@@ -37,7 +37,7 @@ jobs:
         run: |
           bundle exec rake
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           env_vars: CODECOV_UPLOAD_TAG
           fail_ci_if_error: true
