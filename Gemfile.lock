@@ -45,8 +45,8 @@ GEM
       ruby-progressbar
     public_suffix (5.0.5)
     rake (13.2.1)
-    rexml (3.2.8)
-      strscan (>= 3.0.9)
+    rexml (3.3.2)
+      strscan
     ruby-progressbar (1.13.0)
     simplecov (0.22.0)
       docile (~> 1.1)
