@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 0.16.0 (2024-07-31)
+
+* Only package essential files in gem release.
+* No code changes.
+
 ## 0.15.0 (2023-07-20)
 
 * Updated the `create_single_use_customer_token` method to account for more fields in the response object.
