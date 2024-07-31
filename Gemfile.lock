@@ -68,7 +68,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 2.0)
   dotenv
   minitest
   minitest-mock_expectations
