@@ -45,8 +45,7 @@ GEM
       ruby-progressbar
     public_suffix (6.0.1)
     rake (13.2.1)
-    rexml (3.3.6)
-      strscan
+    rexml (3.3.9)
     ruby-progressbar (1.13.0)
     simplecov (0.22.0)
       docile (~> 1.1)
@@ -57,7 +56,6 @@ GEM
       simplecov (~> 0.19)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
-    strscan (3.1.0)
     vcr (6.2.0)
     webmock (3.23.1)
       addressable (>= 2.8.0)
