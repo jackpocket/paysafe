@@ -38,7 +38,7 @@ jobs:
         run: bundle exec rake
       - name: Rename coverage file by matrix run
         run: mv coverage/coverage.xml coverage/coverage-ruby-${{ matrix.ruby }}.xml
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: coverage-ruby-${{ matrix.ruby }}
           path: coverage
