@@ -43,7 +43,7 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     public_suffix (6.0.2)
-    rake (13.3.0)
+    rake (13.3.1)
     rexml (3.4.4)
     ruby-progressbar (1.13.0)
     simplecov (0.22.0)
