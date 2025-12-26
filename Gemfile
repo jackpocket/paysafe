@@ -1,8 +1,9 @@
 source "https://rubygems.org"
 
 gem "rake"
+gem "base64"
 gem "dotenv"
-gem "minitest"
+gem "minitest", "~> 5.27"
 gem "minitest-reporters"
 gem "minitest-mock_expectations"
 gem "vcr"

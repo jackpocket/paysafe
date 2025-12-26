@@ -11,7 +11,7 @@ GEM
       public_suffix (>= 2.0.2, < 8.0)
     ansi (1.5.0)
     base64 (0.3.0)
-    bigdecimal (3.3.1)
+    bigdecimal (4.0.1)
     builder (3.3.0)
     crack (1.0.1)
       bigdecimal
@@ -35,7 +35,7 @@ GEM
     llhttp-ffi (0.5.1)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
-    minitest (5.26.2)
+    minitest (5.27.0)
     minitest-mock_expectations (1.2.0)
     minitest-reporters (1.7.1)
       ansi
@@ -55,8 +55,7 @@ GEM
       simplecov (~> 0.19)
     simplecov-html (0.13.2)
     simplecov_json_formatter (0.1.4)
-    vcr (6.3.1)
-      base64
+    vcr (6.4.0)
     webmock (3.26.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -66,8 +65,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  base64
   dotenv
-  minitest
+  minitest (~> 5.27)
   minitest-mock_expectations
   minitest-reporters
   paysafe!
