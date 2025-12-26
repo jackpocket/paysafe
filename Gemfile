@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem "rake"
+gem "base64"
 gem "dotenv"
 gem "minitest"
 gem "minitest-reporters"
