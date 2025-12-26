@@ -35,13 +35,15 @@ GEM
     llhttp-ffi (0.5.1)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
-    minitest (5.27.0)
+    minitest (6.0.0)
+      prism (~> 1.5)
     minitest-mock_expectations (1.2.0)
     minitest-reporters (1.7.1)
       ansi
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    prism (1.7.0)
     public_suffix (7.0.0)
     rake (13.3.1)
     rexml (3.4.4)
@@ -67,7 +69,7 @@ PLATFORMS
 DEPENDENCIES
   base64
   dotenv
-  minitest (~> 5.27)
+  minitest (~> 6.0)
   minitest-mock_expectations
   minitest-reporters
   paysafe!
