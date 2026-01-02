@@ -7,6 +7,10 @@ updates:
       time: "08:30"
       timezone: America/New_York
     open-pull-requests-limit: 10
+    groups:
+      bundler:
+        patterns:
+          - "*"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
@@ -14,3 +18,7 @@ updates:
       time: "08:30"
       timezone: America/New_York
     open-pull-requests-limit: 10
+    groups:
+      github_actions:
+        patterns:
+          - "*"
