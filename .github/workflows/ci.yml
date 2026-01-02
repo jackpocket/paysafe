@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     strategy:
       matrix:
         ruby:
@@ -48,7 +49,9 @@ jobs:
   upload_coverage:
     name: Upload Coverage
     runs-on: ubuntu-latest
-    needs: [build]
+    timeout-minutes: 1
+    needs:
+      - build
     steps:
       - uses: actions/checkout@v6
       - uses: actions/download-artifact@v7
