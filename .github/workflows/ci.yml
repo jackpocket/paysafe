@@ -27,7 +27,7 @@ jobs:
       - name: Run Tests
         env:
           COVERAGE: true
-          RUBYOPT: "-W:deprecated"
+          RUBYOPT: "-W:deprecated --enable-frozen-string-literal --debug-frozen-string-literal"
           PAYSAFE_ACCOUNT_NUMBER: test
           PAYSAFE_API_KEY: test
           PAYSAFE_API_SECRET: test
