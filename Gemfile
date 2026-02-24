@@ -5,7 +5,6 @@ gem "base64"
 gem "dotenv"
 gem "minitest", "~> 6.0"
 gem "minitest-reporters"
-gem "minitest-mock_expectations"
 gem "vcr"
 gem "webmock"
 
