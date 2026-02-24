@@ -13,6 +13,7 @@ GEM
     base64 (0.3.0)
     bigdecimal (4.0.1)
     builder (3.3.0)
+    cgi (0.5.1)
     crack (1.0.1)
       bigdecimal
       rexml
@@ -69,6 +70,7 @@ PLATFORMS
 
 DEPENDENCIES
   base64
+  cgi
   dotenv
   minitest (~> 6.0)
   minitest-reporters
