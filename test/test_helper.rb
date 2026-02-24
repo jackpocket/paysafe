@@ -12,10 +12,15 @@ require 'paysafe'
 require 'base64'
 require 'minitest/autorun'
 require 'minitest/reporters'
-require 'minitest/mock_expectations'
 require 'webmock/minitest'
 require 'vcr'
 require 'dotenv/load'
+
+# Remove this register_plugin when minitest-reporters is released with:
+# https://github.com/minitest-reporters/minitest-reporters/pull/366
+# https://github.com/minitest-reporters/minitest-reporters/pull/366#issuecomment-3731951673
+require 'minitest/minitest_reporter_plugin'
+Minitest.register_plugin :minitest_reporter
 
 Minitest::Reporters.use!([Minitest::Reporters::SpecReporter.new])
 

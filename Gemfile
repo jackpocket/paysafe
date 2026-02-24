@@ -3,11 +3,11 @@ source "https://rubygems.org"
 gem "rake"
 gem "base64"
 gem "dotenv"
-gem "minitest", "~> 5.27"
+gem "minitest", "~> 6.0"
 gem "minitest-reporters"
-gem "minitest-mock_expectations"
 gem "vcr"
 gem "webmock"
+gem "cgi" # needed for Ruby 4.0 until http-cookie gem adds dependency
 
 group :test do
   gem "simplecov", require: false
