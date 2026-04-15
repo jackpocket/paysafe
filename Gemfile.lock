@@ -28,7 +28,7 @@ GEM
     http-cookie (1.1.4)
       domain_name (~> 0.5)
     llhttp (0.6.1)
-    minitest (6.0.3)
+    minitest (6.0.4)
       drb (~> 2.0)
       prism (~> 1.5)
     minitest-reporters (1.8.0)
