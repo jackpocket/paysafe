@@ -17,7 +17,6 @@ GEM
     crack (1.0.1)
       bigdecimal
       rexml
-    docile (1.4.1)
     domain_name (0.6.20240107)
     dotenv (3.2.0)
     drb (2.2.3)
@@ -41,15 +40,10 @@ GEM
     rake (13.4.2)
     rexml (3.4.4)
     ruby-progressbar (1.13.0)
-    simplecov (0.22.0)
-      docile (~> 1.1)
-      simplecov-html (~> 0.11)
-      simplecov_json_formatter (~> 0.1)
-    simplecov-cobertura (3.2.0)
+    simplecov (1.0.0)
+    simplecov-cobertura (4.0.0)
       rexml
-      simplecov (~> 0.19)
-    simplecov-html (0.13.2)
-    simplecov_json_formatter (0.1.4)
+      simplecov (~> 1.0)
     vcr (6.4.0)
     webmock (3.26.2)
       addressable (>= 2.8.0)
