@@ -17,7 +17,7 @@ GEM
     crack (1.0.1)
       bigdecimal
       rexml
-    domain_name (0.6.20260829)
+    domain_name (0.6.20260902)
     dotenv (3.2.0)
     drb (2.2.3)
     hashdiff (1.2.1)
@@ -40,7 +40,7 @@ GEM
     rake (13.4.2)
     rexml (3.4.4)
     ruby-progressbar (1.13.0)
-    simplecov (1.1.1)
+    simplecov (1.2.0)
     simplecov-cobertura (4.0.0)
       rexml
       simplecov (~> 1.0)
