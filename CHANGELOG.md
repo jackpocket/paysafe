@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## unreleased
+
+* Requires Ruby 3.3 and up.
+
 ## 0.17.0 (2026-03-23)
 
 * Permit http v6.
